@@ -3,12 +3,19 @@
 \encoding{UTF8}
 \name{ApiData}
 \alias{ApiData}
+\alias{pxwebData}
+\alias{PxData}
 \title{PX-Web Data by API}
 \usage{
 ApiData(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE,
   returnMetaValues = FALSE, returnMetaFrames = FALSE,
   returnApiQuery = FALSE, defaultJSONquery = c(1, -2, -1),
-  verbosePrint = FALSE, use_factors = FALSE, urlType = "SSB")
+  verbosePrint = FALSE, use_factors = FALSE, urlType = "SSB",
+  apiPackage = "httr", dataPackage = "rjstat")
+
+pxwebData(..., apiPackage = "pxweb", dataPackage = "pxweb")
+
+PxData(..., apiPackage = "pxweb", dataPackage = "rjstat")
 }
 \arguments{
 \item{urlToData}{url to data or id of SSB data}
@@ -32,6 +39,10 @@ ApiData(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE,
 \item{use_factors}{Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.}
 
 \item{urlType}{Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)}
+
+\item{apiPackage}{apiPackage}
+
+\item{dataPackage}{dataPackage}
 }
 \value{
 list of two data sets (label and id)
@@ -52,7 +63,7 @@ query elements, filter and values. In addition it possible with a single-element
 Then filter is set to 'all'. See examples.
 }
 \examples{
-\dontrun{
+\donttest{
 ##### Readymade dataset by GET - works only for Statistics Norway readymade datasets
 x <- ApiData("http://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 x[[1]]  # The label version of the data set
@@ -70,7 +81,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/09941", returnApiQuery = TRUE)   # q
 # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 ApiData("http://data.ssb.no/api/v0/en/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 
-# Two specified and the last is default (as above) – in Norwegian change en to no in url
+# Two specified and the last is default (as above) â€“ in Norwegian change en to no in url
 ApiData("http://data.ssb.no/api/v0/no/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 
 # Number of residents (bosatte) last year, each region
@@ -119,7 +130,7 @@ ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line 
         Tid = TRUE)                 # Choosing all possible values of Tid.
  
                
-##### Using data from Statfi to illustrate us of input by variable labels (valueTexts)
+##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
 urlStatfi <- "http://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_010.px"
 ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
