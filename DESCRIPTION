@@ -1,0 +1,16 @@
+Package: PxWebApiData
+Type: Package
+Title: PX-Web Data by API
+Version: 0.2.0
+Date: 2018-10-12
+Author: Øyvind Langsrud and Jan Bruusgaard
+Maintainer: Øyvind Langsrud <oyl@ssb.no>
+Depends: R (>= 3.0.0), httr, rjstat, jsonlite
+Description: Function to read PX-Web data into R via API. The example code reads data from the three national statistical institutes, Statistics Norway, Statistics Sweden and Statistics Finland.
+License: Apache License 2.0 | file LICENSE
+Encoding: UTF-8
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2018-10-12 11:52:40 UTC; oyl
+Repository: CRAN
+Date/Publication: 2018-10-12 12:10:03 UTC
