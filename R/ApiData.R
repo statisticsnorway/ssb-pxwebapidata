@@ -15,8 +15,8 @@
 #' @param verbosePrint When TRUE, printing to console
 #' @param use_factors Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.
 #' @param urlType  Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)
-#' @param apiPackage apiPackage
-#' @param dataPackage dataPackage
+#' @param apiPackage apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
+#' @param dataPackage dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -28,6 +28,13 @@
 #' The value can also be specified as a (unnamed) two-element list corresponding to the two 
 #' query elements, filter and values. In addition it possible with a single-element list.
 #' Then filter is set to 'all'. See examples. 
+#' 
+#' Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
+#' \code{apiPackage} and \code{dataPackage} 
+#' as implemented as the wrappers \code{PxData} and \code{pxwebData}.
+#' With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
+#' When using \code{pxwebData}, data will be downloaded in json format instead of json-stat and the output data frame 
+#' will be organized differently (ContentsCode categories as separate variables).
 #'
 #' @return list of two data sets (label and id)
 #' @export
@@ -110,6 +117,23 @@
 #' urlStatfi <- "http://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_010.px"
 #' ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 #' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
+#' 
+#' 
+#' 
+#' 
+#' ##### Wrappers PxData and pxwebData
+#' 
+#' # Exact same output as ApiData
+#' PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+#' 
+#' # Data organized differently
+#' pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+#' 
+#' # Large query. ApiData will not work.
+#' z <- PxData("http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+#'             Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
+#'             ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+#' 
 #' }
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
                     returnMetaFrames = FALSE, returnApiQuery = FALSE, 
@@ -180,13 +204,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
     return(list(as.data.frame(post, column.name.type = "text", variable.value.type = "text"),
          as.data.frame(post, column.name.type = "code", variable.value.type = "code")))
 
-  if(length(post)>1){
-    out = vector("list", length(post))
-    for(i in seq_along(post)){
-      out[[i]] = c(fromJSONstat(post[[i]], naming = "label",use_factors=use_factors), 
-                   fromJSONstat(post[[i]], naming = "id",use_factors=use_factors))
+  if (length(post) > 1) {
+    n <- length(post)
+    for (i in seq_len(n)) {
+      post[[i]] <- c(fromJSONstat(post[[i]], naming = "label", use_factors = use_factors), 
+                     fromJSONstat(post[[i]], naming = "id", use_factors = use_factors))
     }
-    return(out)
+    post[[1]][[1]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[1]],", collapse = ""), "deparse.level = 0)")))
+    post[[1]][[2]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[2]],", collapse = ""), "deparse.level = 0)")))
+    return(post[[1]])
   }
   
   c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
