@@ -3,12 +3,19 @@
 \encoding{UTF8}
 \name{ApiData}
 \alias{ApiData}
+\alias{pxwebData}
+\alias{PxData}
 \title{PX-Web Data by API}
 \usage{
 ApiData(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE,
   returnMetaValues = FALSE, returnMetaFrames = FALSE,
   returnApiQuery = FALSE, defaultJSONquery = c(1, -2, -1),
-  verbosePrint = FALSE, use_factors = FALSE, urlType = "SSB")
+  verbosePrint = FALSE, use_factors = FALSE, urlType = "SSB",
+  apiPackage = "httr", dataPackage = "rjstat")
+
+pxwebData(..., apiPackage = "pxweb", dataPackage = "pxweb")
+
+PxData(..., apiPackage = "pxweb", dataPackage = "rjstat")
 }
 \arguments{
 \item{urlToData}{url to data or id of SSB data}
@@ -32,6 +39,10 @@ ApiData(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE,
 \item{use_factors}{Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.}
 
 \item{urlType}{Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)}
+
+\item{apiPackage}{apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}}
+
+\item{dataPackage}{dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}}
 }
 \value{
 list of two data sets (label and id)
@@ -49,10 +60,17 @@ whose default means the first and the two last elements.
 
 The value can also be specified as a (unnamed) two-element list corresponding to the two 
 query elements, filter and values. In addition it possible with a single-element list.
-Then filter is set to 'all'. See examples.
+Then filter is set to 'all'. See examples. 
+
+Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
+\code{apiPackage} and \code{dataPackage} 
+as implemented as the wrappers \code{PxData} and \code{pxwebData}.
+With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
+When using \code{pxwebData}, data will be downloaded in json format instead of json-stat and the output data frame 
+will be organized differently (ContentsCode categories as separate variables).
 }
 \examples{
-\dontrun{
+\donttest{
 ##### Readymade dataset by GET - works only for Statistics Norway readymade datasets
 x <- ApiData("http://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 x[[1]]  # The label version of the data set
@@ -70,7 +88,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/09941", returnApiQuery = TRUE)   # q
 # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 ApiData("http://data.ssb.no/api/v0/en/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 
-# Two specified and the last is default (as above) – in Norwegian change en to no in url
+# Two specified and the last is default (as above) â€“ in Norwegian change en to no in url
 ApiData("http://data.ssb.no/api/v0/no/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 
 # Number of residents (bosatte) last year, each region
@@ -119,9 +137,26 @@ ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line 
         Tid = TRUE)                 # Choosing all possible values of Tid.
  
                
-##### Using data from Statfi to illustrate us of input by variable labels (valueTexts)
+##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
 urlStatfi <- "http://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_010.px"
 ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
+
+
+
+
+##### Wrappers PxData and pxwebData
+
+# Exact same output as ApiData
+PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+
+# Data organized differently
+pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+
+# Large query. ApiData will not work.
+z <- PxData("http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+            Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
+            ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+
 }
 }

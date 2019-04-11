@@ -15,6 +15,8 @@
 #' @param verbosePrint When TRUE, printing to console
 #' @param use_factors Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.
 #' @param urlType  Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)
+#' @param apiPackage apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
+#' @param dataPackage dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -26,17 +28,25 @@
 #' The value can also be specified as a (unnamed) two-element list corresponding to the two 
 #' query elements, filter and values. In addition it possible with a single-element list.
 #' Then filter is set to 'all'. See examples. 
+#' 
+#' Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
+#' \code{apiPackage} and \code{dataPackage} 
+#' as implemented as the wrappers \code{PxData} and \code{pxwebData}.
+#' With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
+#' When using \code{pxwebData}, data will be downloaded in json format instead of json-stat and the output data frame 
+#' will be organized differently (ContentsCode categories as separate variables).
 #'
 #' @return list of two data sets (label and id)
 #' @export
 #' 
-#' @importFrom jsonlite unbox toJSON read_json
+#' @importFrom jsonlite unbox read_json toJSON
 #' @importFrom rjstat fromJSONstat 
 #' @importFrom httr GET POST verbose content
 #' @importFrom utils head tail
+#' @importFrom pxweb pxweb_get
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ##### Readymade dataset by GET - works only for Statistics Norway readymade datasets
 #' x <- ApiData("http://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 #' x[[1]]  # The label version of the data set
@@ -103,20 +113,61 @@
 #'         Tid = TRUE)                 # Choosing all possible values of Tid.
 #'  
 #'                
-#' ##### Using data from Statfi to illustrate us of input by variable labels (valueTexts)
+#' ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
 #' urlStatfi <- "http://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_010.px"
 #' ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 #' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
+#' 
+#' 
+#' 
+#' 
+#' ##### Wrappers PxData and pxwebData
+#' 
+#' # Exact same output as ApiData
+#' PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+#' 
+#' # Data organized differently
+#' pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
+#' 
+#' # Large query. ApiData will not work.
+#' z <- PxData("http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+#'             Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
+#'             ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+#' 
 #' }
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
                     returnMetaFrames = FALSE, returnApiQuery = FALSE, 
                     defaultJSONquery = c(1,-2, -1), verbosePrint = FALSE,
-                    use_factors=FALSE, urlType="SSB") {
+                    use_factors=FALSE, urlType="SSB", 
+                    apiPackage = "httr",
+                    dataPackage = "rjstat") {
+  
   integerUrl <- suppressWarnings(as.integer(urlToData))
   if (!is.na(integerUrl)) 
     urlToData <- MakeUrl(integerUrl, urlType = urlType, getDataByGET = getDataByGET) # SSBurl(integerUrl, getDataByGET)
-  if (getDataByGET) 
-    post <- GET(urlToData) else {
+  
+
+  if(!(dataPackage %in% c("rjstat", "pxweb", "none"))){
+    stop('dataPackage must be "rjstat" or "pxweb"')
+  }
+  
+  if(apiPackage != "httr"){
+    if(apiPackage != "pxweb"){
+      stop('apiPackage must be "httr" or "pxweb"')
+    }
+  } else {
+    if(dataPackage == "pxweb")
+      stop('apiPackage  must be "pxweb" when dataPackage is pxweb')
+  }
+  
+  if (getDataByGET){ 
+    if((apiPackage != "httr" | dataPackage != "rjstat") & dataPackage != "none"){
+      apiPackage = "httr"
+      dataPackage = "rjstat"
+      warning('Parameters "apiPackage" and "dataPackage" ignored when getDataByGET')
+    }
+      post <- content(GET(urlToData), "text")
+    } else {
       metaData <- MetaData(urlToData)
       if (returnMetaData) 
         return(metaData)
@@ -129,20 +180,57 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
         print(VarMetaData(metaData))
         cat("\n\n")
       }
-      # if(returnApiDataCall) # Not in use
-      # return(as.call(c(list(as.symbol('ApiData'),urlToData=urlToData),MakeApiQuery(metaFrames,...,returnThezList=TRUE,defaultJSONquery=defaultJSONquery))))
-      sporr <- MakeApiQuery(metaFrames, ..., defaultJSONquery = defaultJSONquery)
+ 
+      responseFormat = "json-stat"
+      if(dataPackage == "pxweb")
+        responseFormat = "json"
+      sporr <- MakeApiQuery(metaFrames, ..., defaultJSONquery = defaultJSONquery, responseFormat = responseFormat)
       if (returnApiQuery) 
         return(sporr)
-      if (verbosePrint) 
-        post <- POST(urlToData, body = sporr, encode = "json", verbose()) else post <- POST(urlToData, body = sporr, encode = "json")
+      if(apiPackage == "pxweb" ){
+        post <-  pxweb_get(url = urlToData, query = sporr, verbose = verbosePrint)
+      } else {
+        if (verbosePrint) 
+          post <-  content(POST(urlToData, body = sporr, encode = "json", verbose()), "text") 
+        else 
+          post <-  content(POST(urlToData, body = sporr, encode = "json"), "text")
+      }
     }
-  #c(fromJSONstat(content(post, "text"), naming = "label"), fromJSONstat(content(post, "text"), naming = "id"))
-  c(fromJSONstat(content(post, "text"), naming = "label",use_factors=use_factors), 
-    fromJSONstat(content(post, "text"), naming = "id",use_factors=use_factors))
+
+  if(dataPackage == "none" )
+    return("post")
+    
+  if(dataPackage == "pxweb" ) 
+    return(list(as.data.frame(post, column.name.type = "text", variable.value.type = "text"),
+         as.data.frame(post, column.name.type = "code", variable.value.type = "code")))
+
+  if (length(post) > 1) {
+    n <- length(post)
+    for (i in seq_len(n)) {
+      post[[i]] <- c(fromJSONstat(post[[i]], naming = "label", use_factors = use_factors), 
+                     fromJSONstat(post[[i]], naming = "id", use_factors = use_factors))
+    }
+    post[[1]][[1]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[1]],", collapse = ""), "deparse.level = 0)")))
+    post[[1]][[2]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[2]],", collapse = ""), "deparse.level = 0)")))
+    return(post[[1]])
+  }
+  
+  c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
+    fromJSONstat(post, naming = "id",use_factors=use_factors))
 }
 
 
+#' @rdname ApiData
+#' @export
+pxwebData = function(..., apiPackage = "pxweb", dataPackage = "pxweb"){
+  ApiData(..., apiPackage = apiPackage, dataPackage = dataPackage)
+}
+
+#' @rdname ApiData
+#' @export
+PxData = function(..., apiPackage = "pxweb", dataPackage = "rjstat"){
+  ApiData(..., apiPackage = apiPackage, dataPackage = dataPackage)
+}
 
 
 #' Adding leading zeros
@@ -254,7 +342,7 @@ MakeApiVar <- function(x, values = c(1, -2, -1)) {
       valu <- values
     }
   }
-  list(code = jsonlite::unbox(names(x)), selection = list(filter = unbox(filt), values = valu))
+  list(code = unbox(names(x)), selection = list(filter = unbox(filt), values = valu))
 }
 
 
@@ -294,7 +382,7 @@ MakeApiVarOld <- function(x, values = c(1, -2, -1)) {
       valu <- values
     }
   }
-  list(code = jsonlite::unbox(names(x)), selection = list(filter = unbox(filt), values = valu))
+  list(code = unbox(names(x)), selection = list(filter = unbox(filt), values = valu))
 }
 
 
@@ -363,7 +451,7 @@ MakeUrl <- function(id,urlType="SSB",getDataByGET = FALSE){
 
 
 
-MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), returnThezList = FALSE) {
+MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), returnThezList = FALSE, responseFormat = "json-stat") {
   x <- list(...)
   namesx <- names(x)
   if (is.null(namesx)) 
@@ -391,7 +479,7 @@ MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), retur
       emptya[i] <- TRUE
     } else a[[i]] <- apiVar
   }
-  b <- list(query = a[!emptya], response = list(format = unbox("json-stat")))
+  b <- list(query = a[!emptya], response = list(format = unbox(responseFormat)))
   toJSON(b, auto_unbox = FALSE, pretty = TRUE)
 }
 
