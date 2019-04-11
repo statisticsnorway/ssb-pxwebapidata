@@ -1,15 +1,16 @@
 Package: PxWebApiData 
 Type: Package
 Title: PX-Web Data by API 
-Version: 0.2.5
-Date: 2019-04-01
+Version: 0.2.6
+Date: 2019-04-11
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"), email = "oyl@ssb.no"),
              person("Jan", "Bruusgaard", role = c("aut")))
 Author: Øyvind Langsrud [aut, cre], Jan Bruusgaard [aut]
 Maintainer: Øyvind Langsrud <oyl@ssb.no>
 Imports: httr, rjstat, jsonlite, pxweb
+VignetteBuilder: knitr
+Suggests: knitr, rmarkdown, testthat
 Description: Function to read PX-Web data into R via API. The example code reads data from the three national statistical institutes, Statistics Norway, Statistics Sweden and Statistics Finland.
 License: Apache License 2.0 | file LICENSE
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Suggests: testthat

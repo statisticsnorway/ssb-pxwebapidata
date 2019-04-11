@@ -2,6 +2,7 @@ context("ApiData.R")
 
 
 test_that("ApiData - Readymade SSB-data with urlType", {
+  skip_on_cran()
   ssb1066 <- ApiData(1066, getDataByGET = TRUE, urlType = "SSB")
   expect_true(is.data.frame(ssb1066[[1]]))
   expect_equal(names(ssb1066)[2], "dataset")
@@ -9,6 +10,7 @@ test_that("ApiData - Readymade SSB-data with urlType", {
 })
 
 test_that("ApiData - SCB-data using TRUE and FALSE", {
+  skip_on_cran()
   urlSCB <- "http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
   a1 <- ApiData(urlSCB, Region = FALSE, Civilstand = "G", Alder = "19", Kon = "2", ContentsCode = c("Folkmängd", "Folkökning"), Tid = "1969")
   a2 <- ApiData(urlSCB, Region = FALSE, Civilstand = "gifta", Alder = "19 år", Kon = "kvinnor", ContentsCode = c("BE0101N1", "BE0101N2"), Tid = "1969")
@@ -23,6 +25,7 @@ test_that("ApiData - SCB-data using TRUE and FALSE", {
 
 if(FALSE) # url not working
 test_that("ApiData - StatFin-data with special characters", {
+  skip_on_cran()
   urlStatFin <- "http://pxnet2.stat.fi/PXWeb/api/v1/fi/StatFin/tym/tyonv/statfin_tyonv_pxt_001.px"
   a1 <- ApiData(urlStatFin, Kuukausi = c("2006M02"), Alue2018 = c("005"), Muuttujat = c("TYOTTOMAT"))
   a2 <- ApiData(urlStatFin, Kuukausi = "2006M02", Alue2018 = "Alajärvi Kunta", Muuttujat = "Työttömät")
@@ -34,6 +37,7 @@ test_that("ApiData - StatFin-data with special characters", {
 
 
 test_that("ApiData - SSB-data advanced use", {
+  skip_on_cran()
   urlSSB <- "http://data.ssb.no/api/v0/en/table/04861"
   a1 <- ApiData(urlSSB, Region = list("039*"), ContentsCode = TRUE, Tid = 2i)
   a2 <- ApiData(urlSSB, Region = "0399", ContentsCode = list("all", "*"), Tid = -(1:2))
@@ -44,6 +48,7 @@ test_that("ApiData - SSB-data advanced use", {
 
 
 test_that("ApiData - SSB-data with returnMetaFrames", {
+  skip_on_cran()
   urlSSB <- "http://data.ssb.no/api/v0/en/table/04861"
   mf <- ApiData(urlSSB, returnMetaFrames = TRUE)
   expect_equal(names(mf), c("Region", "ContentsCode", "Tid"))

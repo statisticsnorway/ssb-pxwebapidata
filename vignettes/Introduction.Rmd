@@ -1,0 +1,71 @@
+---
+title: "Introduction to PxWebApiData"
+author: "Øyvind Langsrud and Jan Bruusgaard"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PxWebApiData Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+### Preface 
+
+A brief introduction to the r-package PxWebApiData is given below.
+Three calls to the main function, ApiData, is demonstrated.
+First, two calls for reading data sets are shown. 
+The last call captures meta data.
+However, in practise, one may look at the meta data first.
+At the end, some background is given.
+
+
+
+```{r include = FALSE}
+library(knitr)
+library(PxWebApiData)
+options(max.print = 50)
+```
+
+
+## Specification by variable indices and  variable id's
+
+The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters. 
+Here two of the parameters are specified by variable id's 
+and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two last years in the data.
+
+A list of two data frames is returned; the label version and the id version.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+        Region = c("0811", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+
+```
+
+## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
+
+All possible values is obtained by TRUE and corresponds to  "all" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
+
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+
+ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+        Region = FALSE, ContentsCode = TRUE, Tid = 3i)
+
+```
+
+## Obtaining meta data 
+
+Meta information about the data set can be obtained by "returnMetaFrames = TRUE".
+
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
+
+```
+
+
+
+## Background
+
+PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See list of installations: https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/

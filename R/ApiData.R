@@ -33,7 +33,7 @@
 #' \code{apiPackage} and \code{dataPackage} 
 #' as implemented as the wrappers \code{PxData} and \code{pxwebData}.
 #' With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
-#' When using \code{pxwebData}, data will be downloaded in json format instead of json-stat and the output data frame 
+#' When using \code{pxwebData}, data will be downloaded in px-json format instead of json-stat and the output data frame 
 #' will be organized differently (ContentsCode categories as separate variables).
 #'
 #' @return list of two data sets (label and id)
@@ -64,7 +64,7 @@
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 #' ApiData("http://data.ssb.no/api/v0/en/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
-#' # Two specified and the last is default (as above) – in Norwegian change en to no in url
+#' # Two specified and the last is default (as above) - in Norwegian change en to no in url
 #' ApiData("http://data.ssb.no/api/v0/no/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Number of residents (bosatte) last year, each region
@@ -93,10 +93,10 @@
 #' ApiData(1066, getDataByGET = TRUE,  urlType="SSB")
 #' ApiData(1066, getDataByGET = TRUE,  urlType="SSBen")
 #' 
-#' 
+#' }
 #' ##### Advanced use using list. See details above. Try returnApiQuery=TRUE on the same examples. 
 #' ApiData(4861, Region = list("03*"), ContentsCode = 1, Tid = 5i) # "all" can be dropped from the list
-#' ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same as above
+#' \donttest{ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same as above
 #' ApiData(04861, Region = list("item", c("0811", "0301")), ContentsCode = 1, Tid = 5i)
 #' 
 #' 
@@ -119,8 +119,6 @@
 #' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
 #' 
 #' 
-#' 
-#' 
 #' ##### Wrappers PxData and pxwebData
 #' 
 #' # Exact same output as ApiData
@@ -129,11 +127,11 @@
 #' # Data organized differently
 #' pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 #' 
+#' 
 #' # Large query. ApiData will not work.
 #' z <- PxData("http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
 #'             Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
 #'             ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
-#' 
 #' }
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
                     returnMetaFrames = FALSE, returnApiQuery = FALSE, 
@@ -141,6 +139,9 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
                     use_factors=FALSE, urlType="SSB", 
                     apiPackage = "httr",
                     dataPackage = "rjstat") {
+  
+  # if(!getDataByGET)     ## With this test_that("ApiData - SSB-data advanced use", fail
+  #   apiPackage = "pxweb"
   
   integerUrl <- suppressWarnings(as.integer(urlToData))
   if (!is.na(integerUrl)) 
