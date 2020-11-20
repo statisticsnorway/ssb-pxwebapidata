@@ -6,7 +6,7 @@
 #'
 #' @param urlToData url to data or id of SSB data
 #' @param ... specification of JSON query for each variable
-#' @param getDataByGET When TRUE, readymade dataset by GET - works only for Statistics Norway readymade datasets
+#' @param getDataByGET When TRUE, readymade dataset by GET
 #' @param returnMetaData When TRUE, metadata returned  
 #' @param returnMetaValues When TRUE, values from metadata returned 
 #' @param returnMetaFrames When TRUE, values and valueTexts from metadata returned as data frames 
@@ -15,8 +15,8 @@
 #' @param verbosePrint When TRUE, printing to console
 #' @param use_factors Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.
 #' @param urlType  Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)
-#' @param apiPackage apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
-#' @param dataPackage dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
+#' @param apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
+#' @param dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -37,6 +37,7 @@
 #' will be organized differently (ContentsCode categories as separate variables).
 #'
 #' @return list of two data sets (label and id)
+#' @note See the package vignette for aggregations using filter \code{agg}.
 #' @export
 #' 
 #' @importFrom jsonlite unbox read_json toJSON
@@ -47,49 +48,49 @@
 #'
 #' @examples
 #' \donttest{
-#' ##### Readymade dataset by GET - works only for Statistics Norway readymade datasets
-#' x <- ApiData("http://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
+#' ##### Readymade dataset by GET.  Works for readymade datasets and "saved-JSON-stat-query-links".
+#' x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 #' x[[1]]  # The label version of the data set
 #' x[[2]]  # The id version of the data set
 #' 
 #' ##### Special output
-#' ApiData("http://data.ssb.no/api/v0/en/table/09941", returnMetaData = TRUE)   # meta data
-#' ApiData("http://data.ssb.no/api/v0/en/table/09941", returnMetaValues = TRUE) # meta data values
-#' ApiData("http://data.ssb.no/api/v0/en/table/09941", returnMetaFrames = TRUE) # list of data frames
-#' ApiData("http://data.ssb.no/api/v0/en/table/09941", returnApiQuery = TRUE)   # query using defaults
+#' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data
+#' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaValues = TRUE) # meta data values
+#' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaFrames = TRUE) # list of data frames
+#' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # query using defaults
 #' 
 #' 
 #' ##### Ordinary use
 #' 
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
-#' ApiData("http://data.ssb.no/api/v0/en/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
+#' ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Two specified and the last is default (as above) - in Norwegian change en to no in url
-#' ApiData("http://data.ssb.no/api/v0/no/table/09941", NACE2007 = 10i, ContentsCode = TRUE)
+#' ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Number of residents (bosatte) last year, each region
-#' ApiData("http://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
+#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
 #'         ContentsCode = "Bosatte", Tid = 1i)
 #' 
 #' # Number of residents (bosatte) each year, total
-#' ApiData("http://data.ssb.no/api/v0/en/table/04861", Region = FALSE, 
+#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE, 
 #'         ContentsCode = "Bosatte", Tid = TRUE)
 #' 
 #' # Some years
-#' ApiData("http://data.ssb.no/api/v0/en/table/04861", Region = FALSE, 
+#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE, 
 #'         ContentsCode = "Bosatte", Tid = c(1, 5, -1))
 #' 
 #' # Two selected regions
-#' ApiData("http://data.ssb.no/api/v0/en/table/04861", Region = c("0811", "0301"), 
-#'         ContentsCode = 1, Tid = c(1, -1))
+#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = c("1103", "0301"), 
+#'         ContentsCode = 2, Tid = c(1, -1))
 #' 
 #' 
 #' ##### Using id instead of url, unnamed input and verbosePrint
-#' ApiData(4861, c("0811", "0301"), 1, c(1, -1)) # same as below 
-#' ApiData(4861, Region = c("0811", "0301"), ContentsCode=1, Tid=c(1, -1)) 
+#' ApiData(4861, c("1103", "0301"), 1, c(1, -1)) # same as below 
+#' ApiData(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
 #' names(ApiData(4861,returnMetaFrames = TRUE))  # these names from metadata assumed two lines above
-#' ApiData("4861", c("0811", "0301"), 1, c(1, -1),  urlType="SSBen")
-#' ApiData("01222", c("0811", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
+#' ApiData("4861", c("1103", "0301"), 1, c(1, -1),  urlType="SSBen")
+#' ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #' ApiData(1066, getDataByGET = TRUE,  urlType="SSB")
 #' ApiData(1066, getDataByGET = TRUE,  urlType="SSBen")
 #' 
@@ -97,11 +98,11 @@
 #' ##### Advanced use using list. See details above. Try returnApiQuery=TRUE on the same examples. 
 #' ApiData(4861, Region = list("03*"), ContentsCode = 1, Tid = 5i) # "all" can be dropped from the list
 #' \donttest{ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same as above
-#' ApiData(04861, Region = list("item", c("0811", "0301")), ContentsCode = 1, Tid = 5i)
+#' ApiData(04861, Region = list("item", c("1103", "0301")), ContentsCode = 1, Tid = 5i)
 #' 
 #' 
 #' ##### Using data from SCB to illustrate returnMetaFrames
-#' urlSCB <- "http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
+#' urlSCB <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
 #' mf <- ApiData(urlSCB, returnMetaFrames = TRUE)
 #' names(mf)              # All the variable names
 #' attr(mf, "text")       # Corresponding text information as attribute
@@ -114,9 +115,9 @@
 #'  
 #'                
 #' ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
-#' urlStatfi <- "http://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_010.px"
+#' urlStatfi <- "https://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_12au.px"
 #' ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
-#' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = '15' 
+#' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = 21
 #' 
 #' 
 #' ##### Wrappers PxData and pxwebData
@@ -129,10 +130,11 @@
 #' 
 #' 
 #' # Large query. ApiData will not work.
-#' z <- PxData("http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+#' z <- PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
 #'             Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
 #'             ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
 #' }
+#'
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
                     returnMetaFrames = FALSE, returnApiQuery = FALSE, 
                     defaultJSONquery = c(1,-2, -1), verbosePrint = FALSE,
@@ -219,6 +221,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
   c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
     fromJSONstat(post, naming = "id",use_factors=use_factors))
 }
+
+
+
+#' @rdname ApiData
+#' @export
+GetApiData = function(..., getDataByGET = TRUE){
+  ApiData(..., getDataByGET = getDataByGET)
+}
+
 
 
 #' @rdname ApiData
@@ -411,16 +422,16 @@ Pmatch <- function(x, y, CheckHandling = stop) {
 
 SSBurl <- function(id, readyMade = FALSE) {
   if (readyMade) 
-    url <- paste("http://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json", sep = "") 
-  else url <- paste("http://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
+    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json", sep = "") 
+  else url <- paste("https://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
   url
 }
 
 SSBurlen <- function(id, readyMade = FALSE) {
   if (readyMade) 
-    url <- paste("http://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json?lang=en", sep = "") 
+    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json?lang=en", sep = "") 
   else 
-    url <- paste("http://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
+    url <- paste("https://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
   url
 }
 

@@ -1,23 +1,23 @@
 ---
 title: "Introduction to PxWebApiData"
-author: "Øyvind Langsrud and Jan Bruusgaard"
+author: "Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{PxWebApiData Vignette}
+  %\VignetteIndexEntry{Introduction to PxWebApiData}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+keywords: Statbank, PxWebApi, official statistics
 ---
 
 
 ### Preface 
 
-A brief introduction to the r-package PxWebApiData is given below.
-Three calls to the main function, ApiData, is demonstrated.
-First, two calls for reading data sets are shown. 
-The last call captures meta data.
+An introduction to the r-package PxWebApiData is given below.
+Three calls to the main function, ApiData, are demonstrated.
+First, two calls for reading data sets are shown.The last call captures meta data.
 However, in practise, one may look at the meta data first.
-At the end, some background is given.
+Then three more examples and some background is given.
 
 
 
@@ -38,21 +38,30 @@ A list of two data frames is returned; the label version and the id version.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/en/table/04861", 
-        Region = c("0811", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+        Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
 
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 
-All possible values is obtained by TRUE and corresponds to  "all" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
+All possible values is obtained by TRUE and corresponds to "all" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 
-ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+x <- ApiData("http://data.ssb.no/api/v0/en/table/04861", 
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 
 ```
+It is possible to select either label version or id version
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+
+x[[1]]
+
+x[[2]]
+```
+
+
 
 ## Obtaining meta data 
 
@@ -61,6 +70,114 @@ Meta information about the data set can be obtained by "returnMetaFrames = TRUE"
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
+
+```
+
+## Aggregations using filter *agg:* 
+PxWebApi has two more filters for groupings, *agg:* and *vs:*. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb. 
+
+agg: is used for readymade aggregation groupings. This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. 
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("http://data.ssb.no/api/v0/no/table/07459", 
+        Region = list("agg:KommSummer", c("K-3001", "K-3002")), 
+        Tid = 3i,
+        Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
+        Kjonn = TRUE)
+
+
+```
+There are two limitations in the PxWebApi here. 
+
+1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table". 
+2) It is only possible to give single elements as input. Filter "all" "*" does not work with agg: and vs:
+
+The other filter *vs:*, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. Thar means that vs: is redundant.
+
+In this example Region is the value pool and Fylker is the value set. These two will return the same result:
+
+```
+  Region = list("vs:Fylker",c("01","02"))  
+  Region = list(c("01","02")).
+
+```
+
+
+
+## Return the API query as JSON
+In PxWebApi the original query is formulated in JSON. Using the parameter returnApiQuery can be useful for debugging.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
+
+```
+
+
+## Readymade datasets
+Statistics Norway also provide an API with readymade datasets, available by http GET.
+Use the parameter getDataByGET = TRUE. By changing to lang=*no* you get the label version in Norwegian.
+
+This dataset is from Economic trends forecasts.
+
+```{r eval=TRUE, comment=NA, tidy=FALSE}
+x <- ApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en", getDataByGET = TRUE)
+x[[1]]
+
+```
+
+
+## Practical example
+
+We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2017 and 2018. 
+
+1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/ 
+
+
+2) Load the package.
+
+```{r}
+
+library(PxWebApiData)
+
+```
+
+
+3) Check which variables that exist in the data.
+
+```{r}
+
+variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+                     returnMetaFrames = TRUE)
+
+names(variables)
+
+```
+
+4) Check which values each variable contains.
+
+```{r}
+
+values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+                  returnMetaData = TRUE)
+
+values[[1]]$values
+values[[2]]$values
+values[[3]]$values
+
+```
+
+5) Define these variables in the query to sort out the values we want.
+
+```{r}
+
+data <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
+                Tid = c("2017", "2018"), # Define year to 2017 and 2018
+                NACE2007 = "G-N", # Define the services sector
+                ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
+
+data <- data[[1]] # Extract the first list element, which contains full variable names.
+
+head(data)
 
 ```
 
