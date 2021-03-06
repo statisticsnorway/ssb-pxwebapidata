@@ -68,3 +68,104 @@ test_that("ApiData - SSB-data with returnMetaFrames", {
   expect_equivalent(sapply(mf, class), rep("data.frame", 3))
   expect_equivalent(sapply(mf[[3]], class), c("character", "character"))
 })
+
+test_that("ApiData - dataset output", {
+  skip_on_cran()
+  a   <- ApiData(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
+  a1  <- ApiData1(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
+  a2  <- ApiData2(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
+  a12 <- ApiData12(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
+  
+  expect_equivalent(a1, a[[1]])
+  expect_equivalent(a2, a[[2]])
+  expect_equivalent(a1, a12[, names(a1)])
+  expect_equivalent(a2, a12[, names(a2)])
+  expect_equal(names(a[[1]]), names(a1))
+  expect_equal(names(a[[2]]), names(a2))
+  expect_equal(comment(a12), names(a))
+  expect_equal(comment(a1), comment(a12)[1])
+  expect_equal(comment(a2), comment(a12)[2])
+
+  a   <-   GetApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
+  a1  <-  GetApiData1("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
+  a2  <-  GetApiData2("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
+  a12 <- GetApiData12("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
+  
+  expect_equivalent(a1, a[[1]])
+  expect_equivalent(a2, a[[2]])
+  expect_equivalent(a1, a12[, names(a1)])
+  expect_equivalent(a2, a12[, names(a2)])
+  expect_equal(names(a[[1]]), names(a1))
+  expect_equal(names(a[[2]]), names(a2))
+  expect_equal(comment(a12), names(a))
+  expect_equal(comment(a1), comment(a12)[1])
+  expect_equal(comment(a2), comment(a12)[2])
+  
+
+  if(FALSE){
+    a   <-   PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+    a1  <-  PxData1("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+    a2  <-  PxData2("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+    a12 <- PxData12("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+    expect_equivalent(a1, a[[1]])
+    expect_equivalent(a2, a[[2]])
+    expect_equivalent(a1, a12[, names(a1)])
+    expect_equivalent(a2, a12[, names(a2)])
+    expect_equal(names(a[[1]]), names(a1))
+    expect_equal(names(a[[2]]), names(a2))
+    expect_equal(comment(a12), names(a))
+    expect_equal(comment(a1), comment(a12)[1])
+    expect_equal(comment(a2), comment(a12)[2])
+  }
+  
+  a    <-   PxData("01222", c("1103", "0301"), c(4, 9), 2i)
+  a1   <-  PxData1("01222", c("1103", "0301"), c(4, 9), 2i)
+  a2   <-  PxData2("01222", c("1103", "0301"), c(4, 9), 2i)
+  a12  <- PxData12("01222", c("1103", "0301"), c(4, 9), 2i)
+  
+  expect_equivalent(a1, a[[1]])
+  expect_equivalent(a2, a[[2]])
+  expect_equivalent(a1, a12[, names(a1)])
+  expect_equivalent(a2, a12[, names(a2)])
+  expect_equal(names(a[[1]]), names(a1))
+  expect_equal(names(a[[2]]), names(a2))
+  expect_equal(comment(a12), names(a))
+  expect_equal(comment(a1), comment(a12)[1])
+  expect_equal(comment(a2), comment(a12)[2])
+  
+  
+  b   <-   pxwebData("01222", c("1103", "0301"), c(4, 9), 2i)
+  b1  <-  pxwebData1("01222", c("1103", "0301"), c(4, 9), 2i)
+  b2  <-  pxwebData2("01222", c("1103", "0301"), c(4, 9), 2i)
+  b12 <- pxwebData12("01222", c("1103", "0301"), c(4, 9), 2i)
+  
+  
+  expect_equivalent(b1, b[[1]])
+  expect_equivalent(b2, b[[2]])
+  expect_equivalent(b1, b12[, names(b1)])
+  expect_equivalent(b2, b12[, names(b2)])
+  expect_equal(names(b[[1]]), names(b1))
+  expect_equal(names(b[[2]]), names(b2))
+  expect_equal(comment(b12), names(b))
+  expect_equal(comment(b1), comment(b12)[1])
+  expect_equal(comment(b2), comment(b12)[2])
+  
+  
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

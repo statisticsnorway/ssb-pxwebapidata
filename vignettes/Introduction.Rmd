@@ -14,11 +14,13 @@ keywords: Statbank, PxWebApi, official statistics
 ### Preface 
 
 An introduction to the r-package PxWebApiData is given below.
-Three calls to the main function, ApiData, are demonstrated.
+Three calls to the main function, `ApiData`, are demonstrated.
 First, two calls for reading data sets are shown.The last call captures meta data.
 However, in practise, one may look at the meta data first.
 Then three more examples and some background is given.
 
+
+Note that the text below was written before the possibility to return a single data set was included in the package (the functions `ApiData1`, `ApiData2`, `ApiData12`).
 
 
 ```{r include = FALSE}

@@ -17,6 +17,12 @@
 #' @param urlType  Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)
 #' @param apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
 #' @param dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
+#' @param returnDataSet Possible non-NULL values are `1`, `2` and `12`. Then a single data set is returned as a data frame.
+#' * **`1`:** The first data set
+#' * **`2`:** The second data set 
+#' * **`12`:** Both data sets combined 
+#' 
+#' The original list name is included as a comment attribute. In the case of `12` the name of the first data set is used.   
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -52,6 +58,15 @@
 #' x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 #' x[[1]]  # The label version of the data set
 #' x[[2]]  # The id version of the data set
+#' names(x)
+#' 
+#' ##### As above with single data set output
+#' url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
+#' x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
+#' x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
+#' comment(x1) # as names(x)[1]
+#' comment(x2) # as names(x)[2]
+#' ApiData12(url, getDataByGET = TRUE) # Combined
 #' 
 #' ##### Special output
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data
@@ -130,9 +145,11 @@
 #' 
 #' 
 #' # Large query. ApiData will not work.
-#' z <- PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
-#'             Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
-#'             ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+#' if(FALSE){ # This query is "commented out" 
+#'   z <- PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+#'               Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
+#'               ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+#' }
 #' }
 #'
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
@@ -140,10 +157,21 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
                     defaultJSONquery = c(1,-2, -1), verbosePrint = FALSE,
                     use_factors=FALSE, urlType="SSB", 
                     apiPackage = "httr",
-                    dataPackage = "rjstat") {
+                    dataPackage = "rjstat",
+                    returnDataSet = NULL) {
   
   # if(!getDataByGET)     ## With this test_that("ApiData - SSB-data advanced use", fail
   #   apiPackage = "pxweb"
+  
+  
+  if(!is.null(returnDataSet)){
+    if(!(returnDataSet %in% c(1, 2, 12)))
+      stop("non-NULL returnDataSet must be in 1, 2, or 12.")
+    
+  } else {
+    returnDataSet <- 0
+  }
+    
   
   integerUrl <- suppressWarnings(as.integer(urlToData))
   if (!is.na(integerUrl)) 
@@ -203,23 +231,77 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
   if(dataPackage == "none" )
     return("post")
     
-  if(dataPackage == "pxweb" ) 
-    return(list(as.data.frame(post, column.name.type = "text", variable.value.type = "text"),
-         as.data.frame(post, column.name.type = "code", variable.value.type = "code")))
+  if(dataPackage == "pxweb" ){
+    if(returnDataSet %in% c(1,2)){
+      if(returnDataSet == 1){
+        z <- list(as.data.frame(post, column.name.type = "text", variable.value.type = "text"))
+      } else {
+        z <- list(as.data.frame(post, column.name.type = "code", variable.value.type = "code"))
+      }
+    } else {
+      z <- list(as.data.frame(post, column.name.type = "text", variable.value.type = "text"),
+                as.data.frame(post, column.name.type = "code", variable.value.type = "code"))
+    }
+    if(returnDataSet %in% c(1,2)){
+      return(DataSet(z, 1))
+    }
+    if(returnDataSet %in% 12){
+      return(DataSet12(z))
+    }
+    return(z)
+  }
 
   if (length(post) > 1) {
     n <- length(post)
     for (i in seq_len(n)) {
-      post[[i]] <- c(fromJSONstat(post[[i]], naming = "label", use_factors = use_factors), 
-                     fromJSONstat(post[[i]], naming = "id", use_factors = use_factors))
+      if(returnDataSet %in% c(1,2)){
+        if(returnDataSet == 1){
+          post[[i]] <- fromJSONstat(post[[i]], naming = "label", use_factors = use_factors)
+        } else {
+          post[[i]] <- fromJSONstat(post[[i]], naming = "id", use_factors = use_factors)
+        }
+      } else {
+        post[[i]] <- c(fromJSONstat(post[[i]], naming = "label", use_factors = use_factors), 
+                       fromJSONstat(post[[i]], naming = "id", use_factors = use_factors))
+      }
     }
     post[[1]][[1]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[1]],", collapse = ""), "deparse.level = 0)")))
-    post[[1]][[2]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[2]],", collapse = ""), "deparse.level = 0)")))
+    
+    if(length(post[[1]])>1)
+      post[[1]][[2]] <- eval(parse(text = paste("rbind(", paste("post[[", seq_len(n), "]][[2]],", collapse = ""), "deparse.level = 0)")))
+    
+    if(returnDataSet %in% c(1,2)){
+      return(DataSet(post[[1]], 1))
+    }
+    
+    if(returnDataSet %in% 12){
+      return(DataSet12(post[[1]]))
+    }
+    
     return(post[[1]])
   }
   
-  c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
-    fromJSONstat(post, naming = "id",use_factors=use_factors))
+  
+  if(returnDataSet %in% c(1,2)){
+    if(returnDataSet == 1){
+      z <- fromJSONstat(post, naming = "label",use_factors=use_factors)
+    } else {
+      z <- fromJSONstat(post, naming = "id",use_factors=use_factors)
+    }
+  } else {
+    z <- c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
+           fromJSONstat(post, naming = "id",use_factors=use_factors))
+  }
+  
+  if(returnDataSet %in% c(1,2)){
+    return(DataSet(z, 1))
+  }
+  
+  if(returnDataSet %in% 12){
+    return(DataSet12(z))
+  }
+  
+  z
 }
 
 
@@ -243,6 +325,88 @@ pxwebData = function(..., apiPackage = "pxweb", dataPackage = "pxweb"){
 PxData = function(..., apiPackage = "pxweb", dataPackage = "rjstat"){
   ApiData(..., apiPackage = apiPackage, dataPackage = dataPackage)
 }
+
+
+#' @rdname ApiData
+#' @export
+ApiData1  <- function(..., returnDataSet = 1) {
+  ApiData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+ApiData2  <- function(..., returnDataSet = 2) {
+  ApiData(..., returnDataSet = returnDataSet)
+}
+
+
+#' @rdname ApiData
+#' @export
+#' 
+ApiData12  <- function(..., returnDataSet = 12) {
+  ApiData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+GetApiData1  <- function(..., returnDataSet = 1) {
+  GetApiData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+GetApiData2  <- function(..., returnDataSet = 2) {
+  GetApiData(..., returnDataSet = returnDataSet)
+}
+
+
+#' @rdname ApiData
+#' @export
+#' 
+GetApiData12  <- function(..., returnDataSet = 12) {
+  GetApiData(..., returnDataSet = returnDataSet)
+}
+
+
+#' @rdname ApiData
+#' @export
+pxwebData1  <- function(..., returnDataSet = 1) {
+  pxwebData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+pxwebData2  <- function(..., returnDataSet = 2) {
+  pxwebData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+pxwebData12  <- function(..., returnDataSet = 12) {
+  pxwebData(..., returnDataSet = returnDataSet)
+}
+
+
+#' @rdname ApiData
+#' @export
+PxData1  <- function(..., returnDataSet = 1) {
+  PxData(..., returnDataSet = returnDataSet)
+}
+
+
+#' @rdname ApiData
+#' @export
+PxData2  <- function(..., returnDataSet = 2) {
+  PxData(..., returnDataSet = returnDataSet)
+}
+
+#' @rdname ApiData
+#' @export
+PxData12  <- function(..., returnDataSet = 12) {
+  PxData(..., returnDataSet = returnDataSet)
+}
+
+
 
 
 #' Adding leading zeros
@@ -504,7 +668,17 @@ HeadEnd <- function(x, n = 8L) {
 }
 
 
+DataSet12 <- function(x){
+  z <- cbind(x[[1]][, !(names(x[[1]] ) %in% names(x[[2]])), drop=FALSE], x[[2]])
+  comment(z) <- names(x)
+  z
+}
 
+DataSet <- function(x, i){
+  z <- x[[i]]
+  comment(z) <- names(x)[i]
+  z
+}
 
 
 

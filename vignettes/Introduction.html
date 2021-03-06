@@ -12,7 +12,7 @@
 
 <meta name="author" content="Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft" />
 
-<meta name="date" content="2020-11-20" />
+<meta name="date" content="2021-03-05" />
 
 <title>Introduction to PxWebApiData</title>
 
@@ -32,6 +32,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -319,13 +367,14 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Introduction to PxWebApiData</h1>
 <h4 class="author">Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft</h4>
-<h4 class="date">2020-11-20</h4>
+<h4 class="date">2021-03-05</h4>
 
 
 
 <div id="preface" class="section level3">
 <h3>Preface</h3>
-<p>An introduction to the r-package PxWebApiData is given below. Three calls to the main function, ApiData, are demonstrated. First, two calls for reading data sets are shown.The last call captures meta data. However, in practise, one may look at the meta data first. Then three more examples and some background is given.</p>
+<p>An introduction to the r-package PxWebApiData is given below. Three calls to the main function, <code>ApiData</code>, are demonstrated. First, two calls for reading data sets are shown.The last call captures meta data. However, in practise, one may look at the meta data first. Then three more examples and some background is given.</p>
+<p>Note that the text below was written before the possibility to return a single data set was included in the package (the functions <code>ApiData1</code>, <code>ApiData2</code>, <code>ApiData12</code>).</p>
 </div>
 <div id="specification-by-variable-indices-and-variable-ids" class="section level2">
 <h2>Specification by variable indices and variable id’s</h2>
@@ -459,26 +508,26 @@ attr(,&quot;time&quot;)
 <span id="cb10-5"><a href="#cb10-5"></a>        <span class="dt">Kjonn =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>$`07459: Befolkning, etter region, kjønn, alder, statistikkvariabel og år`
   region   kjønn             alder statistikkvariabel   år value
-1 Halden    Menn           0-17 år           Personer 2018  3253
-2 Halden    Menn           0-17 år           Personer 2019  3209
-3 Halden    Menn           0-17 år           Personer 2020  3197
-4 Halden    Menn 18 år eller eldre           Personer 2018 12367
-5 Halden    Menn 18 år eller eldre           Personer 2019 12509
-6 Halden    Menn 18 år eller eldre           Personer 2020 12609
-7 Halden Kvinner           0-17 år           Personer 2018  3009
-8 Halden Kvinner           0-17 år           Personer 2019  3005
+1 Halden    Menn           0-17 år           Personer 2019  3209
+2 Halden    Menn           0-17 år           Personer 2020  3197
+3 Halden    Menn           0-17 år           Personer 2021  3148
+4 Halden    Menn 18 år eller eldre           Personer 2019 12509
+5 Halden    Menn 18 år eller eldre           Personer 2020 12609
+6 Halden    Menn 18 år eller eldre           Personer 2021 12674
+7 Halden Kvinner           0-17 år           Personer 2019  3005
+8 Halden Kvinner           0-17 år           Personer 2020  3023
  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 16 rows ]
 
 $dataset
   Region Kjonn Alder ContentsCode  Tid value
-1 K-3001     1   H17    Personer1 2018  3253
-2 K-3001     1   H17    Personer1 2019  3209
-3 K-3001     1   H17    Personer1 2020  3197
-4 K-3001     1   H18    Personer1 2018 12367
-5 K-3001     1   H18    Personer1 2019 12509
-6 K-3001     1   H18    Personer1 2020 12609
-7 K-3001     2   H17    Personer1 2018  3009
-8 K-3001     2   H17    Personer1 2019  3005
+1 K-3001     1   H17    Personer1 2019  3209
+2 K-3001     1   H17    Personer1 2020  3197
+3 K-3001     1   H17    Personer1 2021  3148
+4 K-3001     1   H18    Personer1 2019 12509
+5 K-3001     1   H18    Personer1 2020 12609
+6 K-3001     1   H18    Personer1 2021 12674
+7 K-3001     2   H17    Personer1 2019  3005
+8 K-3001     2   H17    Personer1 2020  3023
  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 16 rows ]</code></pre>
 <p>There are two limitations in the PxWebApi here.</p>
 <ol style="list-style-type: decimal">
@@ -531,22 +580,22 @@ $dataset
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>x &lt;-<span class="st"> </span><span class="kw">ApiData</span>(<span class="st">&quot;https://data.ssb.no/api/v0/dataset/934516.json?lang=en&quot;</span>, <span class="dt">getDataByGET =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb15-2"><a href="#cb15-2"></a>x[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>   year                                         contents value
-1  2020                           Gross domestic product  -1.9
-2  2020                              GDP Mainland Norway  -3.2
-3  2020                                 Employed persons  -2.0
-4  2020                        Unemployment rate (level)   4.9
-5  2020                      Wages per standard man-year   2.0
-6  2020                       Consumer price index (CPI)   1.5
-7  2020                                          CPI-ATE   3.1
-8  2020                                   Housing prices   3.2
+1  2020                           Gross domestic product  -1.6
+2  2020                              GDP Mainland Norway  -3.0
+3  2020                                 Employed persons  -1.6
+4  2020                        Unemployment rate (level)   4.8
+5  2020                      Wages per standard man-year   2.4
+6  2020                       Consumer price index (CPI)   1.3
+7  2020                                          CPI-ATE   3.0
+8  2020                                   Housing prices   4.0
 9  2020                        Money market rate (level)   0.7
-10 2020 Import-weighted NOK exchange rate (44 countries)   6.5
-11 2021                           Gross domestic product   3.7
-12 2021                              GDP Mainland Norway   3.6
-13 2021                                 Employed persons   0.4
+10 2020 Import-weighted NOK exchange rate (44 countries)   6.8
+11 2021                           Gross domestic product   4.4
+12 2021                              GDP Mainland Norway   3.7
+13 2021                                 Employed persons   0.7
 14 2021                        Unemployment rate (level)   4.5
-15 2021                      Wages per standard man-year   2.3
-16 2021                       Consumer price index (CPI)   2.9
+15 2021                      Wages per standard man-year   2.1
+16 2021                       Consumer price index (CPI)   2.5
  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 24 rows ]</code></pre>
 </div>
 <div id="practical-example" class="section level2">
@@ -577,7 +626,7 @@ $dataset
 ## [13] &quot;C21&quot;       &quot;C22&quot;       &quot;C23&quot;       &quot;C24&quot;       &quot;C25&quot;       &quot;C26&quot;      
 ## [19] &quot;C26.3&quot;     &quot;C26.5&quot;     &quot;C27&quot;       &quot;C28&quot;       &quot;C29&quot;       &quot;C30&quot;      
 ## [25] &quot;C30.1&quot;     &quot;C31&quot;       &quot;C32&quot;       &quot;C32.5&quot;     &quot;C33&quot;       &quot;D35&quot;      
-## [31] &quot;E36-E39&quot;   &quot;F41-F43&quot;   &quot;G46&quot;       &quot;G-N&quot;       &quot;H49-H53&quot;   &quot;J58&quot;      
+## [31] &quot;E36-E39&quot;   &quot;F41-F43&quot;   &quot;G-N&quot;       &quot;G46&quot;       &quot;H49-H53&quot;   &quot;J58&quot;      
 ## [37] &quot;J58.2&quot;     &quot;J59-J60&quot;   &quot;J61&quot;       &quot;J62&quot;       &quot;J63&quot;       &quot;K64-K66&quot;  
 ## [43] &quot;M70&quot;       &quot;M71&quot;       &quot;M72&quot;       &quot;M74.9&quot;     &quot;N82.9&quot;</code></pre>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>values[[<span class="dv">2</span>]]<span class="op">$</span>values</span></code></pre></div>
@@ -586,7 +635,7 @@ $dataset
 ## [7] &quot;FoUArsverk&quot;         &quot;FoUArsverkPers&quot;     &quot;FoUArsverkUtd&quot;</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>values[[<span class="dv">3</span>]]<span class="op">$</span>values</span></code></pre></div>
 <pre><code>##  [1] &quot;2007&quot; &quot;2008&quot; &quot;2009&quot; &quot;2010&quot; &quot;2011&quot; &quot;2012&quot; &quot;2013&quot; &quot;2014&quot; &quot;2015&quot; &quot;2016&quot;
-## [11] &quot;2017&quot; &quot;2018&quot;</code></pre>
+## [11] &quot;2017&quot; &quot;2018&quot; &quot;2019&quot;</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Define these variables in the query to sort out the values we want.</li>
 </ol>

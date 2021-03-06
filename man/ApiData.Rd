@@ -6,6 +6,18 @@
 \alias{GetApiData}
 \alias{pxwebData}
 \alias{PxData}
+\alias{ApiData1}
+\alias{ApiData2}
+\alias{ApiData12}
+\alias{GetApiData1}
+\alias{GetApiData2}
+\alias{GetApiData12}
+\alias{pxwebData1}
+\alias{pxwebData2}
+\alias{pxwebData12}
+\alias{PxData1}
+\alias{PxData2}
+\alias{PxData12}
 \title{PX-Web Data by API}
 \usage{
 ApiData(
@@ -21,7 +33,8 @@ ApiData(
   use_factors = FALSE,
   urlType = "SSB",
   apiPackage = "httr",
-  dataPackage = "rjstat"
+  dataPackage = "rjstat",
+  returnDataSet = NULL
 )
 
 GetApiData(..., getDataByGET = TRUE)
@@ -29,6 +42,30 @@ GetApiData(..., getDataByGET = TRUE)
 pxwebData(..., apiPackage = "pxweb", dataPackage = "pxweb")
 
 PxData(..., apiPackage = "pxweb", dataPackage = "rjstat")
+
+ApiData1(..., returnDataSet = 1)
+
+ApiData2(..., returnDataSet = 2)
+
+ApiData12(..., returnDataSet = 12)
+
+GetApiData1(..., returnDataSet = 1)
+
+GetApiData2(..., returnDataSet = 2)
+
+GetApiData12(..., returnDataSet = 12)
+
+pxwebData1(..., returnDataSet = 1)
+
+pxwebData2(..., returnDataSet = 2)
+
+pxwebData12(..., returnDataSet = 12)
+
+PxData1(..., returnDataSet = 1)
+
+PxData2(..., returnDataSet = 2)
+
+PxData12(..., returnDataSet = 12)
 }
 \arguments{
 \item{urlToData}{url to data or id of SSB data}
@@ -56,6 +93,15 @@ PxData(..., apiPackage = "pxweb", dataPackage = "rjstat")
 \item{apiPackage}{Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}}
 
 \item{dataPackage}{Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}}
+
+\item{returnDataSet}{Possible non-NULL values are \code{1}, \code{2} and \code{12}. Then a single data set is returned as a data frame.
+\itemize{
+\item \strong{\code{1}:} The first data set
+\item \strong{\code{2}:} The second data set
+\item \strong{\code{12}:} Both data sets combined
+}
+
+The original list name is included as a comment attribute. In the case of \code{12} the name of the first data set is used.}
 }
 \value{
 list of two data sets (label and id)
@@ -64,22 +110,22 @@ list of two data sets (label and id)
 A function to read PX-Web data into R via API. The example code reads data from the three national statistical institutes, Statistics Norway, Statistics Sweden and Statistics Finland.
 }
 \details{
-Each variable is specified by using the variable name as input parameter. The value can be specified as:  
-TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
-original variable id's (values) or variable labels (valueTexts). 
-Reversed indices can be specified as negative values. 
-Indices outside the range are removed. Variables not specified is set to the value of defaultJSONquery 
-whose default means the first and the two last elements. 
+Each variable is specified by using the variable name as input parameter. The value can be specified as:
+TRUE (all), FALSE (eliminated), imaginary value (top), variable indices,
+original variable id's (values) or variable labels (valueTexts).
+Reversed indices can be specified as negative values.
+Indices outside the range are removed. Variables not specified is set to the value of defaultJSONquery
+whose default means the first and the two last elements.
 
-The value can also be specified as a (unnamed) two-element list corresponding to the two 
+The value can also be specified as a (unnamed) two-element list corresponding to the two
 query elements, filter and values. In addition it possible with a single-element list.
-Then filter is set to 'all'. See examples. 
+Then filter is set to 'all'. See examples.
 
-Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
-\code{apiPackage} and \code{dataPackage} 
+Functionality in the package \code{pxweb} can be utilized by making use of the parameters
+\code{apiPackage} and \code{dataPackage}
 as implemented as the wrappers \code{PxData} and \code{pxwebData}.
 With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
-When using \code{pxwebData}, data will be downloaded in px-json format instead of json-stat and the output data frame 
+When using \code{pxwebData}, data will be downloaded in px-json format instead of json-stat and the output data frame
 will be organized differently (ContentsCode categories as separate variables).
 }
 \note{
@@ -91,6 +137,15 @@ See the package vignette for aggregations using filter \code{agg}.
 x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
 x[[1]]  # The label version of the data set
 x[[2]]  # The id version of the data set
+names(x)
+
+##### As above with single data set output
+url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
+x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
+x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
+comment(x1) # as names(x)[1]
+comment(x2) # as names(x)[2]
+ApiData12(url, getDataByGET = TRUE) # Combined
 
 ##### Special output
 ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data
@@ -169,9 +224,11 @@ pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 
 
 # Large query. ApiData will not work.
-z <- PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
-            Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
-            ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+if(FALSE){ # This query is "commented out" 
+  z <- PxData("https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy", 
+              Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
+              ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
+}
 }
 
 }
