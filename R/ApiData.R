@@ -22,7 +22,7 @@
 #' * **`2`:** The second data set 
 #' * **`12`:** Both data sets combined 
 #' 
-#' The original list name is included as a comment attribute. In the case of `12` the name of the first data set is used.   
+#' The original list names are included as a comment attribute.  
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -197,9 +197,13 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
       dataPackage = "rjstat"
       warning('Parameters "apiPackage" and "dataPackage" ignored when getDataByGET')
     }
-      post <- content(GET(urlToData), "text")
+      post <- Graceful(content, GET(urlToData), "text")
+      if(is.null(post))
+        return(NULL)
     } else {
-      metaData <- MetaData(urlToData)
+      metaData <- Graceful(MetaData, urlToData)
+      if(is.null(metaData))
+        return(NULL)
       if (returnMetaData) 
         return(metaData)
       if (returnMetaValues) 
@@ -222,10 +226,12 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
         post <-  pxweb_get(url = urlToData, query = sporr, verbose = verbosePrint)
       } else {
         if (verbosePrint) 
-          post <-  content(POST(urlToData, body = sporr, encode = "json", verbose()), "text") 
+          post <-  Graceful(content, POST(urlToData, body = sporr, encode = "json", verbose()), "text") 
         else 
-          post <-  content(POST(urlToData, body = sporr, encode = "json"), "text")
+          post <-  Graceful(content, POST(urlToData, body = sporr, encode = "json"), "text")
       }
+      if(is.null(post))
+        return(NULL)
     }
 
   if(dataPackage == "none" )
@@ -284,13 +290,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
   
   if(returnDataSet %in% c(1,2)){
     if(returnDataSet == 1){
-      z <- fromJSONstat(post, naming = "label",use_factors=use_factors)
+      z <- Graceful(fromJSONstat, post, naming = "label",use_factors=use_factors)
     } else {
-      z <- fromJSONstat(post, naming = "id",use_factors=use_factors)
+      z <- Graceful(fromJSONstat, post, naming = "id",use_factors=use_factors)
     }
   } else {
-    z <- c(fromJSONstat(post, naming = "label",use_factors=use_factors), 
-           fromJSONstat(post, naming = "id",use_factors=use_factors))
+    z <- Graceful(fromJSONstat, post, naming = "label",use_factors=use_factors)
+    if(is.null(z))
+      return(NULL)
+    z <-  c(z, Graceful(fromJSONstat, post, naming = "id",use_factors=use_factors))
   }
   
   if(returnDataSet %in% c(1,2)){
@@ -688,15 +696,14 @@ DataSet <- function(x, i){
 
 
 
-
-
-
-
-
-
-
-
-
+Graceful <- function(fun, ..., txt = "No internet connection or resource not available: ") {
+  a <- suppressWarnings(try(fun(...), silent = TRUE))
+  if (class(a)[1] %in% c("NULL", "try-error")) {
+    message(paste0(txt, as.character(a)))
+    return(NULL)
+  }
+  a
+}
 
 
 

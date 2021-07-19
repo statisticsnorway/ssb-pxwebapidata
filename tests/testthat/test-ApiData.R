@@ -6,7 +6,7 @@ test_that("ApiData - Readymade SSB-data with urlType", {
   ssb1066 <- ApiData(1066, getDataByGET = TRUE, urlType = "SSB")
   expect_true(is.data.frame(ssb1066[[1]]))
   expect_equal(names(ssb1066)[2], "dataset")
-  expect_true(grepl("Detaljomsetningsindeksen, etter næring, måned og statistikkvariabel", names(ssb1066)[1]))
+  expect_true(grepl("etter næring, måned og statistikkvariabel", names(ssb1066)[1]))
 })
 
 test_that("ApiData - SCB-data using TRUE and FALSE", {

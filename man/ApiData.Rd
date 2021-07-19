@@ -101,7 +101,7 @@ PxData12(..., returnDataSet = 12)
 \item \strong{\code{12}:} Both data sets combined
 }
 
-The original list name is included as a comment attribute. In the case of \code{12} the name of the first data set is used.}
+The original list names are included as a comment attribute.}
 }
 \value{
 list of two data sets (label and id)
