@@ -34,7 +34,8 @@ ApiData(
   urlType = "SSB",
   apiPackage = "httr",
   dataPackage = "rjstat",
-  returnDataSet = NULL
+  returnDataSet = NULL,
+  makeNAstatus = TRUE
 )
 
 GetApiData(..., getDataByGET = TRUE)
@@ -102,6 +103,9 @@ PxData12(..., returnDataSet = 12)
 }
 
 The original list names are included as a comment attribute.}
+
+\item{makeNAstatus}{When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in \code{value},
+the function tries to add an additional variable, named \code{NAstatus}, with status codes.}
 }
 \value{
 list of two data sets (label and id)
@@ -229,6 +233,11 @@ if(FALSE){ # This query is "commented out"
               Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
               ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
 }
+
+
+##### Example where makeNAstatus is in use
+ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+
 }
 
 }
