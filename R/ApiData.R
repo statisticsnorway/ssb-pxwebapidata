@@ -78,7 +78,7 @@
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # query using defaults
 #' 
 #' 
-#' ##### Ordinary use
+#' ##### Ordinary use     (makeNAstatus is in use in first two examples)
 #' 
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
@@ -155,7 +155,7 @@
 #' }
 #' 
 #' 
-#' ##### Example where makeNAstatus is in use
+#' ##### Small example where makeNAstatus is in use
 #' ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
 #' 
 #' }
