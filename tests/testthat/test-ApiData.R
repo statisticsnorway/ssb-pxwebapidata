@@ -56,6 +56,15 @@ test_that("ApiData - SSB-data advanced use", {
 })
 
 
+test_that("ApiData - makeNAstatus is in use", {
+  skip_on_cran()
+  a <- ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+  expect_equal(a[[1]]$NAstatus, a[[2]]$NAstatus)
+  expect_equal(a[[1]]$NAstatus, c(NA, ":", ":", ":", ":", ":", ":", ".."))
+})
+
+
+
 test_that("ApiData - SSB-data with returnMetaFrames", {
   skip_on_cran()
   urlSSB <- "https://data.ssb.no/api/v0/en/table/04861"
