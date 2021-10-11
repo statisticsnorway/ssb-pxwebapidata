@@ -20,24 +20,32 @@ MakeNAstatus <- function(post, values) {
     return(NULL)
   }
   
-  wtxt <- "Could not capture status"
-  
   k <- jsonlite::fromJSON(post)
+  
+  status <- unlist(k$dataset$status)
+  
+  # No warning when NULL 
+  if(is.null(status)){
+    return(NULL)
+  }
+  
+  # Message instead of warning since inside Graceful 
+  warningHere <- message
+  
+  wtxt <- "Could not capture status"
   
   x <- as.vector(unlist(k$dataset$value))
   
   if (!identical(x, values)) {
-    warning(wtxt)
+    warningHere(wtxt)
     return(NULL)
   }
-  
-  status <- unlist(k$dataset$status)
   
   if (is.null(names(status))) {
     if (length(status) == length(values)) {
       return(status)
     }
-    warning(wtxt)
+    warningHere(wtxt)
     return(NULL)
   }
   
