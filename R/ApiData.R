@@ -20,9 +20,12 @@
 #' @param returnDataSet Possible non-NULL values are `1`, `2` and `12`. Then a single data set is returned as a data frame.
 #' * **`1`:** The first data set
 #' * **`2`:** The second data set 
-#' * **`12`:** Both data sets combined 
+#' * **`12`:** Both data sets combined
 #' 
-#' The original list names are included as a comment attribute.  
+#' The original list names are included as a comment attribute.
+#'   
+#' @param makeNAstatus When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in `value`, 
+#'                     the function tries to add an additional variable, named `NAstatus`, with status codes.
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -46,7 +49,7 @@
 #' @note See the package vignette for aggregations using filter \code{agg}.
 #' @export
 #' 
-#' @importFrom jsonlite unbox read_json toJSON
+#' @importFrom jsonlite unbox read_json toJSON fromJSON
 #' @importFrom rjstat fromJSONstat 
 #' @importFrom httr GET POST verbose content
 #' @importFrom utils head tail
@@ -75,7 +78,7 @@
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # query using defaults
 #' 
 #' 
-#' ##### Ordinary use
+#' ##### Ordinary use     (makeNAstatus is in use in first two examples)
 #' 
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
@@ -150,6 +153,11 @@
 #'               Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
 #'               ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
 #' }
+#' 
+#' 
+#' ##### Small example where makeNAstatus is in use
+#' ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+#' 
 #' }
 #'
 ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE, returnMetaValues = FALSE, 
@@ -158,11 +166,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
                     use_factors=FALSE, urlType="SSB", 
                     apiPackage = "httr",
                     dataPackage = "rjstat",
-                    returnDataSet = NULL) {
+                    returnDataSet = NULL,
+                    makeNAstatus = TRUE) {
   
   # if(!getDataByGET)     ## With this test_that("ApiData - SSB-data advanced use", fail
   #   apiPackage = "pxweb"
   
+  if (makeNAstatus) {
+    fromJSONstat <- fromJSONstatExtra
+  }
   
   if(!is.null(returnDataSet)){
     if(!(returnDataSet %in% c(1, 2, 12)))

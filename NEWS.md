@@ -1,3 +1,11 @@
+
+
+## PxWebApiData	0.7.0
+
+* `makeNAstatus`, new parameter to `ApiData` which represents new functionality.
+  - When missing entries in `value`, the function tries to add an additional variable, named `NAstatus`, with status codes.
+
+
 ## PxWebApiData	0.6.0
 
 * Changes to meet CRAN policy:

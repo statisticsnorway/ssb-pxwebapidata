@@ -34,7 +34,8 @@ ApiData(
   urlType = "SSB",
   apiPackage = "httr",
   dataPackage = "rjstat",
-  returnDataSet = NULL
+  returnDataSet = NULL,
+  makeNAstatus = TRUE
 )
 
 GetApiData(..., getDataByGET = TRUE)
@@ -102,6 +103,9 @@ PxData12(..., returnDataSet = 12)
 }
 
 The original list names are included as a comment attribute.}
+
+\item{makeNAstatus}{When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in \code{value},
+the function tries to add an additional variable, named \code{NAstatus}, with status codes.}
 }
 \value{
 list of two data sets (label and id)
@@ -154,7 +158,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaFrames = TRUE) # 
 ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # query using defaults
 
 
-##### Ordinary use
+##### Ordinary use     (makeNAstatus is in use in first two examples)
 
 # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
 ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
@@ -229,6 +233,11 @@ if(FALSE){ # This query is "commented out"
               Region = TRUE, Civilstand = TRUE, Alder = 1:10, Kon = FALSE, 
               ContentsCode = "BE0101N1", Tid = 1:10, verbosePrint = TRUE)
 }
+
+
+##### Small example where makeNAstatus is in use
+ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+
 }
 
 }
