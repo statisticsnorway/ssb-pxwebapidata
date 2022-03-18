@@ -189,7 +189,7 @@ $dataset
 </div>
 <div id="specification-by-true-false-and-imaginary-values-e.g.-3i." class="section level2">
 <h2>Specification by TRUE, FALSE and imaginary values (e.g. 3i).</h2>
-<p>All possible values is obtained by TRUE and corresponds to filter “all”: &quot;*&quot; in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to “top” in the api query.</p>
+<p>All possible values is obtained by TRUE and corresponds to filter <code>&quot;all&quot;: &quot;*&quot;</code> in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to filter <code>&quot;top&quot;</code> in the api query.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ApiData</span>(<span class="st">&quot;http://data.ssb.no/api/v0/en/table/04861&quot;</span>,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">Region =</span> <span class="cn">FALSE</span>, <span class="at">ContentsCode =</span> <span class="cn">TRUE</span>, <span class="at">Tid =</span> 3i)</span></code></pre></div>
 <p>To show either label version or id version</p>
@@ -275,8 +275,8 @@ attr(,&quot;time&quot;)
 </div>
 <div id="aggregations-using-filter-agg" class="section level2">
 <h2>Aggregations using filter <em>agg:</em></h2>
-<p>PxWebApi has two more filters for groupings, <em>agg:</em> and <em>vs:</em>. You can see these filters in the code “API Query for this table” when you have made a table in PxWeb.</p>
-<p>agg: is used for readymade aggregation groupings.</p>
+<p>PxWebApi has two more filters for groupings, <code>agg:</code> and <code>vs:</code>. You can see these filters in the code “API Query for this table” when you have made a table in PxWeb.</p>
+<p><code>agg</code>: is used for readymade aggregation groupings.</p>
 <p>This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. This return Norwegian labels instead of English.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ApiData</span>(<span class="st">&quot;http://data.ssb.no/api/v0/no/table/07459&quot;</span>,</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">Region =</span> <span class="fu">list</span>(<span class="st">&quot;agg:KommSummer&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;K-3001&quot;</span>, <span class="st">&quot;K-3002&quot;</span>)),</span>
@@ -305,10 +305,10 @@ $dataset
 <p>There are two limitations in the PxWebApi here.</p>
 <ol style="list-style-type: decimal">
 <li>The name of the filter and the IDs are not shown in metadata, only in the code “API Query for this table”.</li>
-<li>It is only possible to give single elements as input. Filter “all”:&quot;*&quot; eg. TRUE, does not work with agg: and vs:</li>
+<li>It is only possible to give single elements as input. Filter <code>&quot;all&quot;:&quot;*&quot;</code> eg. TRUE, does not work with agg: and vs:.</li>
 </ol>
-<p>The other filter <em>vs:</em>, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.</p>
-<p>In this example Region is the value pool and Fylker is the value set. As vs:Fylker is redundant both return the same:</p>
+<p>The other filter <code>vs:</code>, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.</p>
+<p>In this example Region is the value pool and Fylker is the value set. As <code>vs:Fylker</code> is redundant, both return the same:</p>
 <pre><code>  Region = list(&quot;vs:Fylker&quot;,c(&quot;01&quot;,&quot;02&quot;))
   Region = list(c(&quot;01&quot;,&quot;02&quot;)).
 </code></pre>
@@ -348,7 +348,7 @@ $dataset
 </div>
 <div id="readymade-datasets" class="section level2">
 <h2>Readymade datasets</h2>
-<p>Statistics Norway also provide an API with readymade datasets, available by http GET. Use the parameter getDataByGET = TRUE. By changing to lang=<em>no</em> you get the label version in Norwegian.</p>
+<p>Statistics Norway also provide an API with readymade datasets, available by http GET. Use the parameter getDataByGET = TRUE. By changing to <code>lang=no</code> int the URL you get the label version in Norwegian.</p>
 <p>This dataset is from Economic trends forecasts.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ApiData</span>(<span class="st">&quot;https://data.ssb.no/api/v0/dataset/934516.json?lang=en&quot;</span>, <span class="at">getDataByGET =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x[[<span class="dv">1</span>]]</span></code></pre></div>

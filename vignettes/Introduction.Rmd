@@ -52,7 +52,7 @@ ApiData12("http://data.ssb.no/api/v0/en/table/04861",
 
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 
-All possible values is obtained by TRUE and corresponds to filter "all": "*" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
+All possible values is obtained by TRUE and corresponds to filter `"all": "*"` in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to filter `"top"` in the api query.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
@@ -81,9 +81,9 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 ```
 
 ## Aggregations using filter *agg:*
-PxWebApi has two more filters for groupings, *agg:* and *vs:*. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
+PxWebApi has two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
 
-agg: is used for readymade aggregation groupings. 
+`agg`: is used for readymade aggregation groupings. 
 
 This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. This return Norwegian labels instead of English.
 
@@ -99,11 +99,11 @@ ApiData("http://data.ssb.no/api/v0/no/table/07459",
 There are two limitations in the PxWebApi here.
 
 1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table".
-2) It is only possible to give single elements as input. Filter "all":"*" eg. TRUE, does not work with agg: and vs:
+2) It is only possible to give single elements as input. Filter `"all":"*"` eg. TRUE, does not work with agg: and vs:.
 
-The other filter *vs:*, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.
+The other filter `vs:`, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.
 
-In this example Region is the value pool and Fylker is the value set. As vs:Fylker is redundant both return the same:
+In this example Region is the value pool and Fylker is the value set. As `vs:Fylker` is redundant, both return the same:
 
 ```
   Region = list("vs:Fylker",c("01","02"))
@@ -124,7 +124,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 ## Readymade datasets
 Statistics Norway also provide an API with readymade datasets, available by http GET.
-Use the parameter getDataByGET = TRUE. By changing to lang=*no* you get the label version in Norwegian.
+Use the parameter getDataByGET = TRUE. By changing to `lang=no` int the URL you get the label version in Norwegian.
 
 This dataset is from Economic trends forecasts.
 
