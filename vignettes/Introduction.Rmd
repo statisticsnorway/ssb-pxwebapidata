@@ -11,51 +11,57 @@ keywords: Statbank, PxWebApi, official statistics
 ---
 
 
-### Preface 
+### Preface
 
 An introduction to the r-package PxWebApiData is given below.
-Three calls to the main function, `ApiData`, are demonstrated.
-First, two calls for reading data sets are shown.The last call captures meta data.
+Six calls to the main function, `ApiData`, are demonstrated.
+First, two calls for reading data sets are shown. The third call captures meta data.
 However, in practise, one may look at the meta data first.
 Then three more examples and some background is given.
 
-
-Note that the text below was written before the possibility to return a single data set was included in the package (the functions `ApiData1`, `ApiData2`, `ApiData12`).
 
 
 ```{r include = FALSE}
 library(knitr)
 library(PxWebApiData)
-options(max.print = 50)
+options(max.print = 36)
 ```
 
 
 ## Specification by variable indices and  variable id's
 
-The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters. 
-Here two of the parameters are specified by variable id's 
+The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters.
+Here two of the parameters are specified by variable id's
 and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two last years in the data.
 
 A list of two data frames is returned; the label version and the id version.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+ApiData("http://data.ssb.no/api/v0/en/table/04861",
+        Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+
+```
+To return a single dataset with only labels use the function `ApiData1`. `Apidata2` returns only ids. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData12("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
 
+
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 
-All possible values is obtained by TRUE and corresponds to "all" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
+All possible values is obtained by TRUE and corresponds to filter "all": "*" in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to "top" in the api query.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 
-x <- ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+x <- ApiData("http://data.ssb.no/api/v0/en/table/04861",
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 
 ```
-It is possible to select either label version or id version
+To show either label version or id version
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 
 x[[1]]
@@ -64,8 +70,7 @@ x[[2]]
 ```
 
 
-
-## Obtaining meta data 
+## Obtaining meta data
 
 Meta information about the data set can be obtained by "returnMetaFrames = TRUE".
 
@@ -75,31 +80,33 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 ```
 
-## Aggregations using filter *agg:* 
-PxWebApi has two more filters for groupings, *agg:* and *vs:*. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb. 
+## Aggregations using filter *agg:*
+PxWebApi has two more filters for groupings, *agg:* and *vs:*. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
 
-agg: is used for readymade aggregation groupings. This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. 
+agg: is used for readymade aggregation groupings. 
+
+This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. This return Norwegian labels instead of English.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/no/table/07459", 
-        Region = list("agg:KommSummer", c("K-3001", "K-3002")), 
-        Tid = 3i,
+ApiData("http://data.ssb.no/api/v0/no/table/07459",
+        Region = list("agg:KommSummer", c("K-3001", "K-3002")),
+        Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
         Kjonn = TRUE)
 
 
 ```
-There are two limitations in the PxWebApi here. 
+There are two limitations in the PxWebApi here.
 
-1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table". 
-2) It is only possible to give single elements as input. Filter "all" "*" does not work with agg: and vs:
+1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table".
+2) It is only possible to give single elements as input. Filter "all":"*" eg. TRUE, does not work with agg: and vs:
 
-The other filter *vs:*, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. Thar means that vs: is redundant.
+The other filter *vs:*, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.
 
-In this example Region is the value pool and Fylker is the value set. These two will return the same result:
+In this example Region is the value pool and Fylker is the value set. As vs:Fylker is redundant both return the same:
 
 ```
-  Region = list("vs:Fylker",c("01","02"))  
+  Region = list("vs:Fylker",c("01","02"))
   Region = list(c("01","02")).
 
 ```
@@ -107,7 +114,7 @@ In this example Region is the value pool and Fylker is the value set. These two 
 
 
 ## Return the API query as JSON
-In PxWebApi the original query is formulated in JSON. Using the parameter returnApiQuery can be useful for debugging.
+In PxWebApi the original query is formulated as JSON. Using the parameter returnApiQuery is useful for debugging.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
@@ -130,9 +137,9 @@ x[[1]]
 
 ## Practical example
 
-We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2017 and 2018. 
+We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2017 and 2018.
 
-1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/ 
+1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/
 
 
 2) Load the package.
@@ -148,7 +155,7 @@ library(PxWebApiData)
 
 ```{r}
 
-variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                      returnMetaFrames = TRUE)
 
 names(variables)
@@ -159,7 +166,7 @@ names(variables)
 
 ```{r}
 
-values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                   returnMetaData = TRUE)
 
 values[[1]]$values
@@ -187,4 +194,6 @@ head(data)
 
 ## Background
 
-PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See list of installations: https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/
+PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See [list of installations](https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/). 
+
+For hints on using PxWebApi in general see [PxWebApi User Guide](https://www.ssb.no/en/api/pxwebapi/_/attachment/inline/3031ae43-a881-4ae6-b4c9-c04e190b1504:df8c31920354e37f30e21be5641df2d93a16ef6c/Api_user_manual.pdf).
