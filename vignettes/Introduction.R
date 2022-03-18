@@ -1,16 +1,21 @@
 ## ----include = FALSE----------------------------------------------------------
 library(knitr)
 library(PxWebApiData)
-options(max.print = 50)
+options(max.print = 36)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+ApiData("http://data.ssb.no/api/v0/en/table/04861",
+        Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+
+
+## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
+ApiData12("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
 
-x <- ApiData("http://data.ssb.no/api/v0/en/table/04861", 
+x <- ApiData("http://data.ssb.no/api/v0/en/table/04861",
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 
 
@@ -25,9 +30,9 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/no/table/07459", 
-        Region = list("agg:KommSummer", c("K-3001", "K-3002")), 
-        Tid = 3i,
+ApiData("http://data.ssb.no/api/v0/no/table/07459",
+        Region = list("agg:KommSummer", c("K-3001", "K-3002")),
+        Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
         Kjonn = TRUE)
 
@@ -49,7 +54,7 @@ library(PxWebApiData)
 
 ## -----------------------------------------------------------------------------
 
-variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                      returnMetaFrames = TRUE)
 
 names(variables)
@@ -57,7 +62,7 @@ names(variables)
 
 ## -----------------------------------------------------------------------------
 
-values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/", 
+values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                   returnMetaData = TRUE)
 
 values[[1]]$values
