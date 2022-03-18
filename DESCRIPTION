@@ -1,8 +1,8 @@
 Package: PxWebApiData 
 Type: Package
 Title: PX-Web Data by API 
-Version: 0.7.0
-Date: 2021-10-11
+Version: 0.7.1
+Date: 2022-03-18
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"), email = "oyl@ssb.no"),
              person("Jan", "Bruusgaard", role = c("aut")),
              person("Solveig", "Bjørkholt", role = c("ctb")),
