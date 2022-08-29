@@ -54,6 +54,7 @@
 #' @importFrom httr GET POST verbose content
 #' @importFrom utils head tail
 #' @importFrom pxweb pxweb_get
+#' @importfrom rlang list2
 #'
 #' @examples
 #' \donttest{
@@ -648,7 +649,7 @@ MakeUrl <- function(id,urlType="SSB",getDataByGET = FALSE){
 
 
 MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), returnThezList = FALSE, responseFormat = "json-stat") {
-  x <- list(...)
+  x <- list2(...)
   namesx <- names(x)
   if (is.null(namesx)) 
     namesx <- rep(NA, length(x)) else namesx[namesx == ""] <- NA
