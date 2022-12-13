@@ -13,7 +13,7 @@ keywords: Statbank, PxWebApi, official statistics
 
 ### Preface
 
-An introduction to the r-package PxWebApiData is given below.
+An *introduction* to the r-package PxWebApiData is given below.
 Six calls to the main function, `ApiData`, are demonstrated.
 First, two calls for reading data sets are shown. The third call captures meta data.
 However, in practise, one may look at the meta data first.
@@ -32,7 +32,7 @@ options(max.print = 36)
 
 The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters.
 Here two of the parameters are specified by variable id's
-and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two last years in the data.
+and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two latest years in the data.
 
 A list of two data frames is returned; the label version and the id version.
 
@@ -98,7 +98,7 @@ ApiData("http://data.ssb.no/api/v0/no/table/07459",
 ```
 There are two limitations in the PxWebApi here.
 
-1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table".
+1) The name of the filter and the IDs are not shown in PxWebApi metadata, only in the code "API Query for this table".
 2) It is only possible to give single elements as input. Filter `"all":"*"` eg. TRUE, does not work with agg: and vs:.
 
 The other filter `vs:`, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.
@@ -137,7 +137,7 @@ x[[1]]
 
 ## Practical example
 
-We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2017 and 2018.
+We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2019 and 2020.
 
 1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/
 
@@ -180,7 +180,7 @@ values[[3]]$values
 ```{r}
 
 data <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
-                Tid = c("2017", "2018"), # Define year to 2017 and 2018
+                Tid = c("2019", "2020"), # Define year to 2019 and 2020
                 NACE2007 = "G-N", # Define the services sector
                 ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
 
@@ -197,3 +197,6 @@ head(data)
 PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See [list of installations](https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/). 
 
 For hints on using PxWebApi in general see [PxWebApi User Guide](https://www.ssb.no/en/api/pxwebapi/_/attachment/inline/3031ae43-a881-4ae6-b4c9-c04e190b1504:df8c31920354e37f30e21be5641df2d93a16ef6c/Api_user_manual.pdf).
+
+
+
