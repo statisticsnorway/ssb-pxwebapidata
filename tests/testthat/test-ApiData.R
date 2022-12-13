@@ -91,9 +91,9 @@ test_that("ApiData - dataset output", {
   expect_equivalent(a2, a12[, names(a2)])
   expect_equal(names(a[[1]]), names(a1))
   expect_equal(names(a[[2]]), names(a2))
-  expect_equal(comment(a12), names(a))
-  expect_equal(comment(a1), comment(a12)[1])
-  expect_equal(comment(a2), comment(a12)[2])
+  #expect_equal(comment(a12), names(a))
+  #expect_equal(comment(a1), comment(a12)[1])
+  #expect_equal(comment(a2), comment(a12)[2])
 
   a   <-   GetApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
   a1  <-  GetApiData1("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
@@ -106,9 +106,9 @@ test_that("ApiData - dataset output", {
   expect_equivalent(a2, a12[, names(a2)])
   expect_equal(names(a[[1]]), names(a1))
   expect_equal(names(a[[2]]), names(a2))
-  expect_equal(comment(a12), names(a))
-  expect_equal(comment(a1), comment(a12)[1])
-  expect_equal(comment(a2), comment(a12)[2])
+  #expect_equal(comment(a12), names(a))
+  #expect_equal(comment(a1), comment(a12)[1])
+  #expect_equal(comment(a2), comment(a12)[2])
   
 
   if(FALSE){
@@ -122,9 +122,9 @@ test_that("ApiData - dataset output", {
     expect_equivalent(a2, a12[, names(a2)])
     expect_equal(names(a[[1]]), names(a1))
     expect_equal(names(a[[2]]), names(a2))
-    expect_equal(comment(a12), names(a))
-    expect_equal(comment(a1), comment(a12)[1])
-    expect_equal(comment(a2), comment(a12)[2])
+    #expect_equal(comment(a12), names(a))
+    #expect_equal(comment(a1), comment(a12)[1])
+    #expect_equal(comment(a2), comment(a12)[2])
   }
   
   a    <-   PxData("01222", c("1103", "0301"), c(4, 9), 2i)
@@ -138,9 +138,9 @@ test_that("ApiData - dataset output", {
   expect_equivalent(a2, a12[, names(a2)])
   expect_equal(names(a[[1]]), names(a1))
   expect_equal(names(a[[2]]), names(a2))
-  expect_equal(comment(a12), names(a))
-  expect_equal(comment(a1), comment(a12)[1])
-  expect_equal(comment(a2), comment(a12)[2])
+  #expect_equal(comment(a12), names(a))
+  #expect_equal(comment(a1), comment(a12)[1])
+  #expect_equal(comment(a2), comment(a12)[2])
   
   
   b   <-   pxwebData("01222", c("1103", "0301"), c(4, 9), 2i)
@@ -155,9 +155,9 @@ test_that("ApiData - dataset output", {
   expect_equivalent(b2, b12[, names(b2)])
   expect_equal(names(b[[1]]), names(b1))
   expect_equal(names(b[[2]]), names(b2))
-  expect_equal(comment(b12), names(b))
-  expect_equal(comment(b1), comment(b12)[1])
-  expect_equal(comment(b2), comment(b12)[2])
+  #expect_equal(comment(b12), names(b))
+  #expect_equal(comment(b1), comment(b12)[1])
+  #expect_equal(comment(b2), comment(b12)[2])
   
   
 })
