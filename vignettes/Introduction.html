@@ -12,7 +12,7 @@
 
 <meta name="author" content="Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft" />
 
-<meta name="date" content="2022-03-18" />
+<meta name="date" content="2022-12-13" />
 
 <title>Introduction to PxWebApiData</title>
 
@@ -26,6 +26,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -109,13 +110,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -141,17 +149,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">Introduction to PxWebApiData</h1>
 <h4 class="author">Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft</h4>
-<h4 class="date">2022-03-18</h4>
+<h4 class="date">2022-12-13</h4>
 
 
 
 <div id="preface" class="section level3">
 <h3>Preface</h3>
-<p>An introduction to the r-package PxWebApiData is given below. Six calls to the main function, <code>ApiData</code>, are demonstrated. First, two calls for reading data sets are shown. The third call captures meta data. However, in practise, one may look at the meta data first. Then three more examples and some background is given.</p>
+<p>An <em>introduction</em> to the r-package PxWebApiData is given below. Six calls to the main function, <code>ApiData</code>, are demonstrated. First, two calls for reading data sets are shown. The third call captures meta data. However, in practise, one may look at the meta data first. Then three more examples and some background is given.</p>
 </div>
 <div id="specification-by-variable-indices-and-variable-ids" class="section level2">
 <h2>Specification by variable indices and variable id’s</h2>
-<p>The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters. Here two of the parameters are specified by variable id’s and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two last years in the data.</p>
+<p>The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters. Here two of the parameters are specified by variable id’s and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two latest years in the data.</p>
 <p>A list of two data frames is returned; the label version and the id version.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ApiData</span>(<span class="st">&quot;http://data.ssb.no/api/v0/en/table/04861&quot;</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">Region =</span> <span class="fu">c</span>(<span class="st">&quot;1103&quot;</span>, <span class="st">&quot;0301&quot;</span>), <span class="at">ContentsCode =</span> <span class="st">&quot;Bosatte&quot;</span>, <span class="at">Tid =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">1</span>))</span></code></pre></div>
@@ -304,7 +312,7 @@ $dataset
  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 26 rows ]</code></pre>
 <p>There are two limitations in the PxWebApi here.</p>
 <ol style="list-style-type: decimal">
-<li>The name of the filter and the IDs are not shown in metadata, only in the code “API Query for this table”.</li>
+<li>The name of the filter and the IDs are not shown in PxWebApi metadata, only in the code “API Query for this table”.</li>
 <li>It is only possible to give single elements as input. Filter <code>&quot;all&quot;:&quot;*&quot;</code> eg. TRUE, does not work with agg: and vs:.</li>
 </ol>
 <p>The other filter <code>vs:</code>, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.</p>
@@ -342,7 +350,7 @@ $dataset
     }
   ],
   &quot;response&quot;: {
-    &quot;format&quot;: &quot;json-stat&quot;
+    &quot;format&quot;: &quot;json-stat2&quot;
   }
 } </code></pre>
 </div>
@@ -353,23 +361,23 @@ $dataset
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ApiData</span>(<span class="st">&quot;https://data.ssb.no/api/v0/dataset/934516.json?lang=en&quot;</span>, <span class="at">getDataByGET =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>x[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>   year                                         contents value
-1  2022                           Gross domestic product   3.5
-2  2022                              GDP Mainland Norway   3.6
-3  2022                                 Employed persons   2.4
-4  2022                        Unemployment rate (level)   3.5
-5  2022                      Wages per standard man-year   3.6
-6  2022                       Consumer price index (CPI)   3.3
-7  2022                                          CPI-ATE   2.1
-8  2022                                   Housing prices   4.8
-9  2022                        Money market rate (level)   1.2
-10 2022 Import-weighted NOK exchange rate (44 countries)  -1.9
-11 2023                           Gross domestic product   2.7
-12 2023                              GDP Mainland Norway   2.5
+1  2022                           Gross domestic product   3.3
+2  2022                              GDP Mainland Norway   3.8
+3  2022                                 Employed persons   3.8
+4  2022                        Unemployment rate (level)   3.3
+5  2022                      Wages per standard man-year   3.9
+6  2022                       Consumer price index (CPI)   5.8
+7  2022                                          CPI-ATE   3.9
+8  2022                                   Housing prices   4.9
+9  2022                        Money market rate (level)   2.0
+10 2022 Import-weighted NOK exchange rate (44 countries)   1.2
+11 2023                           Gross domestic product   1.8
+12 2023                              GDP Mainland Norway   1.2
  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 28 rows ]</code></pre>
 </div>
 <div id="practical-example" class="section level2">
 <h2>Practical example</h2>
-<p>We would like to extract the number of female R&amp;D personel in the services sector of the Norwegian business life for the years 2017 and 2018.</p>
+<p>We would like to extract the number of female R&amp;D personel in the services sector of the Norwegian business life for the years 2019 and 2020.</p>
 <ol style="list-style-type: decimal">
 <li><p>Locate the relevant table at <a href="https://www.ssb.no" class="uri">https://www.ssb.no</a> that contains information on R&amp;D personel. Having obtained the relevant table, table 07964, we create the link <a href="https://data.ssb.no/api/v0/no/table/07964/" class="uri">https://data.ssb.no/api/v0/no/table/07964/</a></p></li>
 <li><p>Load the package.</p></li>
@@ -408,7 +416,7 @@ $dataset
 <li>Define these variables in the query to sort out the values we want.</li>
 </ol>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">ApiData</span>(<span class="st">&quot;https://data.ssb.no/api/v0/en/table/07964/&quot;</span>,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">Tid =</span> <span class="fu">c</span>(<span class="st">&quot;2017&quot;</span>, <span class="st">&quot;2018&quot;</span>), <span class="co"># Define year to 2017 and 2018</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">Tid =</span> <span class="fu">c</span>(<span class="st">&quot;2019&quot;</span>, <span class="st">&quot;2020&quot;</span>), <span class="co"># Define year to 2019 and 2020</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">NACE2007 =</span> <span class="st">&quot;G-N&quot;</span>, <span class="co"># Define the services sector</span></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">ContentsCode =</span> <span class="fu">c</span>(<span class="st">&quot;KvinneligFoUpers&quot;</span>)) <span class="co"># Define women R&amp;D personell</span></span>
 <span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -416,8 +424,8 @@ $dataset
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code></pre></div>
 <pre><code>##   industry (SIC2007)             contents year value
-## 1     Services total Female R&amp;D personnel 2017  4408
-## 2     Services total Female R&amp;D personnel 2018  4528</code></pre>
+## 1     Services total Female R&amp;D personnel 2019  4509
+## 2     Services total Female R&amp;D personnel 2020  4666</code></pre>
 </div>
 <div id="background" class="section level2">
 <h2>Background</h2>

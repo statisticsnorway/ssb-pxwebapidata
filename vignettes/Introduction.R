@@ -73,7 +73,7 @@ values[[3]]$values
 ## -----------------------------------------------------------------------------
 
 data <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
-                Tid = c("2017", "2018"), # Define year to 2017 and 2018
+                Tid = c("2019", "2020"), # Define year to 2019 and 2020
                 NACE2007 = "G-N", # Define the services sector
                 ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
 
