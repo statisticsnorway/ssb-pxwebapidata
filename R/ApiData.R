@@ -136,7 +136,7 @@
 #'  
 #'                
 #' ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
-#' urlStatfi <- "https://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_12au.px"
+#' urlStatfi <- "https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px"
 #' ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 #' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = 21
 #' 
