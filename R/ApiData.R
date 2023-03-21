@@ -243,7 +243,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
       if (returnApiQuery) 
         return(sporr)
       if(apiPackage == "pxweb" ){
-        post <-  Graceful(pxweb_get(url = urlToData, query = sporr, verbose = verbosePrint))
+        post <-  Graceful(pxweb_get, url = urlToData, query = sporr, verbose = verbosePrint)
       } else {
         if (verbosePrint) 
           post <-  Graceful(content, POST(urlToData, body = sporr, encode = "json", verbose()), "text") 
