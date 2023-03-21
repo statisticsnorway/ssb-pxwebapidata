@@ -731,7 +731,7 @@ DataSetS <- function(x){
 
 Graceful <- function(fun, ..., txt = "No internet connection or resource not available: ") {
   a <- suppressWarnings(try(fun(...), silent = TRUE))
-  if (class(a)[1] %in% c("NULL", "try-error")) {
+  if (inherits(a, c("NULL", "try-error"))) {   # if (class(a)[1] %in% c("NULL", "try-error")) {
     message(paste0(txt, as.character(a)))
     return(NULL)
   }
