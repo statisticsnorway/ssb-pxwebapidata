@@ -84,13 +84,13 @@
 #' ##### Ordinary use     (makeNAstatus is in use in first two examples)
 #' 
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
-#' ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+#' x <- ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Two specified and the last is default (as above) - in Norwegian change en to no in url
-#' ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+#' x <- ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Number of residents (bosatte) last year, each region
-#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
+#' x <- ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
 #'         ContentsCode = "Bosatte", Tid = 1i)
 #' 
 #' # Number of residents (bosatte) each year, total
