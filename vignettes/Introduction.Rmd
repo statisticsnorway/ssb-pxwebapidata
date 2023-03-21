@@ -41,7 +41,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
-To return a single dataset with only labels use the function `ApiData1`. `Apidata2` returns only ids. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
+To return a single dataset with only labels use the function `ApiData1`. The function `Apidata2` returns only id's. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData12("http://data.ssb.no/api/v0/en/table/04861",
@@ -69,10 +69,18 @@ x[[1]]
 x[[2]]
 ```
 
+## Show additional information
+
+`comment` list additional dataset information: Title, latest update and source.
+```{r}
+
+comment(x)
+
+```
 
 ## Obtaining meta data
 
-Meta information about the data set can be obtained by "returnMetaFrames = TRUE".
+Meta information about the data set can be obtained by `returnMetaFrames = TRUE`.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
@@ -81,11 +89,11 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 ```
 
 ## Aggregations using filter *agg:*
-PxWebApi has two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
+PxWebApi offers two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
 
 `agg`: is used for readymade aggregation groupings. 
 
-This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. This return Norwegian labels instead of English.
+This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. That returns labels in Norwegian instead of in English.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/no/table/07459",
@@ -121,10 +129,11 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 ```
 
+To convert an original JSON API query it is possible to use the [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
 
 ## Readymade datasets
 Statistics Norway also provide an API with readymade datasets, available by http GET.
-Use the parameter getDataByGET = TRUE. By changing to `lang=no` int the URL you get the label version in Norwegian.
+Use the parameter `getDataByGET = TRUE`. By changing to `lang=no` in the URL you get the label version in Norwegian.
 
 This dataset is from Economic trends forecasts.
 
@@ -132,6 +141,18 @@ This dataset is from Economic trends forecasts.
 x <- ApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en", getDataByGET = TRUE)
 x[[1]]
 
+```
+
+## Eurostat data
+Eurostat REST API offers JSON-stat version 2. Even if it not PxWeb, it is possible to use this package to obtain data from Eurostat by using `getDataByGET`. 
+
+This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query) for more.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+
+urlEurostat <- ApiData12("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU", getDataByGET = TRUE)
+urlEurostat
+comment(urlEurostat)
 ```
 
 
@@ -190,7 +211,13 @@ head(data)
 
 ```
 
+6) Show additional information.
 
+```{r}
+
+comment(data)
+
+```
 
 ## Background
 
