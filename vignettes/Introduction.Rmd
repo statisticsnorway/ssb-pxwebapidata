@@ -7,13 +7,13 @@ vignette: >
   %\VignetteIndexEntry{Introduction to PxWebApiData}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-keywords: Statbank, PxWebApi, official statistics
+keywords: Statbank, PxWeb, PxWebApi, official statistics, json-stat
 ---
 
 
 ### Preface
 
-An introduction to the r-package PxWebApiData is given below.
+An introduction to the R-package PxWebApiData is given below.
 Six calls to the main function, `ApiData`, are demonstrated.
 First, two calls for reading data sets are shown. The third call captures meta data.
 However, in practise, one may look at the meta data first.
@@ -41,7 +41,13 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
-To return a single dataset with only labels use the function `ApiData1`. `Apidata2` returns only ids. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
+To return a single dataset with only labels use the function `ApiData1`. The function `Apidata2` returns only id's. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
+
+
+```{r include = FALSE}
+options(max.print = 75)
+```
+
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData12("http://data.ssb.no/api/v0/en/table/04861",
@@ -50,9 +56,13 @@ ApiData12("http://data.ssb.no/api/v0/en/table/04861",
 ```
 
 
+```{r include = FALSE}
+options(max.print = 45)
+```
+
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 
-All possible values is obtained by TRUE and corresponds to filter `"all": "*"` in the api query. Elimination of a variables is obtained by FALSE. An imaginary value corresponds to filter `"top"` in the api query.
+All possible values is obtained by TRUE and corresponds to filter `"all": "*"` in the api query. Elimination of a variable is obtained by FALSE. An imaginary value corresponds to filter `"top"` in the api query.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
@@ -69,10 +79,18 @@ x[[1]]
 x[[2]]
 ```
 
+## Show additional information
+
+`comment` list additional dataset information: Title, latest update and source.
+```{r, comment=NA}
+
+comment(x)
+
+```
 
 ## Obtaining meta data
 
-Meta information about the data set can be obtained by "returnMetaFrames = TRUE".
+Meta information about the data set can be obtained by `returnMetaFrames = TRUE`.
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
@@ -81,11 +99,11 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 ```
 
 ## Aggregations using filter *agg:*
-PxWebApi has two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
+PxWebApi offers two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
 
 `agg`: is used for readymade aggregation groupings. 
 
-This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Note the url where /en is replaced by /no. This return Norwegian labels instead of English.
+This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Also note the url where `/en` is replaced by `/no`. That returns labels in Norwegian instead of in English.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/no/table/07459",
@@ -96,22 +114,20 @@ ApiData("http://data.ssb.no/api/v0/no/table/07459",
 
 
 ```
-There are two limitations in the PxWebApi here.
+There are two limitations in the PxWebApi using these filters.
 
-1) The name of the filter and the IDs are not shown in metadata, only in the code "API Query for this table".
-2) It is only possible to give single elements as input. Filter `"all":"*"` eg. TRUE, does not work with agg: and vs:.
+1) The name of the filter and the id's are not shown in metadata, only in the code "API Query for this table".
+2) The filters `agg:` and `vs:` can only take single elements as input. Filter `"all":"*"` eg. TRUE, does not work with agg: and vs:.
 
-The other filter `vs:`, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that vs: is redundant.
+The other filter `vs:`, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that `vs:` is redundant.
 
-In this example Region is the value pool and Fylker is the value set. As `vs:Fylker` is redundant, both return the same:
+In this example Region is the value pool and Fylker (counties) is the value set. As `vs:Fylker` is redundant, both will return the same:
 
-```
+```{r eval=TRUE, tidy = FALSE, comment=NA}
   Region = list("vs:Fylker",c("01","02"))
-  Region = list(c("01","02")).
+  Region = list(c("01","02"))
 
 ```
-
-
 
 ## Return the API query as JSON
 In PxWebApi the original query is formulated as JSON. Using the parameter returnApiQuery is useful for debugging.
@@ -121,23 +137,40 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 ```
 
+To convert an original JSON API query to a PxWebApiData query there is also a simple webpage [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
 
-## Readymade datasets
-Statistics Norway also provide an API with readymade datasets, available by http GET.
-Use the parameter getDataByGET = TRUE. By changing to `lang=no` int the URL you get the label version in Norwegian.
-
-This dataset is from Economic trends forecasts.
+## Readymade datasets by GetApiData
+Statistics Norway also provides an API with readymade datasets, available by http GET.
+The data is most easily retrieved with the `GetApiData` function, which is the same as using  the parameter  `getDataByGET = TRUE` in the `ApiData` function.
+This dataset is from Statistics Norway's Economic trends forecasts.
 
 ```{r eval=TRUE, comment=NA, tidy=FALSE}
-x <- ApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en", getDataByGET = TRUE)
+x <- GetApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en")
 x[[1]]
+comment(x)
+
+```
+
+## Eurostat data
+Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `GetApiData`
+or the similar functions with `1`, `2` or `12` at the end
+
+This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query) for more.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"}
+
+urlEurostat <- paste0(   # Here the long url is split into several lines using paste0 
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
+  "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
+urlEurostat
+GetApiData12(urlEurostat)
 
 ```
 
 
 ## Practical example
 
-We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2017 and 2018.
+We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2019 and 2020.
 
 1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/
 
@@ -179,18 +212,24 @@ values[[3]]$values
 
 ```{r}
 
-data <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
-                Tid = c("2017", "2018"), # Define year to 2017 and 2018
+mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
+                Tid = c("2019", "2020"), # Define year to 2019 and 2020
                 NACE2007 = "G-N", # Define the services sector
                 ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
 
-data <- data[[1]] # Extract the first list element, which contains full variable names.
+mydata <- mydata[[1]] # Extract the first list element, which contains full variable names.
 
-head(data)
+head(mydata)
 
 ```
 
+6) Show additional information.
 
+```{r}
+
+comment(mydata)
+
+```
 
 ## Background
 

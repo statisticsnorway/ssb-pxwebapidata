@@ -1,3 +1,12 @@
+## PxWebApiData	0.8.0
+
+* `responseFormat`, new parameter to `ApiData` with `"json-stat2"` as default.
+  - Previously, `"json-stat2"` was not used.
+* Now a comment attribute with elements `label`, `source` and `updated` is added to output as a named three-element character vector.
+  - Thus, the comment attribute has been changed from the previous version
+  - Run the `comment` function to obtain this information.
+* Eurostat data example included in the vignette.   
+* More changes to meet CRAN policy as in version 0.6.0 (also when `apiPackage = "pxweb"`)  
 
 
 ## PxWebApiData	0.7.0

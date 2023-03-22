@@ -1,8 +1,8 @@
 Package: PxWebApiData 
 Type: Package
 Title: PX-Web Data by API 
-Version: 0.7.1
-Date: 2022-03-18
+Version: 0.7.3
+Date: 2023-03-22
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"), email = "oyl@ssb.no"),
              person("Jan", "Bruusgaard", role = c("aut")),
              person("Solveig", "Bjørkholt", role = c("ctb")),
@@ -17,4 +17,4 @@ Encoding: UTF-8
 URL: https://github.com/statisticsnorway/PxWebApiData
 BugReports: https://github.com/statisticsnorway/PxWebApiData/issues 
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

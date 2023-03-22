@@ -1,18 +1,46 @@
 
-fromJSONstatExtra <- function(x, ..., makeNAstatus = TRUE) {
-  z <- rjstat::fromJSONstat(x = x, ...)
+fromJSONstatExtra <- function(x, naming, ..., makeNAstatus = TRUE) {
+  
+  z <- rjstat::fromJSONstat(x = x, naming = naming, ...)
+  
+  
+  in_dataset <- !inherits(z, "data.frame")  # both 'json-stat' and 'json-stat2' will work 
+  
+  special <- SpecialFromJSON(x, in_dataset)
+  
+  if (!in_dataset) {      # Recreate json-stat output from json-stat2
+    z <- list(dataset = z)
+    if (naming == "label") {
+      names(z) <- special[["label"]]
+    }
+  }
+  
+  # new comment attribute
+  comment(z[[1]]) <- unlist(special[c("label", "source", "updated")])
+  
   if (!makeNAstatus) {
     return(z)
   }
-  status <- MakeNAstatus(x, as.vector(z[[1]]$value))
+  
+  status <- MakeNAstatus(special, as.vector(z[[1]]$value))
   if (!is.null(status)) {
     z[[1]]$NAstatus <- status
   }
+  
   z
 }
 
 
-MakeNAstatus <- function(post, values) {
+SpecialFromJSON <- function(post, in_dataset = TRUE) {
+  k <- jsonlite::fromJSON(post)
+  if (in_dataset) {
+    return(k$dataset)
+  }
+  k
+}
+
+
+MakeNAstatus <- function(special, values) {
   
   is_na_values <- is.na(values)
   
@@ -20,9 +48,9 @@ MakeNAstatus <- function(post, values) {
     return(NULL)
   }
   
-  k <- jsonlite::fromJSON(post)
+  #k <- jsonlite::fromJSON(post)
   
-  status <- unlist(k$dataset$status)
+  status <- unlist(special$status)
   
   # No warning when NULL 
   if(is.null(status)){
@@ -34,7 +62,13 @@ MakeNAstatus <- function(post, values) {
   
   wtxt <- "Could not capture status"
   
-  x <- as.vector(unlist(k$dataset$value))
+  x <- unlist(special$value)
+  
+  if(!is.null(names(x))){               # Eurostat data is like this
+    x <- FullLength(x, length(values))
+  } else {
+    x <- as.vector(x)
+  }
   
   if (!identical(x, values)) {
     warningHere(wtxt)
@@ -56,3 +90,16 @@ MakeNAstatus <- function(post, values) {
   return(statusAll)
   
 }
+
+
+FullLength <- function(x, length_x) {
+  x_NA <- as.vector(x[1])
+  x_NA[] <- NA
+  x_NA  # single NA with same class as x and no name
+  a <- rep(x_NA, length_x)
+  a[1L + as.integer(names(x))] <- x
+  a
+}
+
+
+

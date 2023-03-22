@@ -35,7 +35,8 @@ ApiData(
   apiPackage = "httr",
   dataPackage = "rjstat",
   returnDataSet = NULL,
-  makeNAstatus = TRUE
+  makeNAstatus = TRUE,
+  responseFormat = "json-stat2"
 )
 
 GetApiData(..., getDataByGET = TRUE)
@@ -100,12 +101,12 @@ PxData12(..., returnDataSet = 12)
 \item \strong{\code{1}:} The first data set
 \item \strong{\code{2}:} The second data set
 \item \strong{\code{12}:} Both data sets combined
-}
-
-The original list names are included as a comment attribute.}
+}}
 
 \item{makeNAstatus}{When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in \code{value},
 the function tries to add an additional variable, named \code{NAstatus}, with status codes.}
+
+\item{responseFormat}{Response format to be used when \code{apiPackage} and \code{dataPackage} are defaults  (\code{"json-stat"} or \code{"json-stat2"}).}
 }
 \value{
 list of two data sets (label and id)
@@ -125,6 +126,9 @@ The value can also be specified as a (unnamed) two-element list corresponding to
 query elements, filter and values. In addition it possible with a single-element list.
 Then filter is set to 'all'. See examples.
 
+A comment attribute with elements \code{label}, \code{source} and \code{updated} is added to output as a named three-element character vector.
+Run \code{\link{comment}} to obtain this information.
+
 Functionality in the package \code{pxweb} can be utilized by making use of the parameters
 \code{apiPackage} and \code{dataPackage}
 as implemented as the wrappers \code{PxData} and \code{pxwebData}.
@@ -142,13 +146,12 @@ x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGE
 x[[1]]  # The label version of the data set
 x[[2]]  # The id version of the data set
 names(x)
+comment(x)
 
 ##### As above with single data set output
 url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
 x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
 x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
-comment(x1) # as names(x)[1]
-comment(x2) # as names(x)[2]
 ApiData12(url, getDataByGET = TRUE) # Combined
 
 ##### Special output
@@ -161,13 +164,13 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # 
 ##### Ordinary use     (makeNAstatus is in use in first two examples)
 
 # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
-ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+x <- ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 
 # Two specified and the last is default (as above) - in Norwegian change en to no in url
-ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+x <- ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 
 # Number of residents (bosatte) last year, each region
-ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
+x <- ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
         ContentsCode = "Bosatte", Tid = 1i)
 
 # Number of residents (bosatte) each year, total
@@ -213,7 +216,7 @@ ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line 
  
                
 ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
-urlStatfi <- "https://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_12au.px"
+urlStatfi <- "https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px"
 ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = 21
 

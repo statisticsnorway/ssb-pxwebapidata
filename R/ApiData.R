@@ -22,10 +22,10 @@
 #' * **`2`:** The second data set 
 #' * **`12`:** Both data sets combined
 #' 
-#' The original list names are included as a comment attribute.
 #'   
 #' @param makeNAstatus When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in `value`, 
 #'                     the function tries to add an additional variable, named `NAstatus`, with status codes.
+#' @param responseFormat  Response format to be used when `apiPackage` and `dataPackage` are defaults  (`"json-stat"` or `"json-stat2"`).
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
 #' TRUE (all), FALSE (eliminated), imaginary value (top), variable indices, 
@@ -37,13 +37,17 @@
 #' The value can also be specified as a (unnamed) two-element list corresponding to the two 
 #' query elements, filter and values. In addition it possible with a single-element list.
 #' Then filter is set to 'all'. See examples. 
-#' 
+#'
+#' A comment attribute with elements `label`, `source` and `updated` is added to output as a named three-element character vector. 
+#' Run \code{\link{comment}} to obtain this information. 
+#'  
 #' Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
 #' \code{apiPackage} and \code{dataPackage} 
 #' as implemented as the wrappers \code{PxData} and \code{pxwebData}.
 #' With data sets too large for ordinary downloads, \code{PxData} can solve the problem (multiple downloads).
 #' When using \code{pxwebData}, data will be downloaded in px-json format instead of json-stat and the output data frame 
 #' will be organized differently (ContentsCode categories as separate variables).
+#' 
 #'
 #' @return list of two data sets (label and id)
 #' @note See the package vignette for aggregations using filter \code{agg}.
@@ -62,13 +66,12 @@
 #' x[[1]]  # The label version of the data set
 #' x[[2]]  # The id version of the data set
 #' names(x)
+#' comment(x)
 #' 
 #' ##### As above with single data set output
 #' url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
 #' x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
 #' x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
-#' comment(x1) # as names(x)[1]
-#' comment(x2) # as names(x)[2]
 #' ApiData12(url, getDataByGET = TRUE) # Combined
 #' 
 #' ##### Special output
@@ -81,13 +84,13 @@
 #' ##### Ordinary use     (makeNAstatus is in use in first two examples)
 #' 
 #' # NACE2007 as imaginary value (top 10), ContentsCode as TRUE (all), Tid is default
-#' ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+#' x <- ApiData("https://data.ssb.no/api/v0/en/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Two specified and the last is default (as above) - in Norwegian change en to no in url
-#' ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
+#' x <- ApiData("https://data.ssb.no/api/v0/no/table/11419", NACE2007 = 10i, ContentsCode = TRUE)
 #' 
 #' # Number of residents (bosatte) last year, each region
-#' ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
+#' x <- ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = TRUE, 
 #'         ContentsCode = "Bosatte", Tid = 1i)
 #' 
 #' # Number of residents (bosatte) each year, total
@@ -133,7 +136,7 @@
 #'  
 #'                
 #' ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
-#' urlStatfi <- "https://pxnet2.stat.fi/PXWeb/api/v1/en/StatFin/vrm/kuol/statfin_kuol_pxt_12au.px"
+#' urlStatfi <- "https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px"
 #' ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
 #' ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = 21
 #' 
@@ -167,14 +170,18 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
                     apiPackage = "httr",
                     dataPackage = "rjstat",
                     returnDataSet = NULL,
-                    makeNAstatus = TRUE) {
+                    makeNAstatus = TRUE,  responseFormat = "json-stat2") {
   
   # if(!getDataByGET)     ## With this test_that("ApiData - SSB-data advanced use", fail
   #   apiPackage = "pxweb"
   
-  if (makeNAstatus) {
-    fromJSONstat <- fromJSONstatExtra
+  if(apiPackage ==  "pxweb"){
+    responseFormat = "json-stat"
   }
+  
+  #if (makeNAstatus) {
+    fromJSONstat <- fromJSONstatExtra
+  #}
   
   if(!is.null(returnDataSet)){
     if(!(returnDataSet %in% c(1, 2, 12)))
@@ -228,14 +235,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
         cat("\n\n")
       }
  
-      responseFormat = "json-stat"
+      # responseFormat = "json-stat" 
+      
       if(dataPackage == "pxweb")
         responseFormat = "json"
       sporr <- MakeApiQuery(metaFrames, ..., defaultJSONquery = defaultJSONquery, responseFormat = responseFormat)
       if (returnApiQuery) 
         return(sporr)
       if(apiPackage == "pxweb" ){
-        post <-  pxweb_get(url = urlToData, query = sporr, verbose = verbosePrint)
+        post <-  Graceful(pxweb_get, url = urlToData, query = sporr, verbose = verbosePrint)
       } else {
         if (verbosePrint) 
           post <-  Graceful(content, POST(urlToData, body = sporr, encode = "json", verbose()), "text") 
@@ -266,7 +274,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
     if(returnDataSet %in% 12){
       return(DataSet12(z))
     }
-    return(z)
+    return(DataSetS(z))
   }
 
   if (length(post) > 1) {
@@ -296,7 +304,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
       return(DataSet12(post[[1]]))
     }
     
-    return(post[[1]])
+    return(DataSetS(post[[1]]))
   }
   
   
@@ -321,7 +329,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
     return(DataSet12(z))
   }
   
-  z
+  DataSetS(z)
 }
 
 
@@ -647,7 +655,7 @@ MakeUrl <- function(id,urlType="SSB",getDataByGET = FALSE){
 
 
 
-MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), returnThezList = FALSE, responseFormat = "json-stat") {
+MakeApiQuery <- function(metaFrames, ..., defaultJSONquery = c(1, -2, -1), returnThezList = FALSE, responseFormat) {
   x <- list(...)
   namesx <- names(x)
   if (is.null(namesx)) 
@@ -690,16 +698,29 @@ HeadEnd <- function(x, n = 8L) {
 
 DataSet12 <- function(x){
   z <- cbind(x[[1]][, !(names(x[[1]] ) %in% names(x[[2]])), drop=FALSE], x[[2]])
-  comment(z) <- names(x)
+  comment_z <- comment(x[[1]])
+  if (is.null(comment_z)) {
+    comment_z <- names(x)
+  }
+  comment(z) <- comment_z
   z
 }
 
 DataSet <- function(x, i){
   z <- x[[i]]
-  comment(z) <- names(x)[i]
+  comment_z <- comment(x[[i]])
+  if (is.null(comment_z)) {
+    comment_z <- names(x)[i]
+  }
+  comment(z) <- comment_z
   z
 }
 
+
+DataSetS <- function(x){
+  comment(x) <- comment(x[[1]])
+  x
+}
 
 
 
@@ -710,7 +731,7 @@ DataSet <- function(x, i){
 
 Graceful <- function(fun, ..., txt = "No internet connection or resource not available: ") {
   a <- suppressWarnings(try(fun(...), silent = TRUE))
-  if (class(a)[1] %in% c("NULL", "try-error")) {
+  if (inherits(a, c("NULL", "try-error"))) {   # if (class(a)[1] %in% c("NULL", "try-error")) {
     message(paste0(txt, as.character(a)))
     return(NULL)
   }
