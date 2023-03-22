@@ -43,12 +43,22 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",
 ```
 To return a single dataset with only labels use the function `ApiData1`. The function `Apidata2` returns only id's. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
 
+
+```{r include = FALSE}
+options(max.print = 75)
+```
+
+
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData12("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
 
+
+```{r include = FALSE}
+options(max.print = 45)
+```
 
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 
@@ -129,28 +139,31 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 To convert an original JSON API query to a PxWebApiData query there is also a simple webpage [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
 
-## Readymade datasets
+## Readymade datasets by GetApiData
 Statistics Norway also provides an API with readymade datasets, available by http GET.
-Use the parameter `getDataByGET = TRUE`. By changing to `lang=no` in the URL you get the label version in Norwegian.
-
+The data is most easily retrieved with the `GetApiData` function, which is the same as using  the parameter  `getDataByGET = TRUE` in the `ApiData` function.
 This dataset is from Statistics Norway's Economic trends forecasts.
 
 ```{r eval=TRUE, comment=NA, tidy=FALSE}
-x <- ApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en", getDataByGET = TRUE)
+x <- GetApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en", getDataByGET = TRUE)
 x[[1]]
 comment(x)
 
 ```
 
 ## Eurostat data
-Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `getDataByGET`. 
+Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `GetApiData`
+or the similar functions with `1`, `2` or `12` at the end
 
 This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query) for more.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"}
 
-urlEurostat <- ApiData12("https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU", getDataByGET = TRUE)
+urlEurostat <- paste0(   # Here the long url is split into several lines using paste0 
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
+  "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
 urlEurostat
+GetApiData12(urlEurostat)
 
 ```
 
@@ -199,14 +212,14 @@ values[[3]]$values
 
 ```{r}
 
-data <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
+mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
                 Tid = c("2019", "2020"), # Define year to 2019 and 2020
                 NACE2007 = "G-N", # Define the services sector
                 ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
 
-data <- data[[1]] # Extract the first list element, which contains full variable names.
+mydata <- mydata[[1]] # Extract the first list element, which contains full variable names.
 
-head(data)
+head(mydata)
 
 ```
 
@@ -214,7 +227,7 @@ head(data)
 
 ```{r}
 
-comment(data)
+comment(mydata)
 
 ```
 
