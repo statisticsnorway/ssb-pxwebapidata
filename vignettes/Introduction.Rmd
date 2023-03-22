@@ -82,7 +82,7 @@ x[[2]]
 ## Show additional information
 
 `comment` list additional dataset information: Title, latest update and source.
-```{r}
+```{r, comment=NA}
 
 comment(x)
 
