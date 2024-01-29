@@ -36,8 +36,8 @@ test_that("ApiData - SCB-data using TRUE and FALSE", {
     expect_equal(is.integer(a1[[1]][, "value"]), TRUE)
     expect_equal(is.character(a1[[2]][, "ContentsCode"]), TRUE)
     expect_equal(a1[[1]][, "value"], a1[[2]][, "value"])
-    expect_equal(a1, a2)
-    expect_equal(a1, a3)
+    if (!is.null(a2)) expect_equal(a1, a2)
+    if (!is.null(a3)) expect_equal(a1, a3)
   }
 })
 
@@ -59,8 +59,8 @@ test_that("ApiData - StatFin-data with special characters", {
   a3 <- ApiData(urlStatFin, Kuukausi = 2, Alue2018 = 2, Muuttujat = 2)
   if (!is.null(a1)) {
     expect_equal(a1[[1]]$Alue2018, "Alajärvi Kunta")
-    expect_equal(a1, a2)
-    expect_equal(a1, a3)
+    if (!is.null(a2)) expect_equal(a1, a2)
+    if (!is.null(a3)) expect_equal(a1, a3)
   }
 })
 
@@ -72,8 +72,8 @@ test_that("ApiData - SSB-data advanced use", {
   a2 <- ApiData(urlSSB, Region = "0399", ContentsCode = list("all", "*"), Tid = -(1:2))
   a3 <- ApiData(urlSSB, Region = "Uoppgitt komm. Oslo", ContentsCode = c("Area of urban settlements (km²)", "Bosatte"), Tid = list("top", "2"))
   if (!is.null(a1)) {
-    expect_equal(a1, a2)
-    expect_equal(a1, a3)
+    if (!is.null(a2)) expect_equal(a1, a2)
+    if (!is.null(a3)) expect_equal(a1, a3)
   }
 })
 
