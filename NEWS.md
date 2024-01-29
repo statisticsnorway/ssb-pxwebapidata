@@ -1,3 +1,8 @@
+## PxWebApiData	0.9.0
+
+* Minor update regarding warnings:
+  - Previously, some warnings were suppressed to comply with the CRAN policy (refer to version 0.6.0 below). Now, these warnings are instead converted to messages.
+
 ## PxWebApiData	0.8.0
 
 * `responseFormat`, new parameter to `ApiData` with `"json-stat2"` as default.

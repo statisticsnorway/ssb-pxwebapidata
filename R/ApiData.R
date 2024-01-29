@@ -725,18 +725,34 @@ DataSetS <- function(x){
 
 
 
-
-
-
-
 Graceful <- function(fun, ..., txt = "No internet connection or resource not available: ") {
-  a <- suppressWarnings(try(fun(...), silent = TRUE))
+  a <- WithWarningsAsMessages(try(fun(...), silent = TRUE))
   if (inherits(a, c("NULL", "try-error"))) {   # if (class(a)[1] %in% c("NULL", "try-error")) {
     message(paste0(txt, as.character(a)))
     return(NULL)
   }
   a
 }
+
+
+# With help from ChatGPT from OpenAI after telling ChatGPT to make 
+# the code similar to suppressWarnings(). 
+WithWarningsAsMessages <- function(expr, classes = "warning") {
+  withCallingHandlers(
+    expr,
+    warning = function(w) {
+      if (inherits(w, classes)) {
+        message("Warning converted to message: ", w$message)
+        tryInvokeRestart("muffleWarning")
+      }
+    }
+  )
+}
+
+
+
+
+
 
 
 
