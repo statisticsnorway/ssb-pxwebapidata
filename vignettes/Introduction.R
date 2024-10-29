@@ -31,7 +31,7 @@ x[[1]]
 
 x[[2]]
 
-## ---- comment=NA--------------------------------------------------------------
+## ----comment=NA---------------------------------------------------------------
 
 comment(x)
 
@@ -42,7 +42,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
 ApiData("http://data.ssb.no/api/v0/no/table/07459",
-        Region = list("agg:KommSummer", c("K-3001", "K-3002")),
+        Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
         Kjonn = TRUE)
