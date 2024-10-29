@@ -1,3 +1,14 @@
+## PxWebApiData	1.0.0
+* This package has been a stable workhorse, now updated to version 1.0.0.
+* This package now has a documentation site at 
+    [https://statisticsnorway.github.io/ssb-pxwebapidata](https://statisticsnorway.github.io/ssb-pxwebapidata), 
+     providing easy access to vignettes and guides.
+* Minor updates with no changes in functionality
+  - Changed package license to MIT, in accordance with the policy at Statistics Norway.
+  - Updated outdated region codes in the vignette under _Aggregations using filter agg_.
+  - Some technical changes in documentation to comply with standards.
+
+
 ## PxWebApiData	0.9.0
 
 * Minor update regarding warnings:
