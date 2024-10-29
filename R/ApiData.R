@@ -13,7 +13,7 @@
 #' @param returnApiQuery When TRUE, JSON query returned 
 #' @param defaultJSONquery specification for variables not included in ...
 #' @param verbosePrint When TRUE, printing to console
-#' @param use_factors Parameter to \code{\link{fromJSONstat}} defining whether dimension categories should be factors or character objects.
+#' @param use_factors Parameter to \code{\link[rjstat]{fromJSONstat}} defining whether dimension categories should be factors or character objects.
 #' @param urlType  Parameter defining how url is constructed from id number. Currently two Statistics Norway possibilities: "SSB" (Norwegian) or "SSBen" (English)
 #' @param apiPackage Package used to capture json(-stat) data from API: \code{"httr"} (default) or \code{"pxweb"}
 #' @param dataPackage Package used to transform json(-stat) data to data frame: \code{"rjstat"} (default) or \code{"pxweb"}
