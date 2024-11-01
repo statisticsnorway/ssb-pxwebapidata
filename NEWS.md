@@ -1,7 +1,7 @@
 ## PxWebApiData	1.0.0
 * This package has been a stable workhorse, now updated to version 1.0.0.
 * This package now has a documentation site at 
-    [https://statisticsnorway.github.io/ssb-pxwebapidata](https://statisticsnorway.github.io/ssb-pxwebapidata), 
+    [https://statisticsnorway.github.io/ssb-pxwebapidata](https://statisticsnorway.github.io/ssb-pxwebapidata/), 
      providing easy access to vignettes and guides.
 * Now the  comment attribute also includes elements `tableid` and `contents` whenever these are available.
 * Minor updates with no changes in functionality
