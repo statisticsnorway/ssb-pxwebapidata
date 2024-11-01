@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -134,7 +134,7 @@
 
 
 <dt id="arg-use-factors">use_factors<a class="anchor" aria-label="anchor" href="#arg-use-factors"></a></dt>
-<dd><p>Parameter to <code>fromJSONstat</code> defining whether dimension categories should be factors or character objects.</p></dd>
+<dd><p>Parameter to <code><a href="https://rdrr.io/pkg/rjstat/man/fromJSONstat.html" class="external-link">fromJSONstat</a></code> defining whether dimension categories should be factors or character objects.</p></dd>
 
 
 <dt id="arg-urltype">urlType<a class="anchor" aria-label="anchor" href="#arg-urltype"></a></dt>
@@ -180,7 +180,8 @@ whose default means the first and the two last elements.</p>
 <p>The value can also be specified as a (unnamed) two-element list corresponding to the two
 query elements, filter and values. In addition it possible with a single-element list.
 Then filter is set to 'all'. See examples.</p>
-<p>A comment attribute with elements <code>label</code>, <code>source</code> and <code>updated</code> is added to output as a named three-element character vector.
+<p>A comment attribute with elements <code>label</code>, <code>source</code> and <code>updated</code> is added to output as a named character vector.
+When available, the elements <code>tableid</code> and <code>contents</code> are also included, resulting in a vector with 3 to 5 elements.
 Run <code><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></code> to obtain this information.</p>
 <p>Functionality in the package <code>pxweb</code> can be utilized by making use of the parameters
 <code>apiPackage</code> and <code>dataPackage</code>
@@ -201,48 +202,48 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ApiData</span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/dataset/1066.json?lang=en"</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>  <span class="co"># The label version of the data set</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                  industry   month</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             contents value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted  92.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted  91.9</span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>  <span class="co"># The id version of the data set</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    NACE     Tid ContentsCode value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M08  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M09  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M10  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M11  VolumSesong  92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2023M12  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M01  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M02  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M03  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M04  VolumSesong  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M05  VolumSesong  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M06  VolumSesong  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M07  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M09  VolumSesong  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M10  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M11  VolumSesong  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M12  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2024M01  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M02  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M03  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M04  VolumSesong  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M05  VolumSesong  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M06  VolumSesong  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M07  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M09  VolumSesong  91.9</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "07129: The Index of wholesale and retail trade, by industry, month and contents"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "dataset"                                                                        </span>
@@ -252,7 +253,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            source </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                               "Statistics Norway" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                           updated </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            "2024-09-27T06:00:00Z" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            "2024-10-30T07:00:00Z" </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##### As above with single data set output</span></span></span>
 <span class="r-in"><span><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://data.ssb.no/api/v0/dataset/1066.json?lang=en"</span></span></span>
@@ -260,33 +261,33 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">ApiData2</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># as x[[2]]</span></span></span>
 <span class="r-in"><span><span class="fu">ApiData12</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># Combined</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                  industry   month</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             contents NACE     Tid ContentsCode value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted   47 2023M08  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted   47 2023M09  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted   47 2023M10  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted   47 2023M11  VolumSesong  92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Volume index, seasonally adjusted   47 2023M12  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted   47 2024M01  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted   47 2024M02  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted   47 2024M03  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted   47 2024M04  VolumSesong  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted   47 2024M05  VolumSesong  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted   47 2024M06  VolumSesong  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted   47 2024M07  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted   47 2023M09  VolumSesong  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted   47 2023M10  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted   47 2023M11  VolumSesong  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted   47 2023M12  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Volume index, seasonally adjusted   47 2024M01  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted   47 2024M02  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted   47 2024M03  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted   47 2024M04  VolumSesong  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted   47 2024M05  VolumSesong  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted   47 2024M06  VolumSesong  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted   47 2024M07  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted   47 2024M09  VolumSesong  91.9</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##### Special output</span></span></span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/en/table/11419"</span>, returnMetaData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>   <span class="co"># meta data</span></span></span>
@@ -1421,96 +1422,96 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">1066</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span>,  urlType<span class="op">=</span><span class="st">"SSB"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`07129: Varehandelsindeksen, etter næring, måned og statistikkvariabel`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                       næring   måned         statistikkvariabel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Detaljhandel, unntatt salg av motorvogner 2023M08 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Detaljhandel, unntatt salg av motorvogner 2023M09 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Detaljhandel, unntatt salg av motorvogner 2023M10 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Detaljhandel, unntatt salg av motorvogner 2023M11 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Detaljhandel, unntatt salg av motorvogner 2023M12 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Detaljhandel, unntatt salg av motorvogner 2024M01 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Detaljhandel, unntatt salg av motorvogner 2024M02 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Detaljhandel, unntatt salg av motorvogner 2024M03 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Detaljhandel, unntatt salg av motorvogner 2024M04 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Detaljhandel, unntatt salg av motorvogner 2024M05 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Detaljhandel, unntatt salg av motorvogner 2024M06 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Detaljhandel, unntatt salg av motorvogner 2024M07 Volumindeks, sesongjustert</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Detaljhandel, unntatt salg av motorvogner 2024M08 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Detaljhandel, unntatt salg av motorvogner 2023M09 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Detaljhandel, unntatt salg av motorvogner 2023M10 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Detaljhandel, unntatt salg av motorvogner 2023M11 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Detaljhandel, unntatt salg av motorvogner 2023M12 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Detaljhandel, unntatt salg av motorvogner 2024M01 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Detaljhandel, unntatt salg av motorvogner 2024M02 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Detaljhandel, unntatt salg av motorvogner 2024M03 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Detaljhandel, unntatt salg av motorvogner 2024M04 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Detaljhandel, unntatt salg av motorvogner 2024M05 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Detaljhandel, unntatt salg av motorvogner 2024M06 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Detaljhandel, unntatt salg av motorvogner 2024M07 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Detaljhandel, unntatt salg av motorvogner 2024M08 Volumindeks, sesongjustert</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Detaljhandel, unntatt salg av motorvogner 2024M09 Volumindeks, sesongjustert</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   92.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9   95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13  91.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    NACE     Tid ContentsCode value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M08  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M09  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M10  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M11  VolumSesong  92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2023M12  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M01  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M02  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M03  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M04  VolumSesong  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M05  VolumSesong  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M06  VolumSesong  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M07  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M09  VolumSesong  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M10  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M11  VolumSesong  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M12  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2024M01  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M02  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M03  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M04  VolumSesong  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M05  VolumSesong  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M06  VolumSesong  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M07  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M09  VolumSesong  91.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">1066</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span>,  urlType<span class="op">=</span><span class="st">"SSBen"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`07129: The Index of wholesale and retail trade, by industry, month and contents`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                  industry   month</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Retail trade, except of motor vehicles and motorcycles 2023M09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Retail trade, except of motor vehicles and motorcycles 2023M10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Retail trade, except of motor vehicles and motorcycles 2023M11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Retail trade, except of motor vehicles and motorcycles 2023M12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  Retail trade, except of motor vehicles and motorcycles 2024M01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Retail trade, except of motor vehicles and motorcycles 2024M02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Retail trade, except of motor vehicles and motorcycles 2024M03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Retail trade, except of motor vehicles and motorcycles 2024M04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Retail trade, except of motor vehicles and motorcycles 2024M05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Retail trade, except of motor vehicles and motorcycles 2024M06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Retail trade, except of motor vehicles and motorcycles 2024M07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Retail trade, except of motor vehicles and motorcycles 2024M08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Retail trade, except of motor vehicles and motorcycles 2024M09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                             contents value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Volume index, seasonally adjusted  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  Volume index, seasonally adjusted  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Volume index, seasonally adjusted  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Volume index, seasonally adjusted  92.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Volume index, seasonally adjusted  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Volume index, seasonally adjusted  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Volume index, seasonally adjusted  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Volume index, seasonally adjusted  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Volume index, seasonally adjusted  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Volume index, seasonally adjusted  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Volume index, seasonally adjusted  91.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    NACE     Tid ContentsCode value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M08  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M09  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M10  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M11  VolumSesong  92.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2023M12  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M01  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M02  VolumSesong  92.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M03  VolumSesong  92.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M04  VolumSesong  92.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M05  VolumSesong  95.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M06  VolumSesong  91.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M07  VolumSesong  92.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    47 2023M09  VolumSesong  92.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    47 2023M10  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    47 2023M11  VolumSesong  92.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    47 2023M12  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    47 2024M01  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    47 2024M02  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    47 2024M03  VolumSesong  92.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    47 2024M04  VolumSesong  92.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    47 2024M05  VolumSesong  95.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   47 2024M06  VolumSesong  91.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   47 2024M07  VolumSesong  92.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   47 2024M08  VolumSesong  92.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   47 2024M09  VolumSesong  91.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>

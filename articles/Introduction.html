@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
                         <h4 data-toc-skip class="author">Øyvind
 Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft</h4>
             
-            <h4 data-toc-skip class="date">2024-10-29</h4>
+            <h4 data-toc-skip class="date">2024-11-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsnorway/ssb-pxwebapidata/blob/master/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="d-none name"><code>Introduction.Rmd</code></div>
@@ -165,12 +165,16 @@ obtained by FALSE. An imaginary value corresponds to filter
 latest update and source.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>                                                                  <span class="va">label</span> </span>
-<span><span class="st">"04861: Area and population of urban settlements, by contents and year"</span> </span>
-<span>                                                                 <span class="va">source</span> </span>
-<span>                                                    <span class="st">"Statistics Norway"</span> </span>
-<span>                                                                <span class="va">updated</span> </span>
-<span>                                                 <span class="st">"2024-10-01T06:00:00Z"</span> </span></code></pre>
+<pre><code><span>                                                                  <span class="va">label</span></span>
+<span><span class="st">"04861: Area and population of urban settlements, by contents and year"</span></span>
+<span>                                                                 <span class="va">source</span></span>
+<span>                                                    <span class="st">"Statistics Norway"</span></span>
+<span>                                                                <span class="va">updated</span></span>
+<span>                                                 <span class="st">"2024-10-01T06:00:00Z"</span></span>
+<span>                                                                <span class="va">tableid</span></span>
+<span>                                                                <span class="st">"04861"</span></span>
+<span>                                                               <span class="va">contents</span></span>
+<span>                     <span class="st">"04861: Area and population of urban settlements,"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="obtaining-meta-data">Obtaining meta data<a class="anchor" aria-label="anchor" href="#obtaining-meta-data"></a>
@@ -260,14 +264,31 @@ aggregated timeseries for the new Norwegian municipality structure from
 English.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/no/table/07459"</span>,</span>
-<span>        Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"agg:KommSummer"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"K-3001"</span>, <span class="st">"K-3002"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"agg:KommSummer"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"K-3101"</span>, <span class="st">"K-3103"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        Tid <span class="op">=</span> <span class="fl">4i</span>,</span>
 <span>        Alder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"agg:TodeltGrupperingB"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H17"</span>, <span class="st">"H18"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        Kjonn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
-<pre><code>No internet connection or resource not available: Error in FUN(X[[i]], ...) : 
-  Assertion on 'dataset' failed: Must be of type 'list', not 'character'.</code></pre>
-<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<pre><code>$`07459: Befolkning, etter region, kjønn, alder, statistikkvariabel og år`
+  region   kjønn             alder statistikkvariabel   år value
+1 Halden Kvinner           0-17 år           Personer 2021  2978
+2 Halden Kvinner           0-17 år           Personer 2022  2937
+3 Halden Kvinner           0-17 år           Personer 2023  2933
+4 Halden Kvinner           0-17 år           Personer 2024  2944
+5 Halden Kvinner 18 år eller eldre           Personer 2021 12587
+6 Halden Kvinner 18 år eller eldre           Personer 2022 12626
+7 Halden Kvinner 18 år eller eldre           Personer 2023 12787
+ [ reached 'max' / getOption("max.print") -- omitted 25 rows ]
+
+$dataset
+  Region Kjonn Alder ContentsCode  Tid value
+1 K-3101     2   H17    Personer1 2021  2978
+2 K-3101     2   H17    Personer1 2022  2937
+3 K-3101     2   H17    Personer1 2023  2933
+4 K-3101     2   H17    Personer1 2024  2944
+5 K-3101     2   H18    Personer1 2021 12587
+6 K-3101     2   H18    Personer1 2022 12626
+7 K-3101     2   H18    Personer1 2023 12787
+ [ reached 'max' / getOption("max.print") -- omitted 25 rows ]</code></pre>
 <p>There are two limitations in the PxWebApi using these filters.</p>
 <ol style="list-style-type: decimal">
 <li>The name of the filter and the id’s are not shown in metadata, only
@@ -283,7 +304,7 @@ elements as input, it is easier to query the value pool. This means that
 <p>In this example Region is the value pool and Fylker (counties) is the
 value set. As <code>vs:Fylker</code> is redundant, both will return the
 same:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">Region</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"vs:Fylker"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"01"</span>,<span class="st">"02"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">Region</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"01"</span>,<span class="st">"02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -292,7 +313,7 @@ same:</p>
 </h2>
 <p>In PxWebApi the original query is formulated as JSON. Using the
 parameter returnApiQuery is useful for debugging.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/en/table/04861"</span>,  returnApiQuery <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>{
   "query": [
@@ -335,7 +356,7 @@ available by http GET. The data is most easily retrieved with the
 parameter <code>getDataByGET = TRUE</code> in the <code>ApiData</code>
 function. This dataset is from Statistics Norway’s Economic trends
 forecasts.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">GetApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/dataset/934516.json?lang=en"</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>   year                                         contents value
@@ -355,14 +376,14 @@ forecasts.</p>
 14 2025                        Unemployment rate (level)   4.1
 15 2025                      Wages per standard man-year   4.6
  [ reached 'max' / getOption("max.print") -- omitted 25 rows ]</code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>                                                                          <span class="va">label</span> </span>
-<span><span class="st">"12880: Main economic indicators. Accounts and forecasts, by year and contents"</span> </span>
-<span>                                                                         <span class="va">source</span> </span>
-<span>                                                            <span class="st">"Statistics Norway"</span> </span>
-<span>                                                                        <span class="va">updated</span> </span>
-<span>                                                         <span class="st">"2024-09-13T06:00:00Z"</span> </span></code></pre>
+<pre><code><span>                                                                          <span class="va">label</span></span>
+<span><span class="st">"12880: Main economic indicators. Accounts and forecasts, by year and contents"</span></span>
+<span>                                                                         <span class="va">source</span></span>
+<span>                                                            <span class="st">"Statistics Norway"</span></span>
+<span>                                                                        <span class="va">updated</span></span>
+<span>                                                         <span class="st">"2024-09-13T06:00:00Z"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="eurostat-data">Eurostat data<a class="anchor" aria-label="anchor" href="#eurostat-data"></a>
@@ -374,13 +395,13 @@ this package to obtain data from Eurostat by using
 <p>This example shows HICP total index, latest two periods for EU and
 Norway. See <a href="https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query" class="external-link">Eurostat</a>
 for more.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urlEurostat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>   <span class="co"># Here the long url is split into several lines using paste0 </span></span>
 <span>  <span class="st">"https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r"</span>, </span>
 <span>  <span class="st">"?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU"</span><span class="op">)</span></span>
 <span><span class="va">urlEurostat</span></span></code></pre></div>
 <pre><code>[1] "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU"</code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">GetApiData12</a></span><span class="op">(</span><span class="va">urlEurostat</span><span class="op">)</span></span></code></pre></div>
 <pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
 <pre><code>  Time frequency                         Unit of measure
@@ -416,48 +437,48 @@ personel. Having obtained the relevant table, table 07964, we create the
 link <a href="https://data.ssb.no/api/v0/no/table/07964/" class="external-link uri">https://data.ssb.no/api/v0/no/table/07964/</a></p></li>
 <li><p>Load the package.</p></li>
 </ol>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/statisticsnorway/ssb-pxwebapidata" class="external-link">PxWebApiData</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statisticsnorway.github.io/ssb-pxwebapidata" class="external-link">PxWebApiData</a></span><span class="op">)</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Check which variables that exist in the data.</li>
 </ol>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/no/table/07964/"</span>,</span>
 <span>                     returnMetaFrames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">variables</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "NACE2007"     "ContentsCode" "Tid"</span></span></code></pre>
+<pre><code>[1] "NACE2007"     "ContentsCode" "Tid"         </code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Check which values each variable contains.</li>
 </ol>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/no/table/07964/"</span>,</span>
 <span>                  returnMetaData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] "A-N"       "A03"       "B05-B09"   "B06_B09.1" "C"         "C10-C11"  </span></span>
-<span><span class="co">##  [7] "C13"       "C14-C15"   "C16"       "C17"       "C18"       "C19-C20"  </span></span>
-<span><span class="co">## [13] "C21"       "C22"       "C23"       "C24"       "C25"       "C26"      </span></span>
-<span><span class="co">## [19] "C26.3"     "C26.5"     "C27"       "C28"       "C29"       "C30"      </span></span>
-<span><span class="co">## [25] "C30.1"     "C31"       "C32"       "C32.5"     "C33"       "D35"      </span></span>
-<span><span class="co">## [31] "E36-E39"   "F41-F43"   "G-N"       "G46"       "H49-H53"   "J58"      </span></span>
-<span><span class="co">## [37] "J58.2"     "J59-J60"   "J61"       "J62"       "J63"       "K64-K66"  </span></span>
-<span><span class="co">## [43] "M70"       "M71"       "M72"      </span></span>
-<span><span class="co">##  [ reached getOption("max.print") -- omitted 2 entries ]</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<pre><code> [1] "A-N"       "A03"       "B05-B09"   "B06_B09.1" "C"         "C10-C11"  
+ [7] "C13"       "C14-C15"   "C16"       "C17"       "C18"       "C19-C20"  
+[13] "C21"       "C22"       "C23"       "C24"       "C25"       "C26"      
+[19] "C26.3"     "C26.5"     "C27"       "C28"       "C29"       "C30"      
+[25] "C30.1"     "C31"       "C32"       "C32.5"     "C33"       "D35"      
+[31] "E36-E39"   "F41-F43"   "G-N"       "G46"       "H49-H53"   "J58"      
+[37] "J58.2"     "J59-J60"   "J61"       "J62"       "J63"       "K64-K66"  
+[43] "M70"       "M71"       "M72"      
+ [ reached getOption("max.print") -- omitted 2 entries ]</code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "EnhetTot"           "EnheterFoU"         "FoUpersonale"      </span></span>
-<span><span class="co">## [4] "KvinneligFoUpers"   "FoUPersonaleUoHutd" "FoUPersonaleDoktor"</span></span>
-<span><span class="co">## [7] "FoUArsverk"         "FoUArsverkPers"     "FoUArsverkUtd"</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<pre><code>[1] "EnhetTot"           "EnheterFoU"         "FoUpersonale"      
+[4] "KvinneligFoUpers"   "FoUPersonaleUoHutd" "FoUPersonaleDoktor"
+[7] "FoUArsverk"         "FoUArsverkPers"     "FoUArsverkUtd"     </code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] "2007" "2008" "2009" "2010" "2011" "2012" "2013" "2014" "2015" "2016"</span></span>
-<span><span class="co">## [11] "2017" "2018" "2019" "2020" "2021" "2022"</span></span></code></pre>
+<pre><code> [1] "2007" "2008" "2009" "2010" "2011" "2012" "2013" "2014" "2015" "2016"
+[11] "2017" "2018" "2019" "2020" "2021" "2022"</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Define these variables in the query to sort out the values we
 want.</li>
 </ol>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/en/table/07964/"</span>,</span>
 <span>                Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2019"</span>, <span class="st">"2020"</span><span class="op">)</span>, <span class="co"># Define year to 2019 and 2020</span></span>
 <span>                NACE2007 <span class="op">=</span> <span class="st">"G-N"</span>, <span class="co"># Define the services sector</span></span>
@@ -466,20 +487,24 @@ want.</li>
 <span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># Extract the first list element, which contains full variable names.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##   industry (SIC2007)             contents year value</span></span>
-<span><span class="co">## 1     Services total Female R&amp;D personnel 2019  4509</span></span>
-<span><span class="co">## 2     Services total Female R&amp;D personnel 2020  4666</span></span></code></pre>
+<pre><code>  industry (SIC2007)             contents year value
+1     Services total Female R&amp;D personnel 2019  4509
+2     Services total Female R&amp;D personnel 2020  4666</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Show additional information.</li>
 </ol>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##                                                                                                                                      label </span></span>
-<span><span class="co">## "07964: O07964: R&amp;D personnel and R&amp;D full-time equivalents (FTE) in Business Enterprise sector, by industry (SIC2007), contents and year" </span></span>
-<span><span class="co">##                                                                                                                                     source </span></span>
-<span><span class="co">##                                                                                                                        "Statistics Norway" </span></span>
-<span><span class="co">##                                                                                                                                    updated </span></span>
-<span><span class="co">##                                                                                                                     "2024-02-16T07:00:00Z"</span></span></code></pre>
+<pre><code><span>                                                                                                  <span class="va">label</span></span>
+<span><span class="st">"07964: O07964: R&amp;D personnel and R&amp;D full-time equivalents (FTE) in Business Enterprise sector, by industry (SIC2007), contents and year"</span></span>
+<span>                                                                                                 <span class="va">source</span></span>
+<span>                                                                                    <span class="st">"Statistics Norway"</span></span>
+<span>                                                                                                <span class="va">updated</span></span>
+<span>                                                                                 <span class="st">"2024-02-16T07:00:00Z"</span></span>
+<span>                                                                                                <span class="va">tableid</span></span>
+<span>                                                                                                <span class="st">"07964"</span></span>
+<span>                                                                                               <span class="va">contents</span></span>
+<span>      <span class="st">"07964: O07964: R&amp;D personnel and R&amp;D full-time equivalents (FTE) in Business Enterprise sector,"</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
