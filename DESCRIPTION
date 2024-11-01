@@ -1,7 +1,7 @@
 Package: PxWebApiData 
 Type: Package
 Title: PX-Web Data by API 
-Version: 0.9.2
+Version: 1.0.0
 Date: 2024-11-01
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"), email = "oyl@ssb.no"),
              person("Jan", "Bruusgaard", role = c("aut")),
@@ -14,7 +14,7 @@ Suggests: knitr, rmarkdown, testthat
 Description: Function to read PX-Web data into R via API. The example code reads data from the three national statistical institutes, Statistics Norway, Statistics Sweden and Statistics Finland.
 License: MIT + file LICENSE
 Encoding: UTF-8
-URL: https://statisticsnorway.github.io/ssb-pxwebapidata, https://github.com/statisticsnorway/ssb-pxwebapidata
+URL: https://statisticsnorway.github.io/ssb-pxwebapidata/, https://github.com/statisticsnorway/ssb-pxwebapidata
 BugReports: https://github.com/statisticsnorway/ssb-pxwebapidata/issues 
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
