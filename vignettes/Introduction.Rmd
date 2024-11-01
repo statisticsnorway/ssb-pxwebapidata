@@ -25,6 +25,21 @@ Then three more examples and some background is given.
 library(knitr)
 library(PxWebApiData)
 options(max.print = 36)
+
+# Re-define the comment function to control line width and minimize excessive line breaks when printing.
+comment <- function(x) {
+     com <- base::comment(x)
+     nchar_name <- min(103, 2 + max(nchar(com)))
+     for (name in names(com)) {
+         cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
+             name, 
+             "\n", 
+             strrep(" ", max(0, (nchar_name - nchar(com[[name]]) - 2))),
+             "\"",
+             com[[name]],
+             "\"",  "\n", sep = "")
+     }
+ }
 ```
 
 
@@ -107,7 +122,7 @@ This example shows the use of aggregation in age groups and aggregated timeserie
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 ApiData("http://data.ssb.no/api/v0/no/table/07459",
-        Region = list("agg:KommSummer", c("K-3001", "K-3002")),
+        Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
         Kjonn = TRUE)
@@ -177,7 +192,7 @@ We would like to extract the number of female R&D personel in the services secto
 
 2) Load the package.
 
-```{r}
+```{r, comment=NA, encoding = "UTF-8"}
 
 library(PxWebApiData)
 
@@ -186,7 +201,7 @@ library(PxWebApiData)
 
 3) Check which variables that exist in the data.
 
-```{r}
+```{r, comment=NA, encoding = "UTF-8"}
 
 variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                      returnMetaFrames = TRUE)
@@ -197,7 +212,7 @@ names(variables)
 
 4) Check which values each variable contains.
 
-```{r}
+```{r, comment=NA, encoding = "UTF-8"}
 
 values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                   returnMetaData = TRUE)
@@ -210,7 +225,7 @@ values[[3]]$values
 
 5) Define these variables in the query to sort out the values we want.
 
-```{r}
+```{r, comment=NA, encoding = "UTF-8"}
 
 mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
                 Tid = c("2019", "2020"), # Define year to 2019 and 2020
@@ -225,7 +240,7 @@ head(mydata)
 
 6) Show additional information.
 
-```{r}
+```{r, comment=NA, encoding = "UTF-8"}
 
 comment(mydata)
 

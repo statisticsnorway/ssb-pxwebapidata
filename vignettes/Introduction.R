@@ -3,6 +3,21 @@ library(knitr)
 library(PxWebApiData)
 options(max.print = 36)
 
+# Re-define the comment function to control line width and minimize excessive line breaks when printing.
+comment <- function(x) {
+     com <- base::comment(x)
+     nchar_name <- min(103, 2 + max(nchar(com)))
+     for (name in names(com)) {
+         cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
+             name, 
+             "\n", 
+             strrep(" ", max(0, (nchar_name - nchar(com[[name]]) - 2))),
+             "\"",
+             com[[name]],
+             "\"",  "\n", sep = "")
+     }
+ }
+
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
 ApiData("http://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
@@ -31,7 +46,7 @@ x[[1]]
 
 x[[2]]
 
-## ---- comment=NA--------------------------------------------------------------
+## ----comment=NA---------------------------------------------------------------
 
 comment(x)
 
@@ -42,7 +57,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
 ApiData("http://data.ssb.no/api/v0/no/table/07459",
-        Region = list("agg:KommSummer", c("K-3001", "K-3002")),
+        Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
         Kjonn = TRUE)
@@ -73,12 +88,12 @@ urlEurostat
 GetApiData12(urlEurostat)
 
 
-## -----------------------------------------------------------------------------
+## ----comment=NA, encoding = "UTF-8"-------------------------------------------
 
 library(PxWebApiData)
 
 
-## -----------------------------------------------------------------------------
+## ----comment=NA, encoding = "UTF-8"-------------------------------------------
 
 variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                      returnMetaFrames = TRUE)
@@ -86,7 +101,7 @@ variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
 names(variables)
 
 
-## -----------------------------------------------------------------------------
+## ----comment=NA, encoding = "UTF-8"-------------------------------------------
 
 values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                   returnMetaData = TRUE)
@@ -96,7 +111,7 @@ values[[2]]$values
 values[[3]]$values
 
 
-## -----------------------------------------------------------------------------
+## ----comment=NA, encoding = "UTF-8"-------------------------------------------
 
 mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
                 Tid = c("2019", "2020"), # Define year to 2019 and 2020
@@ -108,7 +123,7 @@ mydata <- mydata[[1]] # Extract the first list element, which contains full vari
 head(mydata)
 
 
-## -----------------------------------------------------------------------------
+## ----comment=NA, encoding = "UTF-8"-------------------------------------------
 
 comment(mydata)
 
