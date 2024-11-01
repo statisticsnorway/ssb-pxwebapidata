@@ -126,7 +126,8 @@ The value can also be specified as a (unnamed) two-element list corresponding to
 query elements, filter and values. In addition it possible with a single-element list.
 Then filter is set to 'all'. See examples.
 
-A comment attribute with elements \code{label}, \code{source} and \code{updated} is added to output as a named three-element character vector.
+A comment attribute with elements \code{label}, \code{source} and \code{updated} is added to output as a named character vector.
+When available, the elements \code{tableid} and \code{contents} are also included, resulting in a vector with 3 to 5 elements.
 Run \code{\link{comment}} to obtain this information.
 
 Functionality in the package \code{pxweb} can be utilized by making use of the parameters
