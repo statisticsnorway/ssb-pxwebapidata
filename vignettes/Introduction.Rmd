@@ -228,7 +228,7 @@ values[[3]]$values
 ```{r, comment=NA, encoding = "UTF-8"}
 
 mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
-                Tid = c("2019", "2020"), # Define year to 2019 and 2020
+                Tid = c("2021", "2022"), # Define year to 2021 and 2022
                 NACE2007 = "G-N", # Define the services sector
                 ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
 
