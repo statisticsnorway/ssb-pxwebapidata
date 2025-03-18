@@ -1,5 +1,4 @@
-# R package PxWebApiData
-
+# R package PxWebApiData <img src="man/figures/logo.png" align="right" height="150" />
 [![Mentioned in Awesome Official Statistics ](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficialstatistics.org)
 
 ### PX-Web data by API
