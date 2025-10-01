@@ -1,7 +1,6 @@
 ---
 title: "Introduction to PxWebApiData"
 author: "Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction to PxWebApiData}
