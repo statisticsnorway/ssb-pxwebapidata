@@ -64,13 +64,8 @@
 #' \donttest{
 #' # Note: Example with "readymade datasets" has been removed.
 #' # SSB announced that this service will be discontinued in 2025.
-#' # It is replaced here with a simple example using the new PxWebApi 2 (beta).
-#' # PxWebApi 2 also supports complex queries with long URLs that specify
-#' # multiple dimensions and selections.
-#' #
-#' # Warning: PxWebApi 2 is still in beta. URLs or endpoints may change,
-#' # and requests may sometimes fail. In such cases the functions return NULL
-#' # and print an informative message.
+#' # It is replaced here with an example using PxWebApi 2,
+#' # which supports GET queries and richer options.
 #' 
 #' url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
 #' x <- ApiData(url, getDataByGET = TRUE)
