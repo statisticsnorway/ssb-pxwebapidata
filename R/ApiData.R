@@ -213,7 +213,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
   
   integerUrl <- suppressWarnings(as.integer(urlToData))
   if (!is.na(integerUrl)) 
-    urlToData <- MakeUrl(integerUrl, urlType = urlType, getDataByGET = getDataByGET) # SSBurl(integerUrl, getDataByGET)
+    urlToData <- MakeUrl(integerUrl, urlType = urlType)
   
 
   if(!(dataPackage %in% c("rjstat", "pxweb", "none"))){
@@ -631,18 +631,13 @@ Pmatch <- function(x, y, CheckHandling = stop) {
 
 
 
-SSBurl <- function(id, readyMade = FALSE) {
-  if (readyMade) 
-    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json", sep = "") 
-  else url <- paste("https://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
+SSBurl <- function(id) { 
+  url <- paste("https://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
   url
 }
 
-SSBurlen <- function(id, readyMade = FALSE) {
-  if (readyMade) 
-    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json?lang=en", sep = "") 
-  else 
-    url <- paste("https://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
+SSBurlen <- function(id) {
+  url <- paste("https://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
   url
 }
 
@@ -653,7 +648,6 @@ SSBurlen <- function(id, readyMade = FALSE) {
 #'
 #' @param id integer
 #' @param urlType  Currently two possibilities: "SSB" (Norwegian) or "SSBen" (English)
-#' @param getDataByGET As input to ApiData
 #'
 #' @return url as string
 #' @export
@@ -662,13 +656,11 @@ SSBurlen <- function(id, readyMade = FALSE) {
 #' @examples
 #' MakeUrl(4861)
 #' MakeUrl(4861, "SSBen")
-#' MakeUrl(1066, getDataByGET = TRUE)
-#' MakeUrl(1066, "SSBen", getDataByGET = TRUE)
-MakeUrl <- function(id,urlType="SSB",getDataByGET = FALSE){
+MakeUrl <- function(id,urlType="SSB"){
   if(urlType=="SSB")
-    return(SSBurl(id,getDataByGET))
+    return(SSBurl(id))
   if(urlType=="SSBen")
-    return(SSBurlen(id,getDataByGET))
+    return(SSBurlen(id))
   stop('urlType must be "SSB" or "SSBen"')
 }
 

@@ -5,14 +5,12 @@
 \alias{MakeUrl}
 \title{MakeUrl from id}
 \usage{
-MakeUrl(id, urlType = "SSB", getDataByGET = FALSE)
+MakeUrl(id, urlType = "SSB")
 }
 \arguments{
 \item{id}{integer}
 
 \item{urlType}{Currently two possibilities: "SSB" (Norwegian) or "SSBen" (English)}
-
-\item{getDataByGET}{As input to ApiData}
 }
 \value{
 url as string
@@ -23,7 +21,5 @@ MakeUrl from id
 \examples{
 MakeUrl(4861)
 MakeUrl(4861, "SSBen")
-MakeUrl(1066, getDataByGET = TRUE)
-MakeUrl(1066, "SSBen", getDataByGET = TRUE)
 }
 \keyword{internal}
