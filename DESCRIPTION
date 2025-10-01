@@ -1,8 +1,8 @@
 Package: PxWebApiData 
 Type: Package
 Title: PX-Web Data by API 
-Version: 1.0.0
-Date: 2024-11-01
+Version: 1.0.1
+Date: 2025-10-01
 Authors@R: c(person("Øyvind", "Langsrud", role = c("aut", "cre"), email = "oyl@ssb.no"),
              person("Jan", "Bruusgaard", role = c("aut")),
              person("Solveig", "Bjørkholt", role = c("ctb")),
@@ -17,4 +17,4 @@ Encoding: UTF-8
 URL: https://statisticsnorway.github.io/ssb-pxwebapidata/, https://github.com/statisticsnorway/ssb-pxwebapidata
 BugReports: https://github.com/statisticsnorway/ssb-pxwebapidata/issues 
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
