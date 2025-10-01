@@ -147,25 +147,23 @@ See the package vignette for aggregations using filter \code{agg}.
 # It is replaced here with a simple example using the new PxWebApi 2 (beta).
 # PxWebApi 2 also supports complex queries with long URLs that specify
 # multiple dimensions and selections.
+#
+# Warning: PxWebApi 2 is still in beta. URLs or endpoints may change,
+# and requests may sometimes fail. In such cases the functions return NULL
+# and print an informative message.
 
 url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+x <- ApiData(url, getDataByGET = TRUE)
 
-# Using try() since PxWebApi 2 is still in beta:
-# - requests may fail
-# - URLs or endpoints may change in the future
-x <- try(ApiData(url, getDataByGET = TRUE), silent = TRUE)
-
-if (!inherits(x, "try-error")) {
-  x[[1]]  # The label version of the data set
-  x[[2]]  # The id version of the data set
-  names(x)
-  comment(x)
-}
+x[[1]]    # The label version of the dataset
+x[[2]]    # The id version of the dataset
+names(x)
+comment(x)
 
 # As above, but with single dataset output
-x1 <- try(ApiData1(url, getDataByGET = TRUE), silent = TRUE) # as x[[1]]
-x2 <- try(ApiData2(url, getDataByGET = TRUE), silent = TRUE) # as x[[2]]
-try(ApiData12(url, getDataByGET = TRUE), silent = TRUE)      # Combined
+x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
+x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
+ApiData12(url, getDataByGET = TRUE)      # Combined
 
 # Note: Instead of setting getDataByGET = TRUE manually,
 # you can use the wrapper functions GetApiData() or GetApiData12().
