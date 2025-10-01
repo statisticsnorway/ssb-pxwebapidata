@@ -154,17 +154,38 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 To convert an original JSON API query to a PxWebApiData query there is also a simple webpage [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
 
-## Readymade datasets by GetApiData
-Statistics Norway also provides an API with readymade datasets, available by http GET.
-The data is most easily retrieved with the `GetApiData` function, which is the same as using  the parameter  `getDataByGET = TRUE` in the `ApiData` function.
-This dataset is from Statistics Norway's Economic trends forecasts.
+
+## PxWebApi 2 examples
+
+Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7 500 public tables.
+This API supports GET queries defined entirely in a URL. 
+
+Version 1 of PxWebApi will continue to exist in parallel for a period of time, but only supports POST queries.
+The limited API with "readymade datasets" will be removed during 2025, since PxWebApi 2 offers GET queries.
+
+The data is most easily retrieved with the `GetApiData` function, which is the same as using the parameter `getDataByGET = TRUE` in the `ApiData` function.
+Corresponding wrapper functions `GetApiData1`, `GetApiData2` and `GetApiData12` are available for `ApiData1`, `ApiData2` and `ApiData12`.
 
 ```{r eval=TRUE, comment=NA, tidy=FALSE}
-x <- GetApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en")
-x[[1]]
+# Example dataset
+url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+x <- ApiData(url1, getDataByGET = TRUE)
+
+x[[1]]    # Label version of the dataset
 comment(x)
 
+# More specific query with selected dimensions
+url2 <- paste0(
+  "https://data.ssb.no/api/pxwebapi/v2/tables/03013/data?lang=en",
+  "&valueCodes[Konsumgrp]=??",
+  "&valueCodes[ContentsCode]=KpiIndMnd",
+  "&valueCodes[Tid]=top(2)"
+)
+
+x2 <- ApiData2(url2, getDataByGET = TRUE)
+x2  # id version of the dataset
 ```
+
 
 ## Eurostat data
 Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `GetApiData`
