@@ -19,6 +19,12 @@ However, in practise, one may look at the meta data first.
 Then three more examples and some background is given.
 
 
+Note: Earlier versions of this vignette demonstrated *"readymade datasets by GetApiData"*.
+As Statistics Norway will remove the readymade API during 2025, these examples are now replaced.
+The new *PxWebApi 2* is now the primary API for Statistics Norway.
+See the section *"PxWebApi 2 examples with GetApiData"* below.
+
+
 
 ```{r include = FALSE}
 library(knitr)
@@ -154,7 +160,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 To convert an original JSON API query to a PxWebApiData query there is also a simple webpage [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
 
 
-## PxWebApi 2 examples
+## PxWebApi 2 examples with GetApiData
 
 Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7 500 public tables.
 This API supports GET queries defined entirely in a URL. 
