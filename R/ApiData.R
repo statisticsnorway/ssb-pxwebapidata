@@ -62,18 +62,36 @@
 #'
 #' @examples
 #' \donttest{
-#' ##### Readymade dataset by GET.  Works for readymade datasets and "saved-JSON-stat-query-links".
-#' x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
-#' x[[1]]  # The label version of the data set
-#' x[[2]]  # The id version of the data set
-#' names(x)
-#' comment(x)
+#' # Note: Example with "readymade datasets" has been removed.
+#' # SSB announced that this service will be discontinued in 2025.
+#' # It is replaced here with a simple example using the new PxWebApi 2 (beta).
+#' # PxWebApi 2 also supports complex queries with long URLs that specify
+#' # multiple dimensions and selections.
 #' 
-#' ##### As above with single data set output
-#' url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
-#' x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
-#' x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
-#' ApiData12(url, getDataByGET = TRUE) # Combined
+#' url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+#' 
+#' # Using try() since PxWebApi 2 is still in beta:
+#' # - requests may fail
+#' # - URLs or endpoints may change in the future
+#' x <- try(ApiData(url, getDataByGET = TRUE), silent = TRUE)
+#' 
+#' if (!inherits(x, "try-error")) {
+#'   x[[1]]  # The label version of the data set
+#'   x[[2]]  # The id version of the data set
+#'   names(x)
+#'   comment(x)
+#' }
+#' 
+#' # As above, but with single dataset output
+#' x1 <- try(ApiData1(url, getDataByGET = TRUE), silent = TRUE) # as x[[1]]
+#' x2 <- try(ApiData2(url, getDataByGET = TRUE), silent = TRUE) # as x[[2]]
+#' try(ApiData12(url, getDataByGET = TRUE), silent = TRUE)      # Combined
+#' 
+#' # Note: Instead of setting getDataByGET = TRUE manually,
+#' # you can use the wrapper functions GetApiData() or GetApiData12().
+#' # In addition, there are wrapper functions GetApiData1() and GetApiData2(),
+#' # which correspond to ApiData1() and ApiData2().
+#' 
 #' 
 #' ##### Special output
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data
