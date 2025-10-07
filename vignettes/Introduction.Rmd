@@ -162,7 +162,7 @@ To convert an original JSON API query to a PxWebApiData query there is also a si
 
 ## PxWebApi 2 examples with GetApiData
 
-Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7 500 public tables.
+Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7500 public tables.
 This API supports GET queries defined entirely in a URL. 
 
 Version 1 of PxWebApi will continue to exist in parallel for a period of time, but only supports POST queries.
