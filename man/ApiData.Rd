@@ -142,18 +142,29 @@ See the package vignette for aggregations using filter \code{agg}.
 }
 \examples{
 \donttest{
-##### Readymade dataset by GET.  Works for readymade datasets and "saved-JSON-stat-query-links".
-x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
-x[[1]]  # The label version of the data set
-x[[2]]  # The id version of the data set
+# Note: Example with "readymade datasets" has been removed.
+# SSB announced that this service will be discontinued in 2025.
+# It is replaced here with an example using PxWebApi 2,
+# which supports GET queries and richer options.
+
+url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+x <- ApiData(url, getDataByGET = TRUE)
+
+x[[1]]    # The label version of the dataset
+x[[2]]    # The id version of the dataset
 names(x)
 comment(x)
 
-##### As above with single data set output
-url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
+# As above, but with single dataset output
 x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
 x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
-ApiData12(url, getDataByGET = TRUE) # Combined
+ApiData12(url, getDataByGET = TRUE)      # Combined
+
+# Note: Instead of setting getDataByGET = TRUE manually,
+# you can use the wrapper functions GetApiData() or GetApiData12().
+# In addition, there are wrapper functions GetApiData1() and GetApiData2(),
+# which correspond to ApiData1() and ApiData2().
+
 
 ##### Special output
 ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data

@@ -56,24 +56,35 @@
 #' 
 #' @importFrom jsonlite unbox read_json toJSON fromJSON
 #' @importFrom rjstat fromJSONstat 
-#' @importFrom httr GET POST verbose content
+#' @importFrom httr GET POST verbose content status_code
 #' @importFrom utils head tail
 #' @importFrom pxweb pxweb_get
 #'
 #' @examples
 #' \donttest{
-#' ##### Readymade dataset by GET.  Works for readymade datasets and "saved-JSON-stat-query-links".
-#' x <- ApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en", getDataByGET = TRUE)
-#' x[[1]]  # The label version of the data set
-#' x[[2]]  # The id version of the data set
+#' # Note: Example with "readymade datasets" has been removed.
+#' # SSB announced that this service will be discontinued in 2025.
+#' # It is replaced here with an example using PxWebApi 2,
+#' # which supports GET queries and richer options.
+#' 
+#' url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+#' x <- ApiData(url, getDataByGET = TRUE)
+#' 
+#' x[[1]]    # The label version of the dataset
+#' x[[2]]    # The id version of the dataset
 #' names(x)
 #' comment(x)
 #' 
-#' ##### As above with single data set output
-#' url <- "https://data.ssb.no/api/v0/dataset/1066.json?lang=en"
+#' # As above, but with single dataset output
 #' x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
 #' x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
-#' ApiData12(url, getDataByGET = TRUE) # Combined
+#' ApiData12(url, getDataByGET = TRUE)      # Combined
+#' 
+#' # Note: Instead of setting getDataByGET = TRUE manually,
+#' # you can use the wrapper functions GetApiData() or GetApiData12().
+#' # In addition, there are wrapper functions GetApiData1() and GetApiData2(),
+#' # which correspond to ApiData1() and ApiData2().
+#' 
 #' 
 #' ##### Special output
 #' ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # meta data
@@ -195,7 +206,7 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
   
   integerUrl <- suppressWarnings(as.integer(urlToData))
   if (!is.na(integerUrl)) 
-    urlToData <- MakeUrl(integerUrl, urlType = urlType, getDataByGET = getDataByGET) # SSBurl(integerUrl, getDataByGET)
+    urlToData <- MakeUrl(integerUrl, urlType = urlType)
   
 
   if(!(dataPackage %in% c("rjstat", "pxweb", "none"))){
@@ -217,7 +228,15 @@ ApiData <- function(urlToData, ..., getDataByGET = FALSE, returnMetaData = FALSE
       dataPackage = "rjstat"
       warning('Parameters "apiPackage" and "dataPackage" ignored when getDataByGET')
     }
-      post <- Graceful(content, GET(urlToData), "text")
+      post <- Graceful(GET, urlToData)
+      if(is.null(post))
+        return(NULL)
+      status_code_post <- status_code(post)
+      if (status_code_post >= 300) {
+        message(paste("Not available -", status_code_post))  
+        return(NULL)
+      }
+      post <- Graceful(content, post, "text")
       if(is.null(post))
         return(NULL)
     } else {
@@ -613,18 +632,13 @@ Pmatch <- function(x, y, CheckHandling = stop) {
 
 
 
-SSBurl <- function(id, readyMade = FALSE) {
-  if (readyMade) 
-    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json", sep = "") 
-  else url <- paste("https://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
+SSBurl <- function(id) { 
+  url <- paste("https://data.ssb.no/api/v0/no/table/", Number(id, 5), sep = "")
   url
 }
 
-SSBurlen <- function(id, readyMade = FALSE) {
-  if (readyMade) 
-    url <- paste("https://data.ssb.no/api/v0/dataset/", Number(id, 1), ".json?lang=en", sep = "") 
-  else 
-    url <- paste("https://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
+SSBurlen <- function(id) {
+  url <- paste("https://data.ssb.no/api/v0/en/table/", Number(id, 5), sep = "")
   url
 }
 
@@ -635,7 +649,6 @@ SSBurlen <- function(id, readyMade = FALSE) {
 #'
 #' @param id integer
 #' @param urlType  Currently two possibilities: "SSB" (Norwegian) or "SSBen" (English)
-#' @param getDataByGET As input to ApiData
 #'
 #' @return url as string
 #' @export
@@ -644,13 +657,11 @@ SSBurlen <- function(id, readyMade = FALSE) {
 #' @examples
 #' MakeUrl(4861)
 #' MakeUrl(4861, "SSBen")
-#' MakeUrl(1066, getDataByGET = TRUE)
-#' MakeUrl(1066, "SSBen", getDataByGET = TRUE)
-MakeUrl <- function(id,urlType="SSB",getDataByGET = FALSE){
+MakeUrl <- function(id,urlType="SSB"){
   if(urlType=="SSB")
-    return(SSBurl(id,getDataByGET))
+    return(SSBurl(id))
   if(urlType=="SSBen")
-    return(SSBurlen(id,getDataByGET))
+    return(SSBurlen(id))
   stop('urlType must be "SSB" or "SSBen"')
 }
 

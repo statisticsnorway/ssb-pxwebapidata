@@ -14,17 +14,6 @@ Expect_equal <- function(a, b, ...) {
 } 
 
 
-
-test_that("ApiData - Readymade SSB-data with urlType", {
-  skip_on_cran()
-  ssb1066 <- ApiData(1066, getDataByGET = TRUE, urlType = "SSB")
-  if (!is.null(ssb1066)) {
-    expect_true(is.data.frame(ssb1066[[1]]))
-    expect_equal(names(ssb1066)[2], "dataset")
-    expect_true(grepl("etter næring, måned og statistikkvariabel", names(ssb1066)[1]))
-  }
-})
-
 test_that("ApiData - SCB-data using TRUE and FALSE", {
   skip_on_cran()
   urlSCB <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
@@ -121,20 +110,6 @@ test_that("ApiData - dataset output", {
   #expect_equal(comment(a1), comment(a12)[1])
   #expect_equal(comment(a2), comment(a12)[2])
 
-  a   <-   GetApiData("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
-  a1  <-  GetApiData1("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
-  a2  <-  GetApiData2("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
-  a12 <- GetApiData12("https://data.ssb.no/api/v0/dataset/1066.json?lang=en") 
-  
-  Expect_equivalent(a1, a[[1]])
-  Expect_equivalent(a2, a[[2]])
-  Expect_equivalent(a1, a12[, names(a1)])
-  Expect_equivalent(a2, a12[, names(a2)])
-  Expect_equal(names(a[[1]]), names(a1))
-  Expect_equal(names(a[[2]]), names(a2))
-  #expect_equal(comment(a12), names(a))
-  #expect_equal(comment(a1), comment(a12)[1])
-  #expect_equal(comment(a2), comment(a12)[2])
   
 
   if(FALSE){

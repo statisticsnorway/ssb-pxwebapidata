@@ -74,10 +74,23 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 
 ## ----eval=TRUE, comment=NA, tidy=FALSE----------------------------------------
-x <- GetApiData("https://data.ssb.no/api/v0/dataset/934516.json?lang=en")
-x[[1]]
+# Example dataset
+url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+x <- ApiData(url1, getDataByGET = TRUE)
+
+x[[1]]    # Label version of the dataset
 comment(x)
 
+# More specific query with selected dimensions
+url2 <- paste0(
+  "https://data.ssb.no/api/pxwebapi/v2/tables/03013/data?lang=en",
+  "&valueCodes[Konsumgrp]=??",
+  "&valueCodes[ContentsCode]=KpiIndMnd",
+  "&valueCodes[Tid]=top(2)"
+)
+
+x2 <- ApiData2(url2, getDataByGET = TRUE)
+x2  # id version of the dataset
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"------------------
 
