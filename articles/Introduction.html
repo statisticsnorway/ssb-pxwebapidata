@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,6 @@
                         <h4 data-toc-skip class="author">Øyvind
 Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft</h4>
             
-            <h4 data-toc-skip class="date">2025-03-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/statisticsnorway/ssb-pxwebapidata/blob/master/vignettes/Introduction.Rmd" class="external-link"><code>vignettes/Introduction.Rmd</code></a></small>
       <div class="d-none name"><code>Introduction.Rmd</code></div>
@@ -76,6 +75,11 @@ calls to the main function, <code>ApiData</code>, are demonstrated.
 First, two calls for reading data sets are shown. The third call
 captures meta data. However, in practise, one may look at the meta data
 first. Then three more examples and some background is given.</p>
+<p>Note: Earlier versions of this vignette demonstrated <em>“readymade
+datasets by GetApiData”</em>. As Statistics Norway will remove the
+readymade API during 2025, these examples are now replaced. The new
+<em>PxWebApi 2</em> is now the primary API for Statistics Norway. See
+the section <em>“PxWebApi 2 examples with GetApiData”</em> below.</p>
 </div>
 <div class="section level2">
 <h2 id="specification-by-variable-indices-and-variable-ids">Specification by variable indices and variable id’s<a class="anchor" aria-label="anchor" href="#specification-by-variable-indices-and-variable-ids"></a>
@@ -118,15 +122,11 @@ id’s. To return a dataset with both labels and id’s in one dataframe use
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData12</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/en/table/04861"</span>,</span>
 <span>        Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1103"</span>, <span class="st">"0301"</span><span class="op">)</span>, ContentsCode <span class="op">=</span> <span class="st">"Bosatte"</span>, Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="op">-</span><span class="fl">2</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>             region            contents year Region ContentsCode  Tid  value
-1 Oslo municipality Number of residents 2000   0301      Bosatte 2000 504348
-2 Oslo municipality Number of residents 2002   0301      Bosatte 2002 508134
-3 Oslo municipality Number of residents 2023   0301      Bosatte 2023 705945
-4 Oslo municipality Number of residents 2024   0301      Bosatte 2024 714630
-5         Stavanger Number of residents 2000   1103      Bosatte 2000 106804
-6         Stavanger Number of residents 2002   1103      Bosatte 2002 108271
-7         Stavanger Number of residents 2023   1103      Bosatte 2023 140012
-8         Stavanger Number of residents 2024   1103      Bosatte 2024 142897</code></pre>
+<pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
+<pre><code>No internet connection or resource not available: Error : parse error: premature EOF
+                                       
+                     (right here) ------^</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="specification-by-true-false-and-imaginary-values-e-g--3i-">Specification by TRUE, FALSE and imaginary values (e.g. 3i).<a class="anchor" aria-label="anchor" href="#specification-by-true-false-and-imaginary-values-e-g--3i-"></a>
@@ -135,120 +135,40 @@ id’s. To return a dataset with both labels and id’s in one dataframe use
 <code>"all": "*"</code> in the api query. Elimination of a variable is
 obtained by FALSE. An imaginary value corresponds to filter
 <code>"top"</code> in the api query.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/en/table/04861"</span>,</span>
 <span>        Region <span class="op">=</span> <span class="cn">FALSE</span>, ContentsCode <span class="op">=</span> <span class="cn">TRUE</span>, Tid <span class="op">=</span> <span class="fl">3i</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/en/table/04861': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'http://data.ssb.no/api/v0/en/table/04861'</code></pre>
 <p>To show either label version or id version</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>                         contents year      value
-1 Area of urban settlements (km²) 2022    2250.94
-2 Area of urban settlements (km²) 2023    2266.99
-3 Area of urban settlements (km²) 2024    2279.97
-4             Number of residents 2022 4485236.00
-5             Number of residents 2023 4554562.00
-6             Number of residents 2024 4619969.00</code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>  ContentsCode  Tid      value
-1        Areal 2022    2250.94
-2        Areal 2023    2266.99
-3        Areal 2024    2279.97
-4      Bosatte 2022 4485236.00
-5      Bosatte 2023 4554562.00
-6      Bosatte 2024 4619969.00</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="show-additional-information">Show additional information<a class="anchor" aria-label="anchor" href="#show-additional-information"></a>
 </h2>
 <p><code>comment</code> list additional dataset information: Title,
 latest update and source.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>                                                                  <span class="va">label</span></span>
-<span><span class="st">"04861: Area and population of urban settlements, by contents and year"</span></span>
-<span>                                                                 <span class="va">source</span></span>
-<span>                                                    <span class="st">"Statistics Norway"</span></span>
-<span>                                                                <span class="va">updated</span></span>
-<span>                                                 <span class="st">"2024-10-01T06:00:00Z"</span></span>
-<span>                                                                <span class="va">tableid</span></span>
-<span>                                                                <span class="st">"04861"</span></span>
-<span>                                                               <span class="va">contents</span></span>
-<span>                     <span class="st">"04861: Area and population of urban settlements,"</span></span></code></pre>
+<pre><code>Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf</code></pre>
 </div>
 <div class="section level2">
 <h2 id="obtaining-meta-data">Obtaining meta data<a class="anchor" aria-label="anchor" href="#obtaining-meta-data"></a>
 </h2>
 <p>Meta information about the data set can be obtained by
 <code>returnMetaFrames = TRUE</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/en/table/04861"</span>,  returnMetaFrames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>$Region
-   values      valueTexts
-1    3101          Halden
-2    3103            Moss
-3    3105       Sarpsborg
-4    3107     Fredrikstad
-5    3110          Hvaler
-6    3112            Råde
-7    3114 Våler (Østfold)
-8    3116        Skiptvet
-9    3118   Indre Østfold
-10   3120       Rakkestad
-11   3122          Marker
-12   3124         Aremark
-13   3201           Bærum
-14   3203           Asker
-15   3205      Lillestrøm
-16   3207    Nordre Follo
-17   3209      Ullensaker
-18   3212        Nesodden
-19   3214           Frogn
-20   3216          Vestby
-21   3218              Ås
-22   3220         Enebakk
- [ reached 'max' / getOption("max.print") -- omitted 930 rows ]
-
-$ContentsCode
-   values                      valueTexts
-1   Areal Area of urban settlements (km²)
-2 Bosatte             Number of residents
-
-$Tid
-   values valueTexts
-1    2000       2000
-2    2002       2002
-3    2003       2003
-4    2004       2004
-5    2005       2005
-6    2006       2006
-7    2007       2007
-8    2008       2008
-9    2009       2009
-10   2011       2011
-11   2012       2012
-12   2013       2013
-13   2014       2014
-14   2015       2015
-15   2016       2016
-16   2017       2017
-17   2018       2018
-18   2019       2019
-19   2020       2020
-20   2021       2021
-21   2022       2022
-22   2023       2023
- [ reached 'max' / getOption("max.print") -- omitted 1 rows ]
-
-attr(,"text")
-      Region ContentsCode          Tid 
-    "region"   "contents"       "year" 
-attr(,"elimination")
-      Region ContentsCode          Tid 
-        TRUE        FALSE        FALSE 
-attr(,"time")
-      Region ContentsCode          Tid 
-       FALSE        FALSE         TRUE </code></pre>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/en/table/04861': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'http://data.ssb.no/api/v0/en/table/04861'</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="aggregations-using-filter-agg">Aggregations using filter <em>agg:</em><a class="anchor" aria-label="anchor" href="#aggregations-using-filter-agg"></a>
@@ -262,33 +182,16 @@ aggregated timeseries for the new Norwegian municipality structure from
 2020. Also note the url where <code>/en</code> is replaced by
 <code>/no</code>. That returns labels in Norwegian instead of in
 English.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/no/table/07459"</span>,</span>
 <span>        Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"agg:KommSummer"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"K-3101"</span>, <span class="st">"K-3103"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        Tid <span class="op">=</span> <span class="fl">4i</span>,</span>
 <span>        Alder <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"agg:TodeltGrupperingB"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"H17"</span>, <span class="st">"H18"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        Kjonn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>$`07459: Befolkning, etter region, kjønn, alder, statistikkvariabel og år`
-  region   kjønn             alder statistikkvariabel   år value
-1 Halden Kvinner           0-17 år           Personer 2022  2937
-2 Halden Kvinner           0-17 år           Personer 2023  2933
-3 Halden Kvinner           0-17 år           Personer 2024  2944
-4 Halden Kvinner           0-17 år           Personer 2025  2926
-5 Halden Kvinner 18 år eller eldre           Personer 2022 12626
-6 Halden Kvinner 18 år eller eldre           Personer 2023 12787
-7 Halden Kvinner 18 år eller eldre           Personer 2024 12843
- [ reached 'max' / getOption("max.print") -- omitted 25 rows ]
-
-$dataset
-  Region Kjonn Alder ContentsCode  Tid value
-1 K-3101     2   H17    Personer1 2022  2937
-2 K-3101     2   H17    Personer1 2023  2933
-3 K-3101     2   H17    Personer1 2024  2944
-4 K-3101     2   H17    Personer1 2025  2926
-5 K-3101     2   H18    Personer1 2022 12626
-6 K-3101     2   H18    Personer1 2023 12787
-7 K-3101     2   H18    Personer1 2024 12843
- [ reached 'max' / getOption("max.print") -- omitted 25 rows ]</code></pre>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/no/table/07459': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'http://data.ssb.no/api/v0/no/table/07459'</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 <p>There are two limitations in the PxWebApi using these filters.</p>
 <ol style="list-style-type: decimal">
 <li>The name of the filter and the id’s are not shown in metadata, only
@@ -304,7 +207,7 @@ elements as input, it is easier to query the value pool. This means that
 <p>In this example Region is the value pool and Fylker (counties) is the
 value set. As <code>vs:Fylker</code> is redundant, both will return the
 same:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">Region</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"vs:Fylker"</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"01"</span>,<span class="st">"02"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">Region</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"01"</span>,<span class="st">"02"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -313,77 +216,58 @@ same:</p>
 </h2>
 <p>In PxWebApi the original query is formulated as JSON. Using the
 parameter returnApiQuery is useful for debugging.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"http://data.ssb.no/api/v0/en/table/04861"</span>,  returnApiQuery <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>{
-  "query": [
-    {
-      "code": "Region",
-      "selection": {
-        "filter": "item",
-        "values": ["3101", "2399", "9999"]
-      }
-    },
-    {
-      "code": "ContentsCode",
-      "selection": {
-        "filter": "item",
-        "values": ["Areal", "Bosatte"]
-      }
-    },
-    {
-      "code": "Tid",
-      "selection": {
-        "filter": "item",
-        "values": ["2000", "2023", "2024"]
-      }
-    }
-  ],
-  "response": {
-    "format": "json-stat2"
-  }
-} </code></pre>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/en/table/04861': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'http://data.ssb.no/api/v0/en/table/04861'</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 <p>To convert an original JSON API query to a PxWebApiData query there
 is also a simple webpage <a href="https://radbrt-px-converter-px-converter-3mdstf.streamlit.app" class="external-link">PxWebApiData
 call creator</a>.</p>
 </div>
 <div class="section level2">
-<h2 id="readymade-datasets-by-getapidata">Readymade datasets by GetApiData<a class="anchor" aria-label="anchor" href="#readymade-datasets-by-getapidata"></a>
+<h2 id="pxwebapi-2-examples-with-getapidata">PxWebApi 2 examples with GetApiData<a class="anchor" aria-label="anchor" href="#pxwebapi-2-examples-with-getapidata"></a>
 </h2>
-<p>Statistics Norway also provides an API with readymade datasets,
-available by http GET. The data is most easily retrieved with the
-<code>GetApiData</code> function, which is the same as using the
-parameter <code>getDataByGET = TRUE</code> in the <code>ApiData</code>
-function. This dataset is from Statistics Norway’s Economic trends
-forecasts.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">GetApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/dataset/934516.json?lang=en"</span><span class="op">)</span></span>
-<span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<pre><code>   year                                         contents value
-1  2025                           Gross domestic product  -0.4
-2  2025                              GDP Mainland Norway   1.2
-3  2025                                 Employed persons   0.4
-4  2025                        Unemployment rate (level)   4.0
-5  2025                      Wages per standard man-year   4.2
-6  2025                       Consumer price index (CPI)   2.7
-7  2025                                          CPI-ATE   3.1
-8  2025                                   Housing prices   7.0
-9  2025                        Money market rate (level)   4.4
-10 2025 Import-weighted NOK exchange rate (44 countries)   0.6
-11 2026                           Gross domestic product   1.5
-12 2026                              GDP Mainland Norway   1.9
-13 2026                                 Employed persons   0.5
-14 2026                        Unemployment rate (level)   4.1
-15 2026                      Wages per standard man-year   3.8
- [ reached 'max' / getOption("max.print") -- omitted 25 rows ]</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<p>Statistics Norway has announced that PxWebApi 2 is now the primary
+API for Statbank Norway’s 7 500 public tables. This API supports GET
+queries defined entirely in a URL.</p>
+<p>Version 1 of PxWebApi will continue to exist in parallel for a period
+of time, but only supports POST queries. The limited API with “readymade
+datasets” will be removed during 2025, since PxWebApi 2 offers GET
+queries.</p>
+<p>The data is most easily retrieved with the <code>GetApiData</code>
+function, which is the same as using the parameter
+<code>getDataByGET = TRUE</code> in the <code>ApiData</code> function.
+Corresponding wrapper functions <code>GetApiData1</code>,
+<code>GetApiData2</code> and <code>GetApiData12</code> are available for
+<code>ApiData1</code>, <code>ApiData2</code> and
+<code>ApiData12</code>.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example dataset</span></span>
+<span><span class="va">url1</span> <span class="op">&lt;-</span> <span class="st">"https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="va">url1</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Not available - 429</code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>    <span class="co"># Label version of the dataset</span></span></code></pre></div>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>                                                                          <span class="va">label</span></span>
-<span><span class="st">"12880: Main economic indicators. Accounts and forecasts, by year and contents"</span></span>
-<span>                                                                         <span class="va">source</span></span>
-<span>                                                            <span class="st">"Statistics Norway"</span></span>
-<span>                                                                        <span class="va">updated</span></span>
-<span>                                                         <span class="st">"2025-03-18T07:00:00Z"</span></span></code></pre>
+<pre><code>Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf</code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># More specific query with selected dimensions</span></span>
+<span><span class="va">url2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span></span>
+<span>  <span class="st">"https://data.ssb.no/api/pxwebapi/v2/tables/03013/data?lang=en"</span>,</span>
+<span>  <span class="st">"&amp;valueCodes[Konsumgrp]=??"</span>,</span>
+<span>  <span class="st">"&amp;valueCodes[ContentsCode]=KpiIndMnd"</span>,</span>
+<span>  <span class="st">"&amp;valueCodes[Tid]=top(2)"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData2</a></span><span class="op">(</span><span class="va">url2</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Not available - 429</code></pre>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x2</span>  <span class="co"># id version of the dataset</span></span></code></pre></div>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="eurostat-data">Eurostat data<a class="anchor" aria-label="anchor" href="#eurostat-data"></a>
@@ -395,13 +279,13 @@ this package to obtain data from Eurostat by using
 <p>This example shows HICP total index, latest two periods for EU and
 Norway. See <a href="https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query" class="external-link">Eurostat</a>
 for more.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">urlEurostat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span>   <span class="co"># Here the long url is split into several lines using paste0 </span></span>
 <span>  <span class="st">"https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r"</span>, </span>
 <span>  <span class="st">"?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU"</span><span class="op">)</span></span>
 <span><span class="va">urlEurostat</span></span></code></pre></div>
 <pre><code>[1] "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU"</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ApiData.html">GetApiData12</a></span><span class="op">(</span><span class="va">urlEurostat</span><span class="op">)</span></span></code></pre></div>
 <pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
 <pre><code>  Time frequency                         Unit of measure
@@ -420,10 +304,10 @@ for more.</p>
 3                                                                                                           Norway
 4                                                                                                           Norway
      Time freq         unit coicop geo    time value
-1 2024-12    M RCH_MV12MAVR   CP00  EU 2024-12   2.6
-2 2025-01    M RCH_MV12MAVR   CP00  EU 2025-01   2.6
-3 2024-12    M RCH_MV12MAVR   CP00  NO 2024-12   2.8
-4 2025-01    M RCH_MV12MAVR   CP00  NO 2025-01   2.6</code></pre>
+1 2025-07    M RCH_MV12MAVR   CP00  EU 2025-07   2.4
+2 2025-08    M RCH_MV12MAVR   CP00  EU 2025-08   2.4
+3 2025-07    M RCH_MV12MAVR   CP00  NO 2025-07   2.4
+4 2025-08    M RCH_MV12MAVR   CP00  NO 2025-08   2.5</code></pre>
 </div>
 <div class="section level2">
 <h2 id="practical-example">Practical example<a class="anchor" aria-label="anchor" href="#practical-example"></a>
@@ -437,74 +321,61 @@ personel. Having obtained the relevant table, table 07964, we create the
 link <a href="https://data.ssb.no/api/v0/no/table/07964/" class="external-link uri">https://data.ssb.no/api/v0/no/table/07964/</a></p></li>
 <li><p>Load the package.</p></li>
 </ol>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statisticsnorway.github.io/ssb-pxwebapidata/" class="external-link">PxWebApiData</a></span><span class="op">)</span></span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Check which variables that exist in the data.</li>
 </ol>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">variables</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/no/table/07964/"</span>,</span>
-<span>                     returnMetaFrames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">variables</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] "NACE2007"     "ContentsCode" "Tid"         </code></pre>
+<span>                     returnMetaFrames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/no/table/07964/': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'https://data.ssb.no/api/v0/no/table/07964/'</code></pre>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">variables</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Check which values each variable contains.</li>
 </ol>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/no/table/07964/"</span>,</span>
-<span>                  returnMetaData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code> [1] "A-N"       "A03"       "B05-B09"   "B06_B09.1" "C"         "C10-C11"  
- [7] "C13"       "C14-C15"   "C16"       "C17"       "C18"       "C19-C20"  
-[13] "C21"       "C22"       "C23"       "C24"       "C25"       "C26"      
-[19] "C26.3"     "C26.5"     "C27"       "C28"       "C29"       "C30"      
-[25] "C30.1"     "C31"       "C32"       "C32.5"     "C33"       "D35"      
-[31] "E36-E39"   "F41-F43"   "G-N"       "G46"       "H49-H53"   "J58"      
-[37] "J58.2"     "J59-J60"   "J61"       "J62"       "J63"       "K64-K66"  
-[43] "M70"       "M71"       "M72"      
- [ reached getOption("max.print") -- omitted 2 entries ]</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<span>                  returnMetaData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/no/table/07964/': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'https://data.ssb.no/api/v0/no/table/07964/'</code></pre>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">values</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code>[1] "EnhetTot"           "EnheterFoU"         "FoUpersonale"      
-[4] "KvinneligFoUpers"   "FoUPersonaleUoHutd" "FoUPersonaleDoktor"
-[7] "FoUArsverk"         "FoUArsverkPers"     "FoUArsverkUtd"     </code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">values</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">values</span></span></code></pre></div>
-<pre><code> [1] "2007" "2008" "2009" "2010" "2011" "2012" "2013" "2014" "2015" "2016"
-[11] "2017" "2018" "2019" "2020" "2021" "2022" "2023"</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Define these variables in the query to sort out the values we
 want.</li>
 </ol>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ApiData.html">ApiData</a></span><span class="op">(</span><span class="st">"https://data.ssb.no/api/v0/en/table/07964/"</span>,</span>
 <span>                Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2021"</span>, <span class="st">"2022"</span><span class="op">)</span>, <span class="co"># Define year to 2021 and 2022</span></span>
 <span>                NACE2007 <span class="op">=</span> <span class="st">"G-N"</span>, <span class="co"># Define the services sector</span></span>
-<span>                ContentsCode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KvinneligFoUpers"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Define women R&amp;D personell</span></span>
-<span></span>
-<span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># Extract the first list element, which contains full variable names.</span></span>
+<span>                ContentsCode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"KvinneligFoUpers"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Define women R&amp;D personell</span></span></code></pre></div>
+<pre><code>Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/en/table/07964/': HTTP status was '429 Unknown Error'</code></pre>
+<pre><code>No internet connection or resource not available: Error in open.connection(con, "rb") : 
+  cannot open the connection to 'https://data.ssb.no/api/v0/en/table/07964/'</code></pre>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="va">mydata</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># Extract the first list element, which contains full variable names.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<pre><code>  industry (SIC2007)             contents year value
-1     Services total Female R&amp;D personnel 2021  4904
-2     Services total Female R&amp;D personnel 2022  5449</code></pre>
+<pre><code><span><span class="cn">NULL</span></span></code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Show additional information.</li>
 </ol>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span>                                                                                                  <span class="va">label</span></span>
-<span><span class="st">"07964: O07964: R&amp;D personnel and R&amp;D full-time equivalents (FTE) in Business Enterprise sector, by industry (SIC2007), contents and year"</span></span>
-<span>                                                                                                 <span class="va">source</span></span>
-<span>                                                                                    <span class="st">"Statistics Norway"</span></span>
-<span>                                                                                                <span class="va">updated</span></span>
-<span>                                                                                 <span class="st">"2025-02-24T07:00:00Z"</span></span>
-<span>                                                                                                <span class="va">tableid</span></span>
-<span>                                                                                                <span class="st">"07964"</span></span>
-<span>                                                                                               <span class="va">contents</span></span>
-<span>      <span class="st">"07964: O07964: R&amp;D personnel and R&amp;D full-time equivalents (FTE) in Business Enterprise sector,"</span></span></code></pre>
+<pre><code>Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf</code></pre>
 </div>
 <div class="section level2">
 <h2 id="background">Background<a class="anchor" aria-label="anchor" href="#background"></a>
@@ -527,7 +398,7 @@ User Guide</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
