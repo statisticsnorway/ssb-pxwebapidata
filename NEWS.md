@@ -1,6 +1,6 @@
 
 
-## PxWebApiData	1.0.1
+## PxWebApiData	1.1.0
 * Switch from readymade datasets to PxWebApi 2 for Statistics Norway examples  
   - Replaced readymade dataset examples  
   - Included text about PxWebApi 2 as the new primary API for Statistics Norway (v1 still available with POST)  
