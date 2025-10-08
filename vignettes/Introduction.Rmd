@@ -196,7 +196,7 @@ x2  # id version of the dataset
 Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `GetApiData`
 or the similar functions with `1`, `2` or `12` at the end
 
-This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat](https://wikis.ec.europa.eu/display/EUROSTATHELP/API+Statistics+-+data+query) for more.
+This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat guidelines](https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-detailed-guidelines/api-statistics) for more.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"}
 
