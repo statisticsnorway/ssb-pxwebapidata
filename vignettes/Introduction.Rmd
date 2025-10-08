@@ -168,13 +168,14 @@ This API supports GET queries defined entirely in a URL.
 Version 1 of PxWebApi will continue to exist in parallel for a period of time, but only supports POST queries.
 The limited API with "readymade datasets" will be removed during 2025, since PxWebApi 2 offers GET queries.
 
-The data is most easily retrieved with the `GetApiData` function, which is the same as using the parameter `getDataByGET = TRUE` in the `ApiData` function.
+The `GetApiData` function can be used with URLs for PxWebApi 2 in a similar way as it was previously used for "readymade datasets".
+It corresponds to using the parameter `getDataByGET = TRUE` in the `ApiData` function.
 Corresponding wrapper functions `GetApiData1`, `GetApiData2` and `GetApiData12` are available for `ApiData1`, `ApiData2` and `ApiData12`.
 
 ```{r eval=TRUE, comment=NA, tidy=FALSE}
 # Example dataset
 url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
-x <- ApiData(url1, getDataByGET = TRUE)
+x <- GetApiData(url1)
 
 x[[1]]    # Label version of the dataset
 comment(x)
@@ -187,7 +188,7 @@ url2 <- paste0(
   "&valueCodes[Tid]=top(2)"
 )
 
-x2 <- ApiData2(url2, getDataByGET = TRUE)
+x2 <- GetApiData2(url2)
 x2  # id version of the dataset
 ```
 
