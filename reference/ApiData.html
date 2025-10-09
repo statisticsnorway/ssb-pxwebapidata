@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -1837,10 +1837,28 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##### Small example where makeNAstatus is in use</span></span></span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="st">"04469"</span>, Tid <span class="op">=</span> <span class="st">"2020"</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Alder <span class="op">=</span> <span class="cn">TRUE</span>, Region <span class="op">=</span> <span class="st">"3011"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/no/table/04469': HTTP status was '429 Unknown Error'</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> No internet connection or resource not available: Error in open.connection(con, "rb") : </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   cannot open the connection to 'https://data.ssb.no/api/v0/no/table/04469'</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`04469: Bebuarar i bustader kommunen disponerer til pleie- og omsorgsformål, etter region, alder, statistikkvariabel og år`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               region             alder  statistikkvariabel   år value NAstatus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Hvaler (2020-2023)       Alder i alt Bebuarar i bustader 2020    36     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Hvaler (2020-2023)       Under 67 år Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Hvaler (2020-2023)          67-74 år Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Hvaler (2020-2023)          75-79 år Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Hvaler (2020-2023)          80-84 år Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Hvaler (2020-2023)          85-89 år Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Hvaler (2020-2023) 90 år eller eldre Bebuarar i bustader 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Hvaler (2020-2023)    Uoppgitt alder Bebuarar i bustader 2020    NA       ..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Region Alder ContentsCode  Tid value NAstatus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   3011   999      Beboere 2020    36     &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   3011  0-66      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3011 67-74      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3011 75-79      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3011 80-84      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   3011 85-89      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3011  090+      Beboere 2020    NA        :</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3011   888      Beboere 2020    NA       ..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
