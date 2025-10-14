@@ -17,7 +17,8 @@ fromJSONstatExtra <- function(x, naming, ..., makeNAstatus = TRUE) {
   
   # new comment attribute
   comment(z[[1]]) <- c(unlist(special[c("label", "source", "updated")]), 
-                       unlist(special$extension$px[c("tableid", "contents")]))
+                       unlist(special$extension$px[c("tableid", "contents")]),
+                       unlist(special["note"]))
   
   
   if (!makeNAstatus) {

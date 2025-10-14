@@ -38,9 +38,12 @@
 #' query elements, filter and values. In addition it possible with a single-element list.
 #' Then filter is set to 'all'. See examples. 
 #'
-#' A comment attribute with elements `label`, `source` and `updated` is added to output as a named character vector. 
-#' When available, the elements `tableid` and `contents` are also included, resulting in a vector with 3 to 5 elements.
-#' Run \code{\link{comment}} to obtain this information. 
+#' A `comment` attribute with the elements `label`, `source`, and `updated` is added to the output as a named character vector.
+#' When available, elements originating from `tableid`, `contents`, and `note`
+#' are also included, resulting in a vector with at least three elements.
+#' Use [comment()] to view these selected metadata elements.
+#' Alternatively, use [info()] or [note()] to extract specific parts.
+#' The documentation for these two functions provides further details.
 #'  
 #' Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
 #' \code{apiPackage} and \code{dataPackage} 
@@ -171,7 +174,9 @@
 #' 
 #' 
 #' ##### Small example where makeNAstatus is in use
-#' ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+#' output <- ApiData("04469", urlType = "SSBen",
+#'                   Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+#' note(output)                   
 #' 
 #' }
 #'
