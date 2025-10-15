@@ -104,7 +104,9 @@ PxData12(..., returnDataSet = 12)
 }}
 
 \item{makeNAstatus}{When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in \code{value},
-the function tries to add an additional variable, named \code{NAstatus}, with status codes.}
+the function tries to add an additional variable, named \code{NAstatus}, with status codes.
+An explanation of these status codes is provided in the note part of the comment attribute,
+i.e. what you get with \code{\link[=note]{note()}}. See the bottom example.}
 
 \item{responseFormat}{Response format to be used when \code{apiPackage} and \code{dataPackage} are defaults  (\code{"json-stat"} or \code{"json-stat2"}).}
 }

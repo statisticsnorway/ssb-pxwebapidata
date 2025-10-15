@@ -25,6 +25,8 @@
 #'   
 #' @param makeNAstatus When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in `value`, 
 #'                     the function tries to add an additional variable, named `NAstatus`, with status codes.
+#'                     An explanation of these status codes is provided in the note part of the comment attribute, 
+#'                     i.e. what you get with [note()]. See the bottom example.
 #' @param responseFormat  Response format to be used when `apiPackage` and `dataPackage` are defaults  (`"json-stat"` or `"json-stat2"`).
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
