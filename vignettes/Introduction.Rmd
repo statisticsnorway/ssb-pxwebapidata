@@ -31,10 +31,12 @@ library(knitr)
 library(PxWebApiData)
 options(max.print = 36)
 
-# Re-define the comment function to control line width and minimize excessive line breaks when printing.
-comment <- function(x) {
-     com <- base::comment(x)
+# Re-define the comment functions to control line width and minimize excessive line breaks when printing.
+comment <- function(x, fun = base::comment) {
+     com <- fun(x)
      nchar_name <- min(103, 2 + max(nchar(com)))
+     if (is.null(names(com)))
+       names(com) <- paste0("[", seq_along(com), "]")
      for (name in names(com)) {
          cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
              name, 
@@ -44,7 +46,9 @@ comment <- function(x) {
              com[[name]],
              "\"",  "\n", sep = "")
      }
- }
+}
+info <- function(x) comment(x, PxWebApiData::info)
+note <- function(x) comment(x, PxWebApiData::note)
 ```
 
 
@@ -101,10 +105,11 @@ x[[2]]
 
 ## Show additional information
 
-`comment` list additional dataset information: Title, latest update and source.
+Use `info()` and `note()` (or `comment()`) to list additional dataset information.
 ```{r, comment=NA}
 
-comment(x)
+info(x)
+note(x)
 
 ```
 
