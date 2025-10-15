@@ -1,4 +1,11 @@
 
+## PxWebApiData	1.1.1
+* Extended `comment()` to include note elements and added `info()` and `note()` functions
+  - Reflects an enhancement in the JSON-stat2 metadata, where *note* is introduced as a new field
+  - Updated documentation for the `makeNAstatus` parameter to reference `note()` for explanation of NA status codes
+  - Addresses [issue #18](https://github.com/statisticsnorway/ssb-pxwebapidata/issues/18)
+
+
 
 ## PxWebApiData	1.1.0
 * Switch from readymade datasets to PxWebApi 2 for Statistics Norway examples  
