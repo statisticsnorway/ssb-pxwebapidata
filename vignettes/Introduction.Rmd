@@ -35,8 +35,9 @@ options(max.print = 36)
 comment <- function(x, fun = base::comment) {
      com <- fun(x)
      nchar_name <- min(103, 2 + max(nchar(com)))
-     if (is.null(names(com)))
-       names(com) <- paste0("[", seq_along(com), "]")
+     if (length(com)) 
+       if (is.null(names(com)))
+         names(com) <- paste0("[", seq_along(com), "]")
      for (name in names(com)) {
          cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
              name, 
