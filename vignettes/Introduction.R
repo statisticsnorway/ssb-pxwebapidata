@@ -3,10 +3,13 @@ library(knitr)
 library(PxWebApiData)
 options(max.print = 36)
 
-# Re-define the comment function to control line width and minimize excessive line breaks when printing.
-comment <- function(x) {
-     com <- base::comment(x)
+# Re-define the comment functions to control line width and minimize excessive line breaks when printing.
+comment <- function(x, fun = base::comment) {
+     com <- fun(x)
      nchar_name <- min(103, 2 + max(nchar(com)))
+     if (length(com)) 
+       if (is.null(names(com)))
+         names(com) <- paste0("[", seq_along(com), "]")
      for (name in names(com)) {
          cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
              name, 
@@ -16,10 +19,12 @@ comment <- function(x) {
              com[[name]],
              "\"",  "\n", sep = "")
      }
- }
+}
+info <- function(x) comment(x, PxWebApiData::info)
+note <- function(x) comment(x, PxWebApiData::note)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/en/table/04861",
+ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 
@@ -27,7 +32,7 @@ ApiData("http://data.ssb.no/api/v0/en/table/04861",
 options(max.print = 75)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData12("http://data.ssb.no/api/v0/en/table/04861",
+ApiData12("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 
@@ -36,7 +41,7 @@ options(max.print = 45)
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
 
-x <- ApiData("http://data.ssb.no/api/v0/en/table/04861",
+x <- ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 
 
@@ -48,15 +53,16 @@ x[[2]]
 
 ## ----comment=NA---------------------------------------------------------------
 
-comment(x)
+info(x)
+note(x)
 
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/no/table/07459",
+ApiData("https://data.ssb.no/api/v0/no/table/07459",
         Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
@@ -70,13 +76,13 @@ ApiData("http://data.ssb.no/api/v0/no/table/07459",
 
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA--------------------------------------
-ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 
 ## ----eval=TRUE, comment=NA, tidy=FALSE----------------------------------------
 # Example dataset
 url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
-x <- ApiData(url1, getDataByGET = TRUE)
+x <- GetApiData(url1)
 
 x[[1]]    # Label version of the dataset
 comment(x)
@@ -89,7 +95,7 @@ url2 <- paste0(
   "&valueCodes[Tid]=top(2)"
 )
 
-x2 <- ApiData2(url2, getDataByGET = TRUE)
+x2 <- GetApiData2(url2)
 x2  # id version of the dataset
 
 ## ----eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"------------------
