@@ -158,6 +158,8 @@ x <- ApiData(url, getDataByGET = TRUE)
 x[[1]]    # The label version of the dataset
 x[[2]]    # The id version of the dataset
 names(x)
+note(x)
+info(x)
 comment(x)
 
 # As above, but with single dataset output
