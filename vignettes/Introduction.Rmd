@@ -31,10 +31,13 @@ library(knitr)
 library(PxWebApiData)
 options(max.print = 36)
 
-# Re-define the comment function to control line width and minimize excessive line breaks when printing.
-comment <- function(x) {
-     com <- base::comment(x)
+# Re-define the comment functions to control line width and minimize excessive line breaks when printing.
+comment <- function(x, fun = base::comment) {
+     com <- fun(x)
      nchar_name <- min(103, 2 + max(nchar(com)))
+     if (length(com)) 
+       if (is.null(names(com)))
+         names(com) <- paste0("[", seq_along(com), "]")
      for (name in names(com)) {
          cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
              name, 
@@ -44,7 +47,9 @@ comment <- function(x) {
              com[[name]],
              "\"",  "\n", sep = "")
      }
- }
+}
+info <- function(x) comment(x, PxWebApiData::info)
+note <- function(x) comment(x, PxWebApiData::note)
 ```
 
 
@@ -57,7 +62,7 @@ and one parameter is specified by indices. Negative values are used to specify r
 A list of two data frames is returned; the label version and the id version.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/en/table/04861",
+ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
@@ -70,7 +75,7 @@ options(max.print = 75)
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData12("http://data.ssb.no/api/v0/en/table/04861",
+ApiData12("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 
 ```
@@ -87,7 +92,7 @@ All possible values is obtained by TRUE and corresponds to filter `"all": "*"` i
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
 
-x <- ApiData("http://data.ssb.no/api/v0/en/table/04861",
+x <- ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 
 ```
@@ -101,10 +106,11 @@ x[[2]]
 
 ## Show additional information
 
-`comment` list additional dataset information: Title, latest update and source.
+Use `info()` and `note()` (or `comment()`) to list additional dataset information.
 ```{r, comment=NA}
 
-comment(x)
+info(x)
+note(x)
 
 ```
 
@@ -114,7 +120,7 @@ Meta information about the data set can be obtained by `returnMetaFrames = TRUE`
 
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 
 ```
 
@@ -126,7 +132,7 @@ PxWebApi offers two more filters for groupings, `agg:` and `vs:`. You can see th
 This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Also note the url where `/en` is replaced by `/no`. That returns labels in Norwegian instead of in English.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/no/table/07459",
+ApiData("https://data.ssb.no/api/v0/no/table/07459",
         Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
         Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
@@ -153,7 +159,7 @@ In this example Region is the value pool and Fylker (counties) is the value set.
 In PxWebApi the original query is formulated as JSON. Using the parameter returnApiQuery is useful for debugging.
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
-ApiData("http://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 
 ```
 

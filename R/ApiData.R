@@ -25,6 +25,8 @@
 #'   
 #' @param makeNAstatus When TRUE and when dataPackage is \code{"rjstat"} and when missing entries in `value`, 
 #'                     the function tries to add an additional variable, named `NAstatus`, with status codes.
+#'                     An explanation of these status codes is provided in the note part of the comment attribute, 
+#'                     i.e. what you get with [note()]. See the bottom example.
 #' @param responseFormat  Response format to be used when `apiPackage` and `dataPackage` are defaults  (`"json-stat"` or `"json-stat2"`).
 #' 
 #' @details Each variable is specified by using the variable name as input parameter. The value can be specified as:  
@@ -38,9 +40,12 @@
 #' query elements, filter and values. In addition it possible with a single-element list.
 #' Then filter is set to 'all'. See examples. 
 #'
-#' A comment attribute with elements `label`, `source` and `updated` is added to output as a named character vector. 
-#' When available, the elements `tableid` and `contents` are also included, resulting in a vector with 3 to 5 elements.
-#' Run \code{\link{comment}} to obtain this information. 
+#' A `comment` attribute with the elements `label`, `source`, and `updated` is added to the output as a named character vector.
+#' When available, elements originating from `tableid`, `contents`, and `note`
+#' are also included, resulting in a vector with at least three elements.
+#' Use [comment()] to view these selected metadata elements.
+#' Alternatively, use [info()] or [note()] to extract specific parts.
+#' The documentation for these two functions provides further details.
 #'  
 #' Functionality in the package \code{pxweb} can be utilized by making use of the parameters 
 #' \code{apiPackage} and \code{dataPackage} 
@@ -73,6 +78,8 @@
 #' x[[1]]    # The label version of the dataset
 #' x[[2]]    # The id version of the dataset
 #' names(x)
+#' note(x)
+#' info(x)
 #' comment(x)
 #' 
 #' # As above, but with single dataset output
@@ -124,8 +131,6 @@
 #' names(ApiData(4861,returnMetaFrames = TRUE))  # these names from metadata assumed two lines above
 #' ApiData("4861", c("1103", "0301"), 1, c(1, -1),  urlType="SSBen")
 #' ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
-#' ApiData(1066, getDataByGET = TRUE,  urlType="SSB")
-#' ApiData(1066, getDataByGET = TRUE,  urlType="SSBen")
 #' 
 #' }
 #' ##### Advanced use using list. See details above. Try returnApiQuery=TRUE on the same examples. 
@@ -171,7 +176,9 @@
 #' 
 #' 
 #' ##### Small example where makeNAstatus is in use
-#' ApiData("04469", Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+#' output <- ApiData("04469", urlType = "SSBen",
+#'                   Tid = "2020", ContentsCode = 1, Alder = TRUE, Region = "3011")
+#' note(output)                   
 #' 
 #' }
 #'
