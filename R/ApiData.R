@@ -131,8 +131,6 @@
 #' names(ApiData(4861,returnMetaFrames = TRUE))  # these names from metadata assumed two lines above
 #' ApiData("4861", c("1103", "0301"), 1, c(1, -1),  urlType="SSBen")
 #' ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
-#' ApiData(1066, getDataByGET = TRUE,  urlType="SSB")
-#' ApiData(1066, getDataByGET = TRUE,  urlType="SSBen")
 #' 
 #' }
 #' ##### Advanced use using list. See details above. Try returnApiQuery=TRUE on the same examples. 
