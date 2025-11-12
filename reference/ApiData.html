@@ -157,7 +157,9 @@
 
 <dt id="arg-makenastatus">makeNAstatus<a class="anchor" aria-label="anchor" href="#arg-makenastatus"></a></dt>
 <dd><p>When TRUE and when dataPackage is <code>"rjstat"</code> and when missing entries in <code>value</code>,
-the function tries to add an additional variable, named <code>NAstatus</code>, with status codes.</p></dd>
+the function tries to add an additional variable, named <code>NAstatus</code>, with status codes.
+An explanation of these status codes is provided in the note part of the comment attribute,
+i.e. what you get with <code><a href="info.html">note()</a></code>. See the bottom example.</p></dd>
 
 
 <dt id="arg-responseformat">responseFormat<a class="anchor" aria-label="anchor" href="#arg-responseformat"></a></dt>
@@ -179,9 +181,12 @@ whose default means the first and the two last elements.</p>
 <p>The value can also be specified as a (unnamed) two-element list corresponding to the two
 query elements, filter and values. In addition it possible with a single-element list.
 Then filter is set to 'all'. See examples.</p>
-<p>A comment attribute with elements <code>label</code>, <code>source</code> and <code>updated</code> is added to output as a named character vector.
-When available, the elements <code>tableid</code> and <code>contents</code> are also included, resulting in a vector with 3 to 5 elements.
-Run <code><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></code> to obtain this information.</p>
+<p>A <code>comment</code> attribute with the elements <code>label</code>, <code>source</code>, and <code>updated</code> is added to the output as a named character vector.
+When available, elements originating from <code>tableid</code>, <code>contents</code>, and <code>note</code>
+are also included, resulting in a vector with at least three elements.
+Use <code><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment()</a></code> to view these selected metadata elements.
+Alternatively, use <code><a href="info.html">info()</a></code> or <code><a href="info.html">note()</a></code> to extract specific parts.
+The documentation for these two functions provides further details.</p>
 <p>Functionality in the package <code>pxweb</code> can be utilized by making use of the parameters
 <code>apiPackage</code> and <code>dataPackage</code>
 as implemented as the wrappers <code>PxData</code> and <code>pxwebData</code>.
@@ -206,7 +211,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">ApiData</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>    <span class="co"># The label version of the dataset</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  age contents year        sex   value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  age contents year     gender   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                All  Persons 2025 Both sexes 5594340</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                All  Persons 2025    Females 2775143</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                All  Persons 2025      Males 2819197</span>
@@ -252,25 +257,40 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20   80+     Personer 2025     2  157201</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21   80+     Personer 2025     1  113336</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "05810: Population, by age, contents, year and sex"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "dataset"                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "05810: Population, by age, contents, year and gender"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "dataset"                                             </span>
+<span class="r-in"><span><span class="fu"><a href="info.html">note</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Until 1990 the figures correspond per 31 Desember. As from 1995 the figures correspond per 1 January."</span>
+<span class="r-in"><span><span class="fu"><a href="info.html">info</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  label </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "05810: Population, by age, contents, year and gender" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                 source </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                    "Statistics Norway" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                updated </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                 "2025-02-25T07:00:00Z" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                tableid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                "05810" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                               contents </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                   "05810: Population," </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               label </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "05810: Population, by age, contents, year and sex" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                              source </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 "Statistics Norway" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             updated </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              "2025-02-25T07:00:00Z" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             tableid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             "05810" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                            contents </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                "05810: Population," </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                   label </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  "05810: Population, by age, contents, year and gender" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                  source </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                     "Statistics Norway" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                 updated </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                  "2025-02-25T07:00:00Z" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                 tableid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                 "05810" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                contents </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                    "05810: Population," </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                    note </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "Until 1990 the figures correspond per 31 Desember. As from 1995 the figures correspond per 1 January." </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># As above, but with single dataset output</span></span></span>
 <span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">ApiData1</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># as x[[1]]</span></span></span>
 <span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">ApiData2</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># as x[[2]]</span></span></span>
 <span class="r-in"><span><span class="fu">ApiData12</span><span class="op">(</span><span class="va">url</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>      <span class="co"># Combined</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  age contents year        sex Alder ContentsCode  Tid Kjonn</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  age contents year     gender Alder ContentsCode  Tid Kjonn</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                All  Persons 2025 Both sexes  999B     Personer 2025     0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                All  Persons 2025    Females  999B     Personer 2025     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                All  Persons 2025      Males  999B     Personer 2025     1</span>
@@ -574,7 +594,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Kjonn"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]$text</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sex"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "gender"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[5]]$values</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "0" "2" "1"</span>
@@ -1041,7 +1061,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   NACE2007 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       "industry (SIC2007)" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                      Kjonn </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      "sex" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                   "gender" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                               AvtaltVanlig </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "contractual/usual working hours per week" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                               ContentsCode </span>
@@ -1164,6 +1184,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21 Number of residents 2022 4485236</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22 Number of residents 2023 4554562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 Number of residents 2024 4619969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 Number of residents 2025 4662945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ContentsCode  Tid   value</span>
@@ -1190,6 +1211,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21      Bosatte 2022 4485236</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22      Bosatte 2023 4554562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23      Bosatte 2024 4619969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24      Bosatte 2025 4662945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Some years</span></span></span>
@@ -1199,13 +1221,13 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span>              contents year   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Number of residents 2000 3396382</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 Number of residents 2005 3560137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Number of residents 2024 4619969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Number of residents 2025 4662945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ContentsCode  Tid   value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      Bosatte 2000 3396382</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      Bosatte 2005 3560137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Bosatte 2024 4619969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Bosatte 2025 4662945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Two selected regions</span></span></span>
@@ -1214,16 +1236,16 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Area and population of urban settlements, by region, contents and year`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              region            contents year  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Oslo municipality Number of residents 2000 504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Oslo municipality Number of residents 2024 714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Oslo municipality Number of residents 2025 720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3         Stavanger Number of residents 2000 106804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Stavanger Number of residents 2024 142897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Stavanger Number of residents 2025 143972</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301      Bosatte 2000 504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301      Bosatte 2024 714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301      Bosatte 2025 720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1103      Bosatte 2000 106804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103      Bosatte 2024 142897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103      Bosatte 2025 143972</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -1232,31 +1254,31 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      region      statistikkvariabel   år  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      Oslo Areal av tettsted (km²) 2000 132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Oslo Areal av tettsted (km²) 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Oslo Areal av tettsted (km²) 2025 129.90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 Stavanger Areal av tettsted (km²) 2000  41.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Stavanger Areal av tettsted (km²) 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Stavanger Areal av tettsted (km²) 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301        Areal 2000 132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2025 129.90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1103        Areal 2000  41.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103        Areal 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103        Areal 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">4861</span>, Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1103"</span>, <span class="st">"0301"</span><span class="op">)</span>, ContentsCode<span class="op">=</span><span class="fl">2</span>, Tid<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      region statistikkvariabel   år  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      Oslo            Bosatte 2000 504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Oslo            Bosatte 2024 714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      Oslo            Bosatte 2025 720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 Stavanger            Bosatte 2000 106804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Stavanger            Bosatte 2024 142897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Stavanger            Bosatte 2025 143972</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301      Bosatte 2000 504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301      Bosatte 2024 714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301      Bosatte 2025 720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1103      Bosatte 2000 106804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103      Bosatte 2024 142897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103      Bosatte 2025 143972</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">4861</span>,returnMetaFrames <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>  <span class="co"># these names from metadata assumed two lines above</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Region"       "ContentsCode" "Tid"         </span>
@@ -1264,16 +1286,16 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Area and population of urban settlements, by region, contents and year`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              region                        contents year  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 Oslo municipality Area of urban settlements (km²) 2000 132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Oslo municipality Area of urban settlements (km²) 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Oslo municipality Area of urban settlements (km²) 2025 129.90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3         Stavanger Area of urban settlements (km²) 2000  41.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Stavanger Area of urban settlements (km²) 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         Stavanger Area of urban settlements (km²) 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid  value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301        Areal 2000 132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2025 129.90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   1103        Areal 2000  41.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103        Areal 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1103        Areal 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="st">"01222"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1103"</span>, <span class="st">"0301"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">9</span><span class="op">:</span><span class="fl">11</span><span class="op">)</span>, <span class="fl">2i</span>, verbosePrint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Region</span>
@@ -1390,10 +1412,10 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> [991] "26"    "88"    "99"    "9999" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ContentsCode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Folketallet1"      "Fodte2"            "Dode3"            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "Fodselsoverskudd4" "Innvandring5"      "Utvandring6"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "Tilflytting7"      "Fraflytting8"      "Nettoinnflytting9"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "Folketilvekst10"   "Folketallet11"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "Folketallet1"      "Folketallet11"     "Fodte2"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "Dode3"             "Fodselsoverskudd4" "Innvandring5"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "Utvandring6"       "Tilflytting7"      "Fraflytting8"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "Nettoinnflytting9" "Folketilvekst10"  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Tid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "1997K4" "1998K1" "1998K2" "1998K3" "1998K4" "1999K1" "1999K2" "1999K3"</span>
@@ -1417,132 +1439,126 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`01222: Befolkning og kvartalsvise endringar, etter region, statistikkvariabel og kvartal`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       region                         statistikkvariabel kvartal  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Oslo                            Fødselsoverskot  2025K1    992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Oslo                            Fødselsoverskot  2025K2   1548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K1    -39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K2  -1611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Oslo                                 Folkevekst  2025K1    953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Oslo                                 Folkevekst  2025K2    -63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       Oslo       Befolkning ved utgangen av kvartalet  2025K1 725243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       Oslo       Befolkning ved utgangen av kvartalet  2025K2 725180</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Stavanger                            Fødselsoverskot  2025K1    132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Stavanger                            Fødselsoverskot  2025K2    220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K1    408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K2    -45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Stavanger                                 Folkevekst  2025K1    540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Stavanger                                 Folkevekst  2025K2    175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Stavanger       Befolkning ved utgangen av kvartalet  2025K1 150663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Stavanger       Befolkning ved utgangen av kvartalet  2025K2 150838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       region                         statistikkvariabel kvartal value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Oslo                                       Døde  2025K1  1087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Oslo                                       Døde  2025K2   913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Oslo                     Utflytting, innalandsk  2025K1  6965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Oslo                     Utflytting, innalandsk  2025K2  8469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K1   -39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K2 -1611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       Oslo                                 Folkevekst  2025K1   953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8       Oslo                                 Folkevekst  2025K2   -63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Stavanger                                       Døde  2025K1   267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Stavanger                                       Døde  2025K2   210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Stavanger                     Utflytting, innalandsk  2025K1  1321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 Stavanger                     Utflytting, innalandsk  2025K2  1582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K1   408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K2   -45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Stavanger                                 Folkevekst  2025K1   540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 Stavanger                                 Folkevekst  2025K2   175</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Region      ContentsCode    Tid  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301 Fodselsoverskudd4 2025K1    992</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301 Fodselsoverskudd4 2025K2   1548</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301 Nettoinnflytting9 2025K1    -39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301 Nettoinnflytting9 2025K2  -1611</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301   Folketilvekst10 2025K1    953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0301   Folketilvekst10 2025K2    -63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0301     Folketallet11 2025K1 725243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0301     Folketallet11 2025K2 725180</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1103 Fodselsoverskudd4 2025K1    132</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1103 Fodselsoverskudd4 2025K2    220</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1103 Nettoinnflytting9 2025K1    408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   1103 Nettoinnflytting9 2025K2    -45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1103   Folketilvekst10 2025K1    540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   1103   Folketilvekst10 2025K2    175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1103     Folketallet11 2025K1 150663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1103     Folketallet11 2025K2 150838</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Region      ContentsCode    Tid value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301             Dode3 2025K1  1087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301             Dode3 2025K2   913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301      Fraflytting8 2025K1  6965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301      Fraflytting8 2025K2  8469</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301 Nettoinnflytting9 2025K1   -39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0301 Nettoinnflytting9 2025K2 -1611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0301   Folketilvekst10 2025K1   953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0301   Folketilvekst10 2025K2   -63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1103             Dode3 2025K1   267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1103             Dode3 2025K2   210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   1103      Fraflytting8 2025K1  1321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   1103      Fraflytting8 2025K2  1582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   1103 Nettoinnflytting9 2025K1   408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   1103 Nettoinnflytting9 2025K2   -45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   1103   Folketilvekst10 2025K1   540</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   1103   Folketilvekst10 2025K2   175</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">1066</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span>,  urlType<span class="op">=</span><span class="st">"SSB"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Not available - 400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
-<span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">1066</span>, getDataByGET <span class="op">=</span> <span class="cn">TRUE</span>,  urlType<span class="op">=</span><span class="st">"SSBen"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Not available - 400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 <span class="r-in"><span><span class="co">##### Advanced use using list. See details above. Try returnApiQuery=TRUE on the same examples. </span></span></span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">4861</span>, Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"03*"</span><span class="op">)</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Tid <span class="op">=</span> <span class="fl">5i</span><span class="op">)</span> <span class="co"># "all" can be dropped from the list</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 region      statistikkvariabel   år  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 Oslo Areal av tettsted (km²) 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 Oslo Areal av tettsted (km²) 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 Oslo Areal av tettsted (km²) 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 Oslo Areal av tettsted (km²) 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Oslo Areal av tettsted (km²) 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2020   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 Oslo Areal av tettsted (km²) 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 Oslo Areal av tettsted (km²) 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 Oslo Areal av tettsted (km²) 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 Oslo Areal av tettsted (km²) 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Oslo Areal av tettsted (km²) 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Region ContentsCode  Tid  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0399        Areal 2020   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0399        Areal 2021   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0399        Areal 2022   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    0399        Areal 2023   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   0399        Areal 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0399        Areal 2021   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0399        Areal 2022   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0399        Areal 2023   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    0399        Areal 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   0399        Areal 2025   0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">4861</span>, Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"all"</span>, <span class="st">"03*"</span><span class="op">)</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Tid <span class="op">=</span> <span class="fl">5i</span><span class="op">)</span>  <span class="co"># same as above</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 region      statistikkvariabel   år  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 Oslo Areal av tettsted (km²) 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 Oslo Areal av tettsted (km²) 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 Oslo Areal av tettsted (km²) 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 Oslo Areal av tettsted (km²) 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Oslo Areal av tettsted (km²) 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2020   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                 Oslo Areal av tettsted (km²) 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                 Oslo Areal av tettsted (km²) 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                 Oslo Areal av tettsted (km²) 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 Oslo Areal av tettsted (km²) 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                 Oslo Areal av tettsted (km²) 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Region ContentsCode  Tid  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0399        Areal 2020   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0399        Areal 2021   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0399        Areal 2022   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    0399        Areal 2023   0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   0399        Areal 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    0399        Areal 2021   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    0399        Areal 2022   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    0399        Areal 2023   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    0399        Areal 2024   0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   0399        Areal 2025   0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="fl">04861</span>, Region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"item"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"1103"</span>, <span class="st">"0301"</span><span class="op">)</span><span class="op">)</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Tid <span class="op">=</span> <span class="fl">5i</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       region      statistikkvariabel   år  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Oslo Areal av tettsted (km²) 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Oslo Areal av tettsted (km²) 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Oslo Areal av tettsted (km²) 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Oslo Areal av tettsted (km²) 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Oslo Areal av tettsted (km²) 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Stavanger Areal av tettsted (km²) 2020  44.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Stavanger Areal av tettsted (km²) 2021  44.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Stavanger Areal av tettsted (km²) 2022  44.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Stavanger Areal av tettsted (km²) 2023  44.21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Stavanger Areal av tettsted (km²) 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Oslo Areal av tettsted (km²) 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Oslo Areal av tettsted (km²) 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       Oslo Areal av tettsted (km²) 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       Oslo Areal av tettsted (km²) 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Oslo Areal av tettsted (km²) 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  Stavanger Areal av tettsted (km²) 2021  44.22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Stavanger Areal av tettsted (km²) 2022  44.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  Stavanger Areal av tettsted (km²) 2023  44.21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Stavanger Areal av tettsted (km²) 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Stavanger Areal av tettsted (km²) 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Region ContentsCode  Tid  value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2020 130.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2021 130.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2022 130.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2023 130.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2024 130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1103        Areal 2020  44.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1103        Areal 2021  44.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1103        Areal 2022  44.45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1103        Areal 2023  44.21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1103        Areal 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    0301        Areal 2021 130.47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    0301        Areal 2022 130.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    0301        Areal 2023 130.46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4    0301        Areal 2024 130.31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    0301        Areal 2025 129.90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1103        Areal 2021  44.22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1103        Areal 2022  44.45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1103        Areal 2023  44.21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9    1103        Areal 2024  44.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10   1103        Areal 2025  44.35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -1799,31 +1815,31 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span><span class="co"># Exact same output as ApiData</span></span></span>
 <span class="r-in"><span><span class="fu">PxData</span><span class="op">(</span><span class="fl">4861</span>, Region <span class="op">=</span> <span class="st">"0301"</span>, ContentsCode <span class="op">=</span> <span class="cn">TRUE</span>, Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   region      statistikkvariabel   år     value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Oslo Areal av tettsted (km²) 2000    132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Oslo Areal av tettsted (km²) 2024    130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Oslo                 Bosatte 2000 504348.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Oslo                 Bosatte 2024 714630.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   region      statistikkvariabel   år    value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Oslo Areal av tettsted (km²) 2000    132.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Oslo Areal av tettsted (km²) 2025    129.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Oslo                 Bosatte 2000 504348.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Oslo                 Bosatte 2025 720631.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid     value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301        Areal 2000    132.90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2024    130.31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0301      Bosatte 2000 504348.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0301      Bosatte 2024 714630.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Region ContentsCode  Tid    value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301        Areal 2000    132.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301        Areal 2025    129.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0301      Bosatte 2000 504348.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0301      Bosatte 2025 720631.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Data organized differently</span></span></span>
 <span class="r-in"><span><span class="fu">pxwebData</span><span class="op">(</span><span class="fl">4861</span>, Region <span class="op">=</span> <span class="st">"0301"</span>, ContentsCode <span class="op">=</span> <span class="cn">TRUE</span>, Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   region   år Areal av tettsted (km²) Bosatte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Oslo 2000                  132.90  504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Oslo 2024                  130.31  714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   Oslo 2000                   132.9  504348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   Oslo 2025                   129.9  720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Region  Tid  Areal Bosatte</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301 2000 132.90  504348</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301 2024 130.31  714630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Region  Tid Areal Bosatte</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0301 2000 132.9  504348</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0301 2025 129.9  720631</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -1836,29 +1852,13 @@ will be organized differently (ContentsCode categories as separate variables).</
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##### Small example where makeNAstatus is in use</span></span></span>
-<span class="r-in"><span><span class="fu">ApiData</span><span class="op">(</span><span class="st">"04469"</span>, Tid <span class="op">=</span> <span class="st">"2020"</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Alder <span class="op">=</span> <span class="cn">TRUE</span>, Region <span class="op">=</span> <span class="st">"3011"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`04469: Bebuarar i bustader kommunen disponerer til pleie- og omsorgsformål, etter region, alder, statistikkvariabel og år`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               region             alder  statistikkvariabel   år value NAstatus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Hvaler (2020-2023)       Alder i alt Bebuarar i bustader 2020    36     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Hvaler (2020-2023)       Under 67 år Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Hvaler (2020-2023)          67-74 år Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Hvaler (2020-2023)          75-79 år Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Hvaler (2020-2023)          80-84 år Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Hvaler (2020-2023)          85-89 år Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 Hvaler (2020-2023) 90 år eller eldre Bebuarar i bustader 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8 Hvaler (2020-2023)    Uoppgitt alder Bebuarar i bustader 2020    NA       ..</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $dataset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Region Alder ContentsCode  Tid value NAstatus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   3011   999      Beboere 2020    36     &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   3011  0-66      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   3011 67-74      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   3011 75-79      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   3011 80-84      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   3011 85-89      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   3011  090+      Beboere 2020    NA        :</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   3011   888      Beboere 2020    NA       ..</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">ApiData</span><span class="op">(</span><span class="st">"04469"</span>, urlType <span class="op">=</span> <span class="st">"SSBen"</span>,</span></span>
+<span class="r-in"><span>                  Tid <span class="op">=</span> <span class="st">"2020"</span>, ContentsCode <span class="op">=</span> <span class="fl">1</span>, Alder <span class="op">=</span> <span class="cn">TRUE</span>, Region <span class="op">=</span> <span class="st">"3011"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="info.html">note</a></span><span class="op">(</span><span class="va">output</span><span class="op">)</span>                   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Figures from 2018 to 2019 may be affected both by the municipal reform and introduction of new IPLOS specifications."                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "A decrease in number of dwellings from 2018 to 2019 may be caused by the introduction of new IPLOS specifications. 61 municipalities with dwellings in 2018 have no dwellings in 2019."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] ": = Confidential. Figures are not published so as to avoid identifying persons or companies."                                                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] ".. = Data not available. Figures have not been entered into our databases or are too unreliable to be published."                                                                      </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
@@ -1873,7 +1873,7 @@ will be organized differently (ContentsCode categories as separate variables).</
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
