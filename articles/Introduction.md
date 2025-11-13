@@ -61,15 +61,12 @@ ApiData12("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 ```
 
-                 region            contents year Region ContentsCode  Tid  value
-    1 Oslo municipality Number of residents 2000   0301      Bosatte 2000 504348
-    2 Oslo municipality Number of residents 2002   0301      Bosatte 2002 508134
-    3 Oslo municipality Number of residents 2024   0301      Bosatte 2024 714630
-    4 Oslo municipality Number of residents 2025   0301      Bosatte 2025 720631
-    5         Stavanger Number of residents 2000   1103      Bosatte 2000 106804
-    6         Stavanger Number of residents 2002   1103      Bosatte 2002 108271
-    7         Stavanger Number of residents 2024   1103      Bosatte 2024 142897
-    8         Stavanger Number of residents 2025   1103      Bosatte 2025 143972
+    Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/en/table/04861': HTTP status was '429 Unknown Error'
+
+    No internet connection or resource not available: Error in open.connection(con, "rb") : 
+      cannot open the connection to 'https://data.ssb.no/api/v0/en/table/04861'
+
+    NULL
 
 ## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
 

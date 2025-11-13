@@ -2,6 +2,8 @@
 
 ## PxWebApiData 1.1.1
 
+CRAN release: 2025-11-12
+
 - Extended [`comment()`](https://rdrr.io/r/base/comment.html) to include
   note elements and added [`info()`](../reference/info.md) and
   [`note()`](../reference/info.md) functions
