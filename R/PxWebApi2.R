@@ -1,5 +1,85 @@
 
 
+#' Structured PxWebApi 2 metadata
+#'
+#' Structures selected parts of table metadata into data frames.
+#'
+#' Metadata related to the categories of dimensional variables are returned
+#' as data frames, with additional information stored as attributes.
+#'
+#' @param url_or_tableid A table id, a PxWebApi 2 URL to data or metadata,
+#'   or previously retrieved metadata.
+#' @inheritParams make_url
+#'
+#' @returns
+#' A named list of data frames. Additional metadata is stored as attributes
+#' on the data frames and on the returned list.
+#'
+#' @export
+#'
+#' @examples
+#' metaframes <- meta_frames(7459, url_type = "ssb_en")
+#'
+#' names(metaframes)
+#'
+#' metaframes[["ContentsCode"]]
+#' metaframes[["Kjonn"]]
+#'
+#' # Extra information stored as an attribute on a data frame
+#' attr(metaframes[["Region"]], "extra")[[1]][[1]]
+#'
+#' # Information about elimination possibilities
+#' attr(metaframes, "elimination")
+#' 
+meta_frames <- function(url_or_tableid, url_type = "ssb") {
+  if (is.list(url_or_tableid)) {
+    metadata <- url_or_tableid
+  } else {
+    metadata <- meta_data(url_or_tableid, url_type)
+  }
+  if (is.null(metadata)) {
+    return(NULL)
+  }
+  
+  n <- length(metadata$dimension)
+  nam <- names(metadata$dimension)
+  
+  mf <- vector("list", n)
+  names(mf) <- nam
+  
+  elimination <- rep(FALSE, n)
+  names(elimination) <- nam
+  
+  
+  for (i in seq_along(mf)) {
+    mf[[i]] <- list_to_df_expand(metadata$dimension[[i]][["category"]],
+                                 dropped_attr = "extra")
+    
+    elim <- metadata$dimension[[i]]$extension$elimination
+    
+    if (!is.null(elim)) {
+      elimination[i] <- elim
+    }
+    
+  }
+  
+  attr(mf, "elimination") <- elimination
+  
+  mf
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #' PxWebApi 2 metadata for a table
