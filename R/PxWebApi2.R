@@ -1,5 +1,52 @@
 
 
+#' PxWebApi 2 metadata for a code list
+#'
+#' Retrieves metadata for a code list and returns it as an R object.
+#'
+#' @param url A PxWebApi 2 URL to metadata for a code list.
+#' @param as_frame Logical. When TRUE, the metadata is structured as a
+#'   data frame, with additional information stored in an attribute named
+#'   `"extra"`.
+#'
+#' @returns
+#' An R object containing metadata for the code list. When `as_frame = TRUE`,
+#' the result is a data frame.
+#'
+#' @export
+#'
+#' @examples
+#' metaframes <- meta_frames(7459, url_type = "ssb_en")
+#' url <- attr(metaframes[["Region"]], "code_lists")[["links"]][3]
+#' print(url)
+#' 
+#' df <- meta_code_list(url)
+#'
+#' print(df)
+#' print(attr(df, "extra")[1:3])
+#' 
+meta_code_list <- function(url, as_frame = TRUE) {
+  a <- Graceful(jsonlite::read_json, url)
+  
+  if (is.null(a)) {
+    return(NULL)
+  }
+  if (!as_frame) {
+    return(a)
+  }
+  ma <- match("values", names(a))
+  if (is.na(ma)) {
+    message("Item with name 'value' not found")
+    return(NULL)
+  }
+  df <- list_records_to_df(a[[ma]])
+  
+  attr(df, "extra") <- a[-ma]
+  df
+}
+
+
+
 #' Structured PxWebApi 2 metadata
 #'
 #' Structures selected parts of table metadata into data frames.
@@ -29,7 +76,7 @@
 #' attr(metaframes[["Region"]], "extra")[[1]][[1]]
 #' 
 #' # Code list information as a data frame stored as another attribute
-#' attr(metaframes[[1]], "code_lists")
+#' attr(metaframes[["Region"]], "code_lists")
 #'
 #' # Information about elimination possibilities
 #' attr(metaframes, "elimination")
