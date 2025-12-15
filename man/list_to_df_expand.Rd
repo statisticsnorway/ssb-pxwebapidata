@@ -4,7 +4,7 @@
 \alias{list_to_df_expand}
 \title{Create a data.frame from a structured list}
 \usage{
-list_to_df_expand(x, category_col = "category")
+list_to_df_expand(x, category_col = "category", dropped_attr = "dropped")
 }
 \arguments{
 \item{x}{A named list. Each element is expected to have the same length and names
@@ -13,16 +13,13 @@ as the first element.}
 \item{category_col}{Name of the column containing category labels.
 If \code{NULL}, no category column is added and category labels are used
 as row names instead.}
+
+\item{dropped_attr}{Name of the attribute used to store excluded elements (stored unchanged).
+If \code{NULL}, no such attribute is added.}
 }
 \value{
 A \code{data.frame} with one row per category and one or more columns per
 retained list element.
-
-The returned object has the following attributes:
-\describe{
-\item{\code{expected}}{Expected length and names, taken from the first element.}
-\item{\code{dropped}}{Named list of excluded elements, stored unchanged.}
-}
 }
 \description{
 Converts a structured, column-oriented list into a flat
@@ -31,8 +28,8 @@ structure (length and names).
 }
 \details{
 Only elements matching the structure of the first element are included in
-the result. All other elements are excluded and stored unchanged in an
-attribute.
+the result. Other elements are excluded. Optionally, excluded elements can
+be stored unchanged as an attribute.
 
 Nested lists or multi-element vectors are expanded into multiple columns so
 that the returned data frame never contains list columns.
@@ -51,12 +48,20 @@ x <- list(
     b = c(x = 11, y = 21),
     c = c(x = 12, y = 22)
   ),
-  bad = c(a = 1, b = 2)  # wrong length -> dropped
+  bad = c(a = 1, b = 2)  # wrong length -> excluded
 )
 
 df <- list_to_df_expand(x)
 df
 
 attr(df, "dropped")
+
+# Use row names instead of a category column:
+df2 <- list_to_df_expand(x, category_col = NULL)
+df2
+
+# Disable storing excluded elements:
+df3 <- list_to_df_expand(x, dropped_attr = NULL)
+df3
 
 }

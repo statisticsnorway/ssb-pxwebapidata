@@ -5,8 +5,8 @@
 #' structure (length and names).
 #'
 #' Only elements matching the structure of the first element are included in
-#' the result. All other elements are excluded and stored unchanged in an
-#' attribute.
+#' the result. Other elements are excluded. Optionally, excluded elements can
+#' be stored unchanged as an attribute.
 #'
 #' Nested lists or multi-element vectors are expanded into multiple columns so
 #' that the returned data frame never contains list columns.
@@ -20,15 +20,13 @@
 #'   If \code{NULL}, no category column is added and category labels are used
 #'   as row names instead.
 #'
+#' @param dropped_attr
+#'   Name of the attribute used to store excluded elements (stored unchanged).
+#'   If \code{NULL}, no such attribute is added.
+#'
 #' @return
 #' A \code{data.frame} with one row per category and one or more columns per
 #' retained list element.
-#'
-#' The returned object has the following attributes:
-#' \describe{
-#'   \item{\code{expected}}{Expected length and names, taken from the first element.}
-#'   \item{\code{dropped}}{Named list of excluded elements, stored unchanged.}
-#' }
 #'
 #' @details
 #' This function is intended for column-oriented or table-like list structures,
@@ -45,7 +43,7 @@
 #'     b = c(x = 11, y = 21),
 #'     c = c(x = 12, y = 22)
 #'   ),
-#'   bad = c(a = 1, b = 2)  # wrong length -> dropped
+#'   bad = c(a = 1, b = 2)  # wrong length -> excluded
 #' )
 #'
 #' df <- list_to_df_expand(x)
@@ -53,13 +51,20 @@
 #'
 #' attr(df, "dropped")
 #'
+#' # Use row names instead of a category column:
+#' df2 <- list_to_df_expand(x, category_col = NULL)
+#' df2
+#'
+#' # Disable storing excluded elements:
+#' df3 <- list_to_df_expand(x, dropped_attr = NULL)
+#' df3
+#'
 #' @export
-list_to_df_expand <- function(x, category_col = "category") {
+list_to_df_expand <- function(x, category_col = "category", dropped_attr = "dropped") {
   if (!is.list(x)) stop("Input must be a list.")
   if (length(x) == 0) return(data.frame())
   if (is.null(names(x))) stop("Top-level list must be named.")
   
-  # Schema from first element
   exp_len   <- length(x[[1]])
   exp_names <- names(x[[1]])
   
@@ -72,23 +77,20 @@ list_to_df_expand <- function(x, category_col = "category") {
   idx_len_ok <- which(lens == exp_len)
   keep <- idx_len_ok[sigs[idx_len_ok] == exp_sig]
   
-  # Dropped elements (unchanged)
   dropped_idx <- setdiff(seq_along(x), keep)
   dropped <- if (length(dropped_idx)) x[dropped_idx] else list()
   
   cats <- if (!is.null(exp_names)) exp_names else as.character(seq_len(exp_len))
   
-  # Initialize output
+  # Initialize output (FIXED for category_col = NULL)
   if (!is.null(category_col)) {
     out <- data.frame(setNames(list(cats), category_col))
   } else {
-    out <- data.frame()
-    rownames(out) <- cats
+    out <- data.frame(row.names = cats)  # <-- this creates n rows, 0 columns
   }
   
   if (length(keep) == 0) {
-    attr(out, "expected") <- list(length = exp_len, names = exp_names)
-    attr(out, "dropped")  <- dropped
+    if (!is.null(dropped_attr)) attr(out, dropped_attr) <- dropped
     return(out)
   }
   
@@ -151,7 +153,6 @@ list_to_df_expand <- function(x, category_col = "category") {
   if (any(vapply(out, is.list, logical(1))))
     stop("Internal error: a list column survived.")
   
-  attr(out, "expected") <- list(length = exp_len, names = exp_names)
-  attr(out, "dropped")  <- dropped
+  if (!is.null(dropped_attr)) attr(out, dropped_attr) <- dropped
   out
 }
