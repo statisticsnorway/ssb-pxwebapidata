@@ -34,6 +34,8 @@
 #'
 #' @note
 #' This function is written and documented with help from ChatGPT.
+#' 
+#' @importFrom stats setNames
 #'
 #' @examples
 #' x <- list(
