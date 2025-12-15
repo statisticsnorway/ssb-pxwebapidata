@@ -27,6 +27,9 @@
 #'
 #' # Extra information stored as an attribute on a data frame
 #' attr(metaframes[["Region"]], "extra")[[1]][[1]]
+#' 
+#' # Code list information as a data frame stored as another attribute
+#' attr(metaframes[[1]], "code_lists")
 #'
 #' # Information about elimination possibilities
 #' attr(metaframes, "elimination")
@@ -63,6 +66,11 @@ meta_frames <- function(url_or_tableid, url_type = "ssb") {
     
   }
   
+  clf <- code_list_frames(metadata)
+  for (i in seq_along(mf)) {
+    attr(mf[[i]], "code_lists") <- clf[[i]]
+  }
+  
   attr(mf, "elimination") <- elimination
   
   mf
@@ -70,13 +78,31 @@ meta_frames <- function(url_or_tableid, url_type = "ssb") {
 
 
 
-
-
-
-
-
-
-
+code_list_frames <- function(meta_data) {
+  n <- length(meta_data$dimension)
+  nam <- names(meta_data$dimension)
+  
+  a <- vector("list", n)
+  names(a) <- nam
+  
+  for (i in seq_len(n)) {
+    code_lists <- meta_data$dimension[[i]]$extension$codeLists
+    m <- length(code_lists)
+    for (j in seq_len(m)) {
+      href <- unlist(code_lists[[j]]$links)["href"]
+      if (length(href) != 1) {
+        href <- NA_character_
+        warning(paste("Unique href not found:", paste(unlist(code_lists[[j]])[1:2], collapse = ", ")))
+      }
+      code_lists[[j]]$links <- href
+    }
+    lrtd <- list_records_to_df(code_lists)
+    if (!is.null(lrtd)) {
+      a[[i]] <- lrtd
+    }
+  }
+  a
+}
 
 
 

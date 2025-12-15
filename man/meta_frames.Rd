@@ -34,6 +34,9 @@ metaframes[["Kjonn"]]
 # Extra information stored as an attribute on a data frame
 attr(metaframes[["Region"]], "extra")[[1]][[1]]
 
+# Code list information as a data frame stored as another attribute
+attr(metaframes[[1]], "code_lists")
+
 # Information about elimination possibilities
 attr(metaframes, "elimination")
 
