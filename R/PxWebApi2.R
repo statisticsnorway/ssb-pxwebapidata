@@ -227,20 +227,34 @@ ssb_url_en <- function(id) {
   ssb_url(id, lang = "en")
 }
 
-#' Make metadata url from data url
+
+
+
+#' Convert between data and metadata URLs
 #'
-#' @param url URL to data.
+#' Converts a PxWebApi data URL to a metadata URL, or vice versa.
+#'
+#' @param url A PxWebApi URL to data or metadata.
+#' @param data_url Logical. When TRUE, return a data URL. When FALSE (default),
+#'   return a metadata URL.
+#'
 #' @return A character string (URL).
 #' @export
 #' @keywords internal
 #'
 #' @examples
 #' metadata_url(make_url(4861))
-#' metadata_url(make_url(4861, "ssb_en"))
-metadata_url <- function(url) {
-  if (!grepl("/metadata", url)) {
+#' metadata_url(make_url(4861, "ssb_en"), data_url = TRUE)
+metadata_url <- function(url, data_url = FALSE) {
+  
+  if (!data_url && !grepl("/metadata", url)) {
     url <- replace_last_rev(url, "/data", "/metadata")
   }
+  
+  if (data_url) {
+    url <- replace_last_rev(url, "/metadata", "/data")
+  }
+  
   url
 }
 
