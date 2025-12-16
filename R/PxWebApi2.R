@@ -60,7 +60,7 @@ meta_code_list <- function(url, as_frame = TRUE) {
 #'
 #' @returns
 #' A named list of data frames. Additional metadata is stored as attributes
-#' on the data frames and on the returned list.
+#' on the data frames.
 #'
 #' @export
 #'
@@ -117,9 +117,10 @@ meta_frames <- function(url_or_tableid, url_type = "ssb") {
   clf <- code_list_frames(metadata)
   for (i in seq_along(mf)) {
     attr(mf[[i]], "code_lists") <- clf[[i]]
+    attr(mf[[i]], "elimination") <- as.logical(elimination[i]) # as.logical remove the name
   }
   
-  attr(mf, "elimination") <- elimination
+  # attr(mf, "elimination") <- elimination
   
   mf
 }

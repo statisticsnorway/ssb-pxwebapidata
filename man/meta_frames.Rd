@@ -14,7 +14,7 @@ or previously retrieved metadata.}
 }
 \value{
 A named list of data frames. Additional metadata is stored as attributes
-on the data frames and on the returned list.
+on the data frames.
 }
 \description{
 Structures selected parts of table metadata into data frames.
