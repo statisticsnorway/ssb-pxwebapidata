@@ -103,6 +103,7 @@ meta_frames <- function(url_or_tableid, url_type = "ssb") {
   
   for (i in seq_along(mf)) {
     mf[[i]] <- list_to_df_expand(metadata$dimension[[i]][["category"]],
+                                 category_col = "code",
                                  dropped_attr = "extra")
     
     elim <- metadata$dimension[[i]]$extension$elimination
