@@ -14,6 +14,7 @@ When a data URL is supplied, it is internally converted to a metadata URL.}
 }
 \value{
 A list containing table metadata as returned by \code{\link[jsonlite:read_json]{jsonlite::read_json()}}.
+The data URL is stored in the comment attribute of the returned object.
 }
 \description{
 Retrieves metadata for a table using the PxWebApi 2 endpoint and returns it

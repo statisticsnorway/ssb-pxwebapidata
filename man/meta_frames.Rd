@@ -15,6 +15,7 @@ or previously retrieved metadata.}
 \value{
 A named list of data frames. Additional metadata is stored as attributes
 on the data frames.
+The data URL is stored in the comment attribute of the returned object.
 }
 \description{
 Structures selected parts of table metadata into data frames.
