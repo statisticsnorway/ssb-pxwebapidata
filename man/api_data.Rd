@@ -71,5 +71,16 @@ and retrieves the data using \code{\link[=get_api_data]{get_api_data()}}.
  api_data_1("https://data.ssb.no/api/pxwebapi/v2/tables/09546/data?lang=en",
             Region = FALSE, SkoleSTR = "07", GrSkolOrgForm = "4", 
             EierforhSkole = 1:2, ContentsCode = TRUE, Tid = "202?") 
+            
+ api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
+            Region = list(codelist = "agg_KommSummer", 
+                          valueCodes = c("K-3101", "K-3103"), 
+                          outputValues = "aggregated"),
+            Kjonn = TRUE,
+            Alder = list(codelist = "agg_TodeltGrupperingB", 
+                         valueCodes = c("H17", "H18"),
+                         outputValues = "aggregated"),
+            ContentsCode = 1,
+            Tid = 2i)           
 
 }

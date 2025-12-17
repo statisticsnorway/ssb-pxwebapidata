@@ -31,7 +31,17 @@
 #'           Elver = FALSE,
 #'           ContentsCode = TRUE,  # same as "*"   
 #'           Tid = "top(5)")       # same as 5i
-#' 
+#'           
+#'           
+#'           
+#' query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
+#'           Region = FALSE,
+#'           Kjonn = TRUE,
+#'           Alder = list(codelist = "agg_TodeltGrupperingB", 
+#'                        valueCodes = c("H17", "H18"),
+#'                        outputValues = "aggregated"),
+#'          ContentsCode = 1,
+#'          Tid = 4i)
 #' 
 query_url <- function(url_or_tableid, ..., url_type = "ssb", use_index = FALSE,  default_query = c(1, -2, -1)) {
   
@@ -66,9 +76,30 @@ query_url <- function(url_or_tableid, ..., url_type = "ssb", use_index = FALSE, 
     vars <- names(dots)
   }
   
-  for (i in seq_along(vars)) {
-    s <- query_part(vars[i], selection = dots[[vars[i]]], metaframe = metaframes[[vars[i]]], use_index = use_index)
-    if(length(s)) {
+  for (i in seq_along(dots)) {
+    if (is.list(dots[[i]])) {
+      namesi <- names(dots[[i]])
+      if (is.null(namesi)) {
+        namesi <- rep(NA, length(dots[[i]]))
+      }
+      namesi[namesi == ""] <- NA
+      s <- NULL
+      for (j in seq_along(dots[[i]])) {
+        if (is.na(namesi[j])) {
+          b <- query_part(vars[i], selection = dots[[i]], metaframe = metaframes[[vars[i]]], use_index = use_index)
+        } else {
+          b <- q1(vars[i], paste(dots[[i]][[j]], collapse = ","), parameter = namesi[j])
+        }
+        if (length(s)) {
+          s <- paste(s, b, sep = "&")
+        } else {
+          s <- b
+        }
+      }
+    } else {
+      s <- query_part(vars[i], selection = dots[[i]], metaframe = metaframes[[vars[i]]], use_index = use_index)
+    }
+    if (length(s)) {
       url <- paste(url, s, sep = "&")
     }
   }
@@ -126,7 +157,7 @@ query_part <- function(variable_id, selection, metaframe, use_index = FALSE) {
 }
 
 
-q1 <- function(variable_id, s) {
-  paste0("valueCodes", "[", variable_id, "]=", s)
+q1 <- function(variable_id, s, parameter = "valueCodes") {
+  paste0(parameter, "[", variable_id, "]=", s)
 }
 

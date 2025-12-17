@@ -47,6 +47,16 @@ query_url("https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en",
           Elver = FALSE,
           ContentsCode = TRUE,  # same as "*"   
           Tid = "top(5)")       # same as 5i
-
+          
+          
+          
+query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
+          Region = FALSE,
+          Kjonn = TRUE,
+          Alder = list(codelist = "agg_TodeltGrupperingB", 
+                       valueCodes = c("H17", "H18"),
+                       outputValues = "aggregated"),
+         ContentsCode = 1,
+         Tid = 4i)
 
 }
