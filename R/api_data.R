@@ -1,4 +1,83 @@
 
+#' PX-Web Data by API
+#' 
+#' This function constructs a PxWebApi 2 data URL using [query_url()]
+#' and retrieves the data using [get_api_data()].
+#'
+#' @inheritParams query_url
+#' @inheritParams get_api_data
+#'
+#' @return
+#' A data frame, or a list of data frames, depending on the input and
+#' parameters.
+#' @export
+#'
+#' @examples
+#' 
+#'  api_data(14162, Region = FALSE, InnKvartering1 = FALSE, Landkoder2 = FALSE, 
+#'           ContentsCode = TRUE, Tid = 3i, url_type = "ssb_en")
+#' 
+#'  # same as above 
+#'  # api_data("https://data.ssb.no/api/pxwebapi/v2/tables/14162/data?lang=en", 
+#'  #           default_query = FALSE, ContentsCode = "*", Tid = "top(3)")
+#' 
+#'  api_data_1("https://data.ssb.no/api/pxwebapi/v2/tables/09546/data?lang=en",
+#'             Region = FALSE, SkoleSTR = "07", GrSkolOrgForm = "4", 
+#'             EierforhSkole = 1:2, ContentsCode = TRUE, Tid = 5i) 
+#' 
+api_data <- function(url_or_tableid,
+                     ..., 
+                     url_type = "ssb", 
+                     use_index = FALSE,  
+                     default_query = c(1, -2, -1),
+                     return_dataset = NULL, 
+                     make_na_status = TRUE, 
+                     response_format = "json-stat2", 
+                     verbose_print = FALSE) {
+  
+  
+  url <- query_url(url_or_tableid = url_or_tableid, 
+                  ..., 
+                  url_type = url_type, 
+                  use_index = use_index,  
+                  default_query = default_query) 
+  
+  if (!length(url)) {
+    return(NULL)
+  }
+  
+  get_api_data(url = url,
+               return_dataset = return_dataset, 
+               make_na_status = make_na_status, 
+               response_format = response_format, 
+               verbose_print = verbose_print)
+}
+
+
+
+#' @rdname api_data
+#' @export
+api_data_1  <- function(..., return_dataset = 1) {
+  api_data(..., return_dataset = return_dataset)
+}
+
+#' @rdname api_data
+#' @export
+api_data_2  <- function(..., return_dataset = 2) {
+  api_data(..., return_dataset = return_dataset)
+}
+
+
+#' @rdname api_data
+#' @export
+#' 
+api_data_12  <- function(..., return_dataset = 12) {
+  api_data(..., return_dataset = return_dataset)
+}
+
+
+
+
 #' PX-Web Data by API (GET)
 #' 
 #' A function to read PX-Web data into R via API using GET.
