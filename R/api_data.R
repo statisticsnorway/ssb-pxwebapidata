@@ -23,7 +23,7 @@
 #' 
 #'  api_data_1("https://data.ssb.no/api/pxwebapi/v2/tables/09546/data?lang=en",
 #'             Region = FALSE, SkoleSTR = "07", GrSkolOrgForm = "4", 
-#'             EierforhSkole = 1:2, ContentsCode = TRUE, Tid = 5i) 
+#'             EierforhSkole = 1:2, ContentsCode = TRUE, Tid = "202?") 
 #' 
 api_data <- function(url_or_tableid,
                      ..., 
