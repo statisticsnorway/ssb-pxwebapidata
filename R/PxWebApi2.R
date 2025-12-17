@@ -131,15 +131,16 @@ meta_frames <- function(url_or_tableid, url_type = "ssb") {
 
 
 
-code_list_frames <- function(meta_data) {
-  n <- length(meta_data$dimension)
-  nam <- names(meta_data$dimension)
+code_list_frames <- function(metadata) {
+  n <- length(metadata$dimension)
+  nam <- names(metadata$dimension)
   
   a <- vector("list", n)
   names(a) <- nam
   
   for (i in seq_len(n)) {
-    code_lists <- meta_data$dimension[[i]]$extension$codeLists
+    ext <- metadata$dimension[[i]]$extension
+    code_lists <- code_lists <- get1(ext, c("codeLists", "codelists"))
     m <- length(code_lists)
     for (j in seq_len(m)) {
       href <- unlist(code_lists[[j]]$links)["href"]
@@ -158,7 +159,15 @@ code_list_frames <- function(meta_data) {
 }
 
 
-
+get1 <- function(x, names) {
+  for (nm in names) {
+    val <- x[[nm]]
+    if (!is.null(val)) {
+      return(val)
+    }
+  }
+  NULL
+}
 
 
 #' PxWebApi 2 metadata for a table
