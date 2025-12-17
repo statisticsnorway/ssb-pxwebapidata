@@ -11,6 +11,7 @@
 #'                     i.e. what you get with [note()]. See the bottom example.
 #' @param response_format  Response format to be used when `apiPackage` and `dataPackage` are defaults  (`"json-stat"` or `"json-stat2"`).
 #' @param verbose_print When TRUE, printing to console
+#' @param ... Additional arguments passed to [get_api_data()].
 #'
 #' @return
 #' A data frame, or a list of data frames, depending on the input and

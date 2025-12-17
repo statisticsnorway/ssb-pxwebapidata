@@ -34,6 +34,8 @@ i.e. what you get with \code{\link[=note]{note()}}. See the bottom example.}
 \item{response_format}{Response format to be used when \code{apiPackage} and \code{dataPackage} are defaults  (\code{"json-stat"} or \code{"json-stat2"}).}
 
 \item{verbose_print}{When TRUE, printing to console}
+
+\item{...}{Additional arguments passed to \code{\link[=get_api_data]{get_api_data()}}.}
 }
 \value{
 A data frame, or a list of data frames, depending on the input and
