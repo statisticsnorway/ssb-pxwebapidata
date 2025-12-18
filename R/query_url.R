@@ -148,9 +148,18 @@ query_part <- function(variable_id, selection, metaframe, use_index = FALSE) {
       codes <- metaframe$code[values]
     }
   } else {
-    # Currently no checking against metadata due to special possibilities. 
+    # Currently no error from checking against metadata due to special possibilities. 
     # E.g. "??"
     # Then one can also write "*" and "top(2)" directly
+    no_match <- !(selection %in% metaframe$code)
+    if (any(no_match)) {
+      ma <- match(selection[no_match], metaframe$label)
+      if(any(!is.na(ma))){
+        labels_to_code <- metaframe$code[ma[!is.na(ma)]]
+        no_match[no_match][is.na(ma)] <- FALSE
+        selection <- unique(c(selection[!no_match],  labels_to_code))
+      }
+    } 
     codes <- selection
   }
   return(q1(variable_id, paste(codes, collapse = ",")))

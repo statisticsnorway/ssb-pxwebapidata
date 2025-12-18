@@ -82,5 +82,12 @@ and retrieves the data using \code{\link[=get_api_data]{get_api_data()}}.
                          outputValues = "aggregated"),
             ContentsCode = 1,
             Tid = 2i)           
+            
+ # codes and labels can be mixed            
+ api_data_12(4861, 
+             Region = c("Sarpsborg", "3103", "402?"), 
+             ContentsCode = "Bosatte", 
+             Tid = c(1, -1), 
+             url_type = "ssb_en")           
 
 }
