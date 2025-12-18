@@ -20,6 +20,11 @@
 #'  # same as above 
 #'  # api_data("https://data.ssb.no/api/pxwebapi/v2/tables/14162/data?lang=en", 
 #'  #           default_query = FALSE, ContentsCode = "*", Tid = "top(3)")
+#'  
+#'  # also same as above 
+#'  # api_data(14162, url_type = "ssb_en", default_query = FALSE,
+#'  #          ContentsCode = list(valueCodes = "*"), 
+#'  #          Tid = list(valueCodes = "top(3)"))
 #' 
 #'  api_data_1("https://data.ssb.no/api/pxwebapi/v2/tables/09546/data?lang=en",
 #'             Region = FALSE, SkoleSTR = "07", GrSkolOrgForm = "4", 
