@@ -80,7 +80,8 @@ meta_code_list <- function(url, as_frame = TRUE) {
 #' attr(metaframes[["Region"]], "code_lists")
 #'
 #' # Information about elimination possibilities
-#' attr(metaframes, "elimination")
+#' attr(metaframes[["Region"]], "elimination")
+#' attr(metaframes[["ContentsCode"]], "elimination")
 #' 
 meta_frames <- function(url_or_tableid, url_type = "ssb") {
   if (is.list(url_or_tableid)) {

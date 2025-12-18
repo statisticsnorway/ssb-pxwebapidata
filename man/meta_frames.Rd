@@ -39,6 +39,7 @@ attr(metaframes[["Region"]], "extra")[[1]][[1]]
 attr(metaframes[["Region"]], "code_lists")
 
 # Information about elimination possibilities
-attr(metaframes, "elimination")
+attr(metaframes[["Region"]], "elimination")
+attr(metaframes[["ContentsCode"]], "elimination")
 
 }
