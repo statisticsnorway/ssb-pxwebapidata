@@ -1,9 +1,9 @@
 ---
-title: "Introduction to PxWebApiData"
+title: "Using PxWebApi v1 with PxWebApiData"
 author: "Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to PxWebApiData}
+  %\VignetteIndexEntry{Using PxWebApi v1 with PxWebApiData}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 keywords: Statbank, PxWeb, PxWebApi, official statistics, json-stat
