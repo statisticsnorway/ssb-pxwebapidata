@@ -121,6 +121,7 @@ query_part <- function(variable_id, selection, metaframe, use_index = FALSE) {
     return(q1(variable_id, paste0("top(", Im(selection), ")")))
   }
   if (is.numeric(selection)) {
+    encode <- TRUE
     values <- as.integer(selection)
     if (use_index) {
       ma <- match(values, as.integer(metaframe$index))
@@ -148,6 +149,7 @@ query_part <- function(variable_id, selection, metaframe, use_index = FALSE) {
       codes <- metaframe$code[values]
     }
   } else {
+    encode <- NA
     # Currently no error from checking against metadata due to special possibilities. 
     # E.g. "??"
     # Then one can also write "*" and "top(2)" directly
@@ -162,11 +164,30 @@ query_part <- function(variable_id, selection, metaframe, use_index = FALSE) {
     } 
     codes <- selection
   }
-  return(q1(variable_id, paste(codes, collapse = ",")))
+  return(q1(variable_id, paste(codes, collapse = ","), encode = encode))
 }
 
 
-q1 <- function(variable_id, s, parameter = "valueCodes") {
-  paste0(parameter, "[", variable_id, "]=", s)
+# NOTE:
+# Query values may be ordinary codes (e.g. "03+04") or API expressions
+# (e.g. "03*", "??", "top(3)"). URL encoding is therefore optional and
+# can be applied per element when encode = NA (auto).
+# Written with help from ChatGPT.
+q1 <- function(variable_id, s, parameter = "valueCodes", encode = FALSE) {
+  s <- as.character(s)
+  
+  if (is.na(encode)) {
+    # Auto per element: keep expressions, encode ordinary codes
+    is_expr <- grepl("[*?]", s) | grepl("^top\\([0-9]+\\)$", s) | s == "*"
+    s[!is_expr] <- utils::URLencode(s[!is_expr], reserved = TRUE)
+  } else if (isTRUE(encode)) {
+    # Encode all
+    s <- utils::URLencode(s, reserved = TRUE)
+  } else {
+    # encode == FALSE: keep as-is
+  }
+  
+  paste0(parameter, "[", variable_id, "]=", paste(s, collapse = ","))
 }
+
 
