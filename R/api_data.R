@@ -55,7 +55,6 @@ api_data <- function(url_or_tableid,
                      default_query = c(1, -2, -1),
                      return_dataset = NULL, 
                      make_na_status = TRUE, 
-                     response_format = "json-stat2", 
                      verbose_print = FALSE) {
   
   
@@ -72,7 +71,6 @@ api_data <- function(url_or_tableid,
   get_api_data(url = url,
                return_dataset = return_dataset, 
                make_na_status = make_na_status, 
-               response_format = response_format, 
                verbose_print = verbose_print)
 }
 
@@ -111,7 +109,6 @@ api_data_12  <- function(..., return_dataset = 12) {
 #'                     the function tries to add an additional variable, named `NAstatus`, with status codes.
 #'                     An explanation of these status codes is provided in the note part of the comment attribute, 
 #'                     i.e. what you get with [note()]. See the bottom example.
-#' @param response_format  Response format to be used when `apiPackage` and `dataPackage` are defaults  (`"json-stat"` or `"json-stat2"`).
 #' @param verbose_print When TRUE, printing to console
 #' @param ... Additional arguments passed to [get_api_data()].
 #'
@@ -132,12 +129,10 @@ api_data_12  <- function(..., return_dataset = 12) {
 #'   
 get_api_data <- function(url,
                          return_dataset = NULL, 
-                         make_na_status = TRUE, 
-                         response_format = "json-stat2", 
+                         make_na_status = TRUE,
                          verbose_print = FALSE) {
   GetApiData(urlToData = url, 
              returnDataSet = return_dataset,
-             responseFormat = response_format,
              verbosePrint = verbose_print)
 }
 

@@ -15,7 +15,6 @@ api_data(
   default_query = c(1, -2, -1),
   return_dataset = NULL,
   make_na_status = TRUE,
-  response_format = "json-stat2",
   verbose_print = FALSE
 )
 
@@ -46,8 +45,6 @@ Negative values can be used to specify reversed row numbers.}
 the function tries to add an additional variable, named \code{NAstatus}, with status codes.
 An explanation of these status codes is provided in the note part of the comment attribute,
 i.e. what you get with \code{\link[=note]{note()}}. See the bottom example.}
-
-\item{response_format}{Response format to be used when \code{apiPackage} and \code{dataPackage} are defaults  (\code{"json-stat"} or \code{"json-stat2"}).}
 
 \item{verbose_print}{When TRUE, printing to console}
 }
