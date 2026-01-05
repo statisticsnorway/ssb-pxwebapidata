@@ -3,7 +3,7 @@
 #' @param url_or_tableid
 #'        A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 #'        [meta_data()] or [meta_frames()].
-#' @param ... Specification of query for each variable.
+#' @param ... Specification of query for each variable. See ‘Details’ in [api_data()].
 #' @inheritParams make_url
 #' @param use_index
 #' Logical. If TRUE, numeric values are matched against the `index` variable in

@@ -28,7 +28,7 @@ api_data_12(..., return_dataset = 12)
 \item{url_or_tableid}{A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 \code{\link[=meta_data]{meta_data()}} or \code{\link[=meta_frames]{meta_frames()}}.}
 
-\item{...}{Specification of query for each variable.}
+\item{...}{Specification of query for each variable. See ‘Details’.}
 
 \item{url_type}{Currently two possibilities: "ssb" (Norwegian) or "ssb_en" (English).}
 
@@ -55,6 +55,37 @@ parameters.
 \description{
 This function constructs a PxWebApi v2 data URL using \code{\link[=query_url]{query_url()}}
 and retrieves the data using \code{\link[=get_api_data]{get_api_data()}}.
+}
+\details{
+Each variable is specified by using the variable name as an input parameter.
+
+The value can be specified either as a vector or as a list.
+
+\strong{Vector input}
+
+When specified as a vector, this results in a \code{valueCodes} specification.
+The vector can be specified in the same way as in a PxWebApi URL.
+In addition, the specification method inherited from the legacy
+\code{\link[=ApiData]{ApiData()}} function for PxWebApi v1 can be used:
+\itemize{
+\item \code{TRUE} means all values and is equivalent to \code{"*"}.
+\item \code{FALSE} means eliminated, which is equivalent to removing the variable
+from the URL. This is meaningful for variables that can be eliminated;
+see the lower examples in \code{\link[=meta_frames]{meta_frames()}}.
+\item Imaginary values represent \code{top}, e.g. \code{3i} is equivalent to \code{"top(3)"}.
+\item Numeric values are interpreted as row numbers (negative values allowed)
+or as indices; see the parameter description of \code{use_index}.
+\item Codes can be specified directly, including the use of wildcards such as
+\code{"*"} and \code{"??"}. Labels may also be used as an alternative to codes.
+}
+
+\strong{List input}
+
+When the input is a named list, the URL is constructed directly from the
+names and elements of the list (see examples).
+It is also possible to omit the name of a list element. In this case, the
+element results in a \code{valueCodes} specification and is processed in the same
+way as vector input.
 }
 \examples{
 

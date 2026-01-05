@@ -3,7 +3,38 @@
 #' 
 #' This function constructs a PxWebApi v2 data URL using [query_url()]
 #' and retrieves the data using [get_api_data()].
+#' 
+#' @details
+#' Each variable is specified by using the variable name as an input parameter.
 #'
+#' The value can be specified either as a vector or as a list.
+#'
+#' **Vector input**
+#'
+#' When specified as a vector, this results in a `valueCodes` specification.
+#' The vector can be specified in the same way as in a PxWebApi URL.
+#' In addition, the specification method inherited from the legacy
+#' [ApiData()] function for PxWebApi v1 can be used:
+#'
+#' - `TRUE` means all values and is equivalent to `"*"`.
+#' - `FALSE` means eliminated, which is equivalent to removing the variable
+#'   from the URL. This is meaningful for variables that can be eliminated;
+#'   see the lower examples in [meta_frames()].
+#' - Imaginary values represent `top`, e.g. `3i` is equivalent to `"top(3)"`.
+#' - Numeric values are interpreted as row numbers (negative values allowed)
+#'   or as indices; see the parameter description of `use_index`.
+#' - Codes can be specified directly, including the use of wildcards such as
+#'   `"*"` and `"??"`. Labels may also be used as an alternative to codes.
+#'
+#' **List input**
+#'
+#' When the input is a named list, the URL is constructed directly from the
+#' names and elements of the list (see examples).
+#' It is also possible to omit the name of a list element. In this case, the
+#' element results in a `valueCodes` specification and is processed in the same
+#' way as vector input.
+#' 
+#' @param ... Specification of query for each variable. See ‘Details’.
 #' @inheritParams query_url
 #' @inheritParams get_api_data
 #'
