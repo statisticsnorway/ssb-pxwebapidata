@@ -13,10 +13,10 @@ query_url(
 )
 }
 \arguments{
-\item{url_or_tableid}{A table id, a PxWebApi 2 URL to data or metadata, or metadata returned by
+\item{url_or_tableid}{A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 \code{\link[=meta_data]{meta_data()}} or \code{\link[=meta_frames]{meta_frames()}}.}
 
-\item{...}{Specification of query for each variable.}
+\item{...}{Specification of query for each variable. See ‘Details’ in \code{\link[=api_data]{api_data()}}.}
 
 \item{url_type}{Currently two possibilities: "ssb" (Norwegian) or "ssb_en" (English).}
 

@@ -2,12 +2,12 @@
 % Please edit documentation in R/PxWebApi2.R
 \name{meta_code_list}
 \alias{meta_code_list}
-\title{PxWebApi 2 metadata for a code list}
+\title{PxWebApi v2 metadata for a code list}
 \usage{
 meta_code_list(url, as_frame = TRUE)
 }
 \arguments{
-\item{url}{A PxWebApi 2 URL to metadata for a code list.}
+\item{url}{A PxWebApi v2 URL to metadata for a code list.}
 
 \item{as_frame}{Logical. When TRUE, the metadata is structured as a
 data frame, with additional information stored in an attribute named

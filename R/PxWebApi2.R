@@ -1,10 +1,10 @@
 
 
-#' PxWebApi 2 metadata for a code list
+#' PxWebApi v2 metadata for a code list
 #'
 #' Retrieves metadata for a code list and returns it as an R object.
 #'
-#' @param url A PxWebApi 2 URL to metadata for a code list.
+#' @param url A PxWebApi v2 URL to metadata for a code list.
 #' @param as_frame Logical. When TRUE, the metadata is structured as a
 #'   data frame, with additional information stored in an attribute named
 #'   `"extra"`.
@@ -47,14 +47,14 @@ meta_code_list <- function(url, as_frame = TRUE) {
 
 
 
-#' Structured PxWebApi 2 metadata
+#' Structured PxWebApi v2 metadata
 #'
 #' Structures selected parts of table metadata into data frames.
 #'
 #' Metadata related to the categories of dimensional variables are returned
 #' as data frames, with additional information stored as attributes.
 #'
-#' @param url_or_tableid A table id, a PxWebApi 2 URL to data or metadata,
+#' @param url_or_tableid A table id, a PxWebApi v2 URL to data or metadata,
 #'   or previously retrieved metadata.
 #' @inheritParams make_url
 #'
@@ -82,6 +82,7 @@ meta_code_list <- function(url, as_frame = TRUE) {
 #' # Information about elimination possibilities
 #' attr(metaframes[["Region"]], "elimination")
 #' attr(metaframes[["ContentsCode"]], "elimination")
+#' sapply(metaframes, attr, "elimination") # elimination info for all variables
 #' 
 meta_frames <- function(url_or_tableid, url_type = "ssb") {
   if (is.list(url_or_tableid)) {
@@ -171,13 +172,13 @@ get1 <- function(x, names) {
 }
 
 
-#' PxWebApi 2 metadata for a table
+#' PxWebApi v2 metadata for a table
 #'
-#' Retrieves metadata for a table using the PxWebApi 2 endpoint and returns it
+#' Retrieves metadata for a table using the PxWebApi v2 endpoint and returns it
 #' as an R object via [jsonlite::read_json()].
 #'
 #' @inheritParams make_url
-#' @param url_or_tableid Either a numeric table id or a PxWebApi 2 URL to data.
+#' @param url_or_tableid Either a numeric table id or a PxWebApi v2 URL to data.
 #'   When a data URL is supplied, it is internally converted to a metadata URL.
 #'
 #' @returns
@@ -249,7 +250,7 @@ ssb_url_en <- function(id) {
 
 #' Convert between data and metadata URLs
 #'
-#' Converts a PxWebApi data URL to a metadata URL, or vice versa.
+#' Converts a PxWebApi v2 data URL to a metadata URL, or vice versa.
 #'
 #' @param url A PxWebApi URL to data or metadata.
 #' @param data_url Logical. When TRUE, return a data URL. When FALSE (default),

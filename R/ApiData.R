@@ -69,7 +69,7 @@
 #' \donttest{
 #' # Note: Example with "readymade datasets" has been removed.
 #' # SSB announced that this service will be discontinued in 2025.
-#' # It is replaced here with an example using PxWebApi 2,
+#' # It is replaced here with an example using PxWebApi v2,
 #' # which supports GET queries and richer options.
 #' 
 #' url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
