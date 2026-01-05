@@ -41,5 +41,6 @@ attr(metaframes[["Region"]], "code_lists")
 # Information about elimination possibilities
 attr(metaframes[["Region"]], "elimination")
 attr(metaframes[["ContentsCode"]], "elimination")
+sapply(metaframes, attr, "elimination") # elimination info for all variables
 
 }

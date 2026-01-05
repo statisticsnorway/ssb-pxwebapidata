@@ -82,6 +82,7 @@ meta_code_list <- function(url, as_frame = TRUE) {
 #' # Information about elimination possibilities
 #' attr(metaframes[["Region"]], "elimination")
 #' attr(metaframes[["ContentsCode"]], "elimination")
+#' sapply(metaframes, attr, "elimination") # elimination info for all variables
 #' 
 meta_frames <- function(url_or_tableid, url_type = "ssb") {
   if (is.list(url_or_tableid)) {
