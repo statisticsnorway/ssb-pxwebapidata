@@ -16,7 +16,7 @@ return a metadata URL.}
 A character string (URL).
 }
 \description{
-Converts a PxWebApi data URL to a metadata URL, or vice versa.
+Converts a PxWebApi v2 data URL to a metadata URL, or vice versa.
 }
 \examples{
 metadata_url(make_url(4861))

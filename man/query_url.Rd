@@ -13,7 +13,7 @@ query_url(
 )
 }
 \arguments{
-\item{url_or_tableid}{A table id, a PxWebApi 2 URL to data or metadata, or metadata returned by
+\item{url_or_tableid}{A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 \code{\link[=meta_data]{meta_data()}} or \code{\link[=meta_frames]{meta_frames()}}.}
 
 \item{...}{Specification of query for each variable.}

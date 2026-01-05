@@ -1,7 +1,7 @@
 #' PX-Web API query URL
 #'
 #' @param url_or_tableid
-#'        A table id, a PxWebApi 2 URL to data or metadata, or metadata returned by
+#'        A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 #'        [meta_data()] or [meta_frames()].
 #' @param ... Specification of query for each variable.
 #' @inheritParams make_url

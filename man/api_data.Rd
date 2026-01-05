@@ -26,7 +26,7 @@ api_data_2(..., return_dataset = 2)
 api_data_12(..., return_dataset = 12)
 }
 \arguments{
-\item{url_or_tableid}{A table id, a PxWebApi 2 URL to data or metadata, or metadata returned by
+\item{url_or_tableid}{A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
 \code{\link[=meta_data]{meta_data()}} or \code{\link[=meta_frames]{meta_frames()}}.}
 
 \item{...}{Specification of query for each variable.}
@@ -56,7 +56,7 @@ A data frame, or a list of data frames, depending on the input and
 parameters.
 }
 \description{
-This function constructs a PxWebApi 2 data URL using \code{\link[=query_url]{query_url()}}
+This function constructs a PxWebApi v2 data URL using \code{\link[=query_url]{query_url()}}
 and retrieves the data using \code{\link[=get_api_data]{get_api_data()}}.
 }
 \examples{

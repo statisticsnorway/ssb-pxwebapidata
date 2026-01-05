@@ -2,12 +2,12 @@
 % Please edit documentation in R/PxWebApi2.R
 \name{meta_frames}
 \alias{meta_frames}
-\title{Structured PxWebApi 2 metadata}
+\title{Structured PxWebApi v2 metadata}
 \usage{
 meta_frames(url_or_tableid, url_type = "ssb")
 }
 \arguments{
-\item{url_or_tableid}{A table id, a PxWebApi 2 URL to data or metadata,
+\item{url_or_tableid}{A table id, a PxWebApi v2 URL to data or metadata,
 or previously retrieved metadata.}
 
 \item{url_type}{Currently two possibilities: "ssb" (Norwegian) or "ssb_en" (English).}

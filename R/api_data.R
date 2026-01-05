@@ -1,7 +1,7 @@
 
 #' PX-Web Data by API
 #' 
-#' This function constructs a PxWebApi 2 data URL using [query_url()]
+#' This function constructs a PxWebApi v2 data URL using [query_url()]
 #' and retrieves the data using [get_api_data()].
 #'
 #' @inheritParams query_url

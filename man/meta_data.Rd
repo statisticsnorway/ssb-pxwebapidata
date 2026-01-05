@@ -2,12 +2,12 @@
 % Please edit documentation in R/PxWebApi2.R
 \name{meta_data}
 \alias{meta_data}
-\title{PxWebApi 2 metadata for a table}
+\title{PxWebApi v2 metadata for a table}
 \usage{
 meta_data(url_or_tableid, url_type = "ssb")
 }
 \arguments{
-\item{url_or_tableid}{Either a numeric table id or a PxWebApi 2 URL to data.
+\item{url_or_tableid}{Either a numeric table id or a PxWebApi v2 URL to data.
 When a data URL is supplied, it is internally converted to a metadata URL.}
 
 \item{url_type}{Currently two possibilities: "ssb" (Norwegian) or "ssb_en" (English).}
@@ -17,7 +17,7 @@ A list containing table metadata as returned by \code{\link[jsonlite:read_json]{
 The data URL is stored in the comment attribute of the returned object.
 }
 \description{
-Retrieves metadata for a table using the PxWebApi 2 endpoint and returns it
+Retrieves metadata for a table using the PxWebApi v2 endpoint and returns it
 as an R object via \code{\link[jsonlite:read_json]{jsonlite::read_json()}}.
 }
 \examples{
