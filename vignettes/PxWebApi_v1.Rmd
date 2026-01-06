@@ -157,9 +157,9 @@ The other filter `vs:`, specify the grouping value sets, which is a part of the 
 
 In this example Region is the value pool and Fylker (counties) is the value set. As `vs:Fylker` is redundant, both will return the same:
 
-```{r eval=TRUE, tidy = FALSE, comment=NA}
+```{r eval=FALSE, tidy = FALSE, comment=NA}
   Region = list("vs:Fylker",c("01","02"))
-  Region = list(c("01","02"))
+  Region = c("01","02")
 
 ```
 
