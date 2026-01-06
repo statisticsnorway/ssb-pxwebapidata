@@ -12,7 +12,16 @@ keywords: Statbank, PxWeb, PxWebApi, official statistics, json-stat
 
 ### Preface
 
-An introduction to the R-package PxWebApiData is given below.
+This vignette describes the functionality in the R package **PxWebApiData**
+related to PxWebApi v1.
+
+Most of the content in this vignette was written before PxWebApi v2 was
+introduced.
+
+For PxWebApi v2 functionality, see
+[Using PxWebApi v2 with PxWebApiData](pxwebapi_v2.html).
+
+An introduction to the R package PxWebApiData (for PxWebApi v1) is given below.
 Six calls to the main function, `ApiData`, are demonstrated.
 First, two calls for reading data sets are shown. The third call captures meta data.
 However, in practise, one may look at the meta data first.
@@ -22,7 +31,6 @@ Then three more examples and some background is given.
 Note: Earlier versions of this vignette demonstrated *"readymade datasets by GetApiData"*.
 As Statistics Norway will remove the readymade API during 2025, these examples are now replaced.
 The new *PxWebApi 2* is now the primary API for Statistics Norway.
-See the section *"PxWebApi 2 examples with GetApiData"* below.
 
 
 
@@ -167,6 +175,12 @@ To convert an original JSON API query to a PxWebApiData query there is also a si
 
 
 ## PxWebApi 2 examples with GetApiData
+
+The text in this section was written before the new functionality described in
+[Using PxWebApi v2 with PxWebApiData](pxwebapi_v2.html).
+
+The legacy function `GetApiData()` is therefore used here. However, the same
+examples can now be run in exactly the same way using `get_api_data()` instead.
 
 Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7500 public tables.
 This API supports GET queries defined entirely in a URL. 
