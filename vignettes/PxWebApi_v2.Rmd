@@ -1,5 +1,6 @@
 ---
 title: "Using PxWebApi v2 with PxWebApiData"
+author: "Øyvind Langsrud and Jan Bruusgaard"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Using PxWebApi v2 with PxWebApiData}
@@ -35,6 +36,30 @@ comment <- function(x, fun = base::comment) {
 info <- function(x) comment(x, PxWebApiData::info)
 note <- function(x) comment(x, PxWebApiData::note)
 ```
+
+
+## Preface
+
+This vignette describes the functionality in the R package **PxWebApiData**
+related to PxWebApi v2. The new functions follow the recommended
+snake_case naming convention.
+
+For older functionality, see
+[Using PxWebApi v1 with PxWebApiData](pxwebapi_v1.html).
+
+The vignette first describes the function `get_api_data()` for retrieving
+data from a pre-made URL. Note that this function is not limited to PxWebApi.
+At the end of the vignette, it is also shown how data from Eurostat can be
+retrieved using `get_api_data()`.
+
+The main function for PxWebApi v2 in the package can be considered to be
+`api_data()`. It is closely related to `ApiData()` for PxWebApi v1.
+The function `api_data()` retrieves data in one step.
+Internally, the functions `query_url()` and `get_api_data()` are called.
+
+As described later in the vignette, the package also provides dedicated
+functions for retrieving metadata associated with PxWebApi v2.
+
 
 
 \
@@ -282,6 +307,36 @@ To download raw metadata without further processing, use `meta_data()`.
 Note that it does not matter whether the input URL refers to data or metadata;
 this is handled automatically.
  
+ 
+\
+
+# Eurostat data
+Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `get_api_data`
+or the similar functions with `1`, `2` or `12` at the end
+
+This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat guidelines](https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-detailed-guidelines/api-statistics) for more.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"}
+
+url_eurostat <- paste0(   # Here the long url is split into several lines using paste0 
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
+  "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
+url_eurostat
+get_api_data_12(url_eurostat)
+
+```
+
+
+\
+
+# Background
+
+PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See [list of installations](https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/). 
+
+For hints on using PxWebApi v2 in general see 
+[PxWebApi v2 User Guide](https://www.ssb.no/en/api/statbank-pxwebapi-user-guide).
+
+
 
 
 
