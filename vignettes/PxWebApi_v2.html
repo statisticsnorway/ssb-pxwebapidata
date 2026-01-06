@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Øyvind Langsrud and Jan Bruusgaard" />
+
+
+<title>Using PxWebApi v2 with PxWebApiData</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using PxWebApi v2 with PxWebApiData</h1>
+<h4 class="author">Øyvind Langsrud and Jan Bruusgaard</h4>
+
+
+
+<div id="preface" class="section level2">
+<h2>Preface</h2>
+<p>This vignette describes the functionality in the R package
+<strong>PxWebApiData</strong> related to PxWebApi v2. The new functions
+follow the recommended snake_case naming convention.</p>
+<p>For older functionality, see <a href="pxwebapi_v1.html">Using
+PxWebApi v1 with PxWebApiData</a>.</p>
+<p>The vignette first describes the function <code>get_api_data()</code>
+for retrieving data from a pre-made URL. Note that this function is not
+limited to PxWebApi. At the end of the vignette, it is also shown how
+data from Eurostat can be retrieved using
+<code>get_api_data()</code>.</p>
+<p>The main function for PxWebApi v2 in the package can be considered to
+be <code>api_data()</code>. It is closely related to
+<code>ApiData()</code> for PxWebApi v1. The function
+<code>api_data()</code> retrieves data in one step. Internally, the
+functions <code>query_url()</code> and <code>get_api_data()</code> are
+called.</p>
+<p>As described later in the vignette, the package also provides
+dedicated functions for retrieving metadata associated with PxWebApi
+v2.</p>
+<p><br />
+</p>
+</div>
+<div id="get_api_data-retrieve-data-from-a-pre-made-url" class="section level1">
+<h1><code>get_api_data()</code>: retrieve data from a pre-made URL</h1>
+<p>When a data URL is already available, the data can be retrieved using
+<code>get_api_data()</code>, as illustrated in the example below.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  <span class="st">&quot;&amp;valueCodes[Region]=0301,324*&quot;</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  <span class="st">&quot;&amp;valueCodes[ContentsCode]=???????&quot;</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="st">&quot;&amp;valueCodes[Tid]=top(2)&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">get_api_data</span>(url)</span></code></pre></div>
+<pre><code>$`04861: Area and population of urban settlements, by region, contents and year`
+             region            contents year  value
+1 Oslo municipality Number of residents 2024 714630
+2 Oslo municipality Number of residents 2025 720631
+3          Eidsvoll Number of residents 2024  23154
+4          Eidsvoll Number of residents 2025  23599
+5            Hurdal Number of residents 2024   1174
+6            Hurdal Number of residents 2025   1217
+
+$dataset
+  Region ContentsCode  Tid  value
+1   0301      Bosatte 2024 714630
+2   0301      Bosatte 2025 720631
+3   3240      Bosatte 2024  23154
+4   3240      Bosatte 2025  23599
+5   3242      Bosatte 2024   1174
+6   3242      Bosatte 2025   1217</code></pre>
+<p>To return a single data frame with labels only, use the function
+<code>get_api_data_1</code>. The function <code>get_api_data_2</code>
+returns codes only. To return a data frame containing both labels and
+codes, use <code>get_api_data_12</code>.</p>
+<p>The output from <code>get_api_data()</code> is identical to the
+output from <code>api_data()</code>, which is shown below. As shown, the
+functions <code>info()</code> and <code>note()</code> can also be used
+to display additional information.</p>
+<p><br />
+</p>
+</div>
+<div id="query_url-generate-a-url-from-specifications" class="section level1">
+<h1><code>query_url()</code>: generate a URL from specifications</h1>
+<p>The function <code>query_url()</code> can be used to generate a data
+URL. The URL used in the example above can be generated as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">query_url</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>, </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>          <span class="at">Region =</span> <span class="fu">c</span>(<span class="st">&quot;0301&quot;</span>, <span class="st">&quot;324*&quot;</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>          <span class="at">ContentsCode =</span> <span class="st">&quot;???????&quot;</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>          <span class="at">Tid =</span> <span class="st">&quot;top(2)&quot;</span>)</span></code></pre></div>
+<pre><code>[1] &quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&amp;valueCodes[Region]=0301,324*&amp;valueCodes[ContentsCode]=???????&amp;valueCodes[Tid]=top(2)&quot;</code></pre>
+<p>The function <code>query_url()</code> can be used in many different
+ways.</p>
+<p>A more detailed description is given below in the section on
+<code>api_data()</code>. The input to the two functions is
+identical.</p>
+<p><br />
+</p>
+</div>
+<div id="api_data-specify-and-retrieve-data-in-one-step" class="section level1">
+<h1><code>api_data()</code>: specify and retrieve data in one step</h1>
+<div id="specification-by-codes-and-topn" class="section level2">
+<h2>Specification by codes, <code>*</code>, <code>?</code>, and
+<code>top(n)</code></h2>
+<p>The dataset considered here has three variables: <code>Region</code>,
+<code>ContentsCode</code>, and <code>Tid</code>. These variables can be
+used as input parameters.</p>
+<p>Each variable can be specified using codes corresponding to the
+coding used in PxWebApi URL queries.</p>
+<p>Codes can be specified directly. It is also possible to truncate
+codes using an asterisk (<code>*</code>) or to mask individual
+characters using a question mark (<code>?</code>). In the example below,
+seven characters are masked.</p>
+<p>Using <code>top(2)</code> returns the first two values from the start
+position.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">api_data</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>         <span class="at">Region =</span> <span class="fu">c</span>(<span class="st">&quot;0301&quot;</span>, <span class="st">&quot;324*&quot;</span>), </span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>         <span class="at">ContentsCode =</span> <span class="st">&quot;???????&quot;</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>         <span class="at">Tid =</span> <span class="st">&quot;top(2)&quot;</span>)</span></code></pre></div>
+<pre><code>$`04861: Area and population of urban settlements, by region, contents and year`
+             region            contents year  value
+1 Oslo municipality Number of residents 2024 714630
+2 Oslo municipality Number of residents 2025 720631
+3          Eidsvoll Number of residents 2024  23154
+4          Eidsvoll Number of residents 2025  23599
+5            Hurdal Number of residents 2024   1174
+6            Hurdal Number of residents 2025   1217
+
+$dataset
+  Region ContentsCode  Tid  value
+1   0301      Bosatte 2024 714630
+2   0301      Bosatte 2025 720631
+3   3240      Bosatte 2024  23154
+4   3240      Bosatte 2025  23599
+5   3242      Bosatte 2024   1174
+6   3242      Bosatte 2025   1217</code></pre>
+<p>A list of two data frames is returned: one with labels and one with
+codes.</p>
+<p>To return a single data frame with labels only, use the function
+<code>api_data_1</code>. The function <code>api_data_2</code> returns
+codes only. To return a data frame containing both labels and codes, use
+<code>api_data_12</code>.</p>
+<p>Internally, a data URL is first constructed and the data are then
+retrieved using the function <code>get_api_data()</code>.</p>
+<p>To obtain the generated URL, replace <code>api_data()</code> with
+<code>query_url()</code>. The URL for this example has already been
+generated using <code>query_url()</code> in the example above.</p>
+</div>
+<div id="specification-using-default-indexing" class="section level2">
+<h2>Specification using (default) indexing</h2>
+<p>Numeric values are interpreted as indexing, either as row numbers in
+the metadata or as indices. See the parameter <code>use_index</code> for
+further details.</p>
+<p>As specified by the parameter <code>default_query</code>, unspecified
+variables are set to <code>c(1, -2, -1)</code>. In the example below,
+<code>Tid</code> is unspecified, which therefore corresponds to the
+first and the two last years.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">api_data_12</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>           <span class="at">Region =</span> <span class="dv">14</span><span class="sc">:</span><span class="dv">17</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>           <span class="at">ContentsCode =</span> <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>      region            contents year Region ContentsCode  Tid value
+1      Asker Number of residents 2000   3203      Bosatte 2000     0
+2      Asker Number of residents 2024   3203      Bosatte 2024 93769
+3      Asker Number of residents 2025   3203      Bosatte 2025 95455
+4 Lillestrøm Number of residents 2000   3205      Bosatte 2000     0
+5 Lillestrøm Number of residents 2024   3205      Bosatte 2024 87596
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 7 rows ]</code></pre>
+</div>
+<div id="specification-using-true-false-imaginary-values-e.g.-3i-and-labels" class="section level2">
+<h2>Specification using <code>TRUE</code>, <code>FALSE</code>, imaginary
+values (e.g. <code>3i</code>), and labels</h2>
+<p>All possible values are obtained by <code>TRUE</code> and this is
+equivalent to <code>&quot;*&quot;</code>. Elimination of a variable is obtained by
+<code>FALSE</code>. Imaginary values represent <code>top</code>, for
+example <code>3i</code> is equivalent to <code>&quot;top(3)&quot;</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">api_data_2</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>, </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>          <span class="at">Region =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>          <span class="at">ContentsCode =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>          <span class="at">Tid =</span> <span class="dv">3</span><span class="dt">i</span>)</span></code></pre></div>
+<pre><code>  ContentsCode  Tid      value
+1        Areal 2023    2266.99
+2        Areal 2024    2279.97
+3        Areal 2025    2285.89
+4      Bosatte 2023 4554562.00
+5      Bosatte 2024 4619969.00
+6      Bosatte 2025 4662945.00</code></pre>
+<p>Labels can also be used as an alternative to codes.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>obj <span class="ot">&lt;-</span> <span class="fu">api_data</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>, </span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                <span class="at">Region =</span> <span class="fu">c</span>(<span class="st">&quot;Asker&quot;</span>, <span class="st">&quot;Hurdal&quot;</span>), </span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                <span class="at">ContentsCode =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                <span class="at">Tid =</span> <span class="dv">2</span><span class="dt">i</span>)</span></code></pre></div>
+<p>To show either label version or code version.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>obj[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>  region                        contents year    value
+1  Asker Area of urban settlements (km²) 2024    51.89
+2  Asker Area of urban settlements (km²) 2025    52.00
+3  Asker             Number of residents 2024 93769.00
+4  Asker             Number of residents 2025 95455.00
+5 Hurdal Area of urban settlements (km²) 2024     1.19
+6 Hurdal Area of urban settlements (km²) 2025     1.20
+7 Hurdal             Number of residents 2024  1174.00
+8 Hurdal             Number of residents 2025  1217.00</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>obj[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>  Region ContentsCode  Tid    value
+1   3203        Areal 2024    51.89
+2   3203        Areal 2025    52.00
+3   3203      Bosatte 2024 93769.00
+4   3203      Bosatte 2025 95455.00
+5   3242        Areal 2024     1.19
+6   3242        Areal 2025     1.20
+7   3242      Bosatte 2024  1174.00
+8   3242      Bosatte 2025  1217.00</code></pre>
+</div>
+<div id="show-additional-information" class="section level2">
+<h2>Show additional information</h2>
+<p>Use <code>info()</code> and <code>note()</code> (or
+<code>comment()</code>) to list additional dataset information.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">info</span>(obj)</span></code></pre></div>
+<pre><code>                                                                          label
+&quot;04861: Area and population of urban settlements, by region, contents and year&quot;
+                                                                         source
+                                                            &quot;Statistics Norway&quot;
+                                                                        updated
+                                                         &quot;2025-10-27T07:00:00Z&quot;
+                                                                        tableid
+                                                                        &quot;04861&quot;
+                                                                       contents
+                             &quot;04861: Area and population of urban settlements,&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">note</span>(obj)</span></code></pre></div>
+<pre><code>                                                                                                    [1]
+                                  &quot;Not included persons lacking information on type of residence area.&quot;
+                                                                                                    [2]
+&quot;As of 1. January 2013 Statistics Norway implemented a new method for defining urban settlements, resulting in a more accurate delimitation. Due to this figures before and after 2013 are not directly comparable.&quot;
+                                                                                                    [3]
+                                                                                &quot;Year 2010 is missing.&quot;
+                                                                                                    [4]
+&quot;[See list over changes in regional classifications](https://www.ssb.no/offentlig-sektor/kommunekatalog/endringer-i-de-regionale-inndelingene) (in Norwegian).
+&quot;</code></pre>
+</div>
+<div id="specification-by-list-for-advanced-queries" class="section level2">
+<h2>Specification by <code>list()</code> for advanced queries</h2>
+<p>Advanced queries can be specified using named lists, where the names
+correspond to the encoding used in PxWebApi URL queries.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a> <span class="fu">api_data_2</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en&quot;</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>            <span class="at">Region =</span> <span class="fu">list</span>(<span class="at">codelist =</span> <span class="st">&quot;agg_KommSummer&quot;</span>, </span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>                          <span class="at">valueCodes =</span> <span class="fu">c</span>(<span class="st">&quot;K-3101&quot;</span>, <span class="st">&quot;K-3103&quot;</span>), </span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>                          <span class="at">outputValues =</span> <span class="st">&quot;aggregated&quot;</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>            <span class="at">Kjonn =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>            <span class="at">Alder =</span> <span class="fu">list</span>(<span class="at">codelist =</span> <span class="st">&quot;agg_TodeltGrupperingB&quot;</span>, </span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>                         <span class="at">valueCodes =</span> <span class="fu">c</span>(<span class="st">&quot;H17&quot;</span>, <span class="st">&quot;H18&quot;</span>),</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>                         <span class="at">outputValues =</span> <span class="st">&quot;aggregated&quot;</span>),</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>            <span class="at">ContentsCode =</span> <span class="dv">1</span>,</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a>            <span class="at">Tid =</span> <span class="dv">2</span><span class="dt">i</span>)  </span></code></pre></div>
+<pre><code>  Region Kjonn Alder ContentsCode  Tid value
+1 K-3101     2   H17    Personer1 2024  2944
+2 K-3101     2   H17    Personer1 2025  2926
+3 K-3101     2   H18    Personer1 2024 12843
+4 K-3101     2   H18    Personer1 2025 12954
+5 K-3101     1   H17    Personer1 2024  3078
+6 K-3101     1   H17    Personer1 2025  3021
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 10 rows ]</code></pre>
+<p>In this case, the generated URL is:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a> url <span class="ot">&lt;-</span> <span class="fu">query_url</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en&quot;</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>            <span class="at">Region =</span> <span class="fu">list</span>(<span class="at">codelist =</span> <span class="st">&quot;agg_KommSummer&quot;</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>                          <span class="at">valueCodes =</span> <span class="fu">c</span>(<span class="st">&quot;K-3101&quot;</span>, <span class="st">&quot;K-3103&quot;</span>), </span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>                          <span class="at">outputValues =</span> <span class="st">&quot;aggregated&quot;</span>),</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>            <span class="at">Kjonn =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>            <span class="at">Alder =</span> <span class="fu">list</span>(<span class="at">codelist =</span> <span class="st">&quot;agg_TodeltGrupperingB&quot;</span>, </span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>                         <span class="at">valueCodes =</span> <span class="fu">c</span>(<span class="st">&quot;H17&quot;</span>, <span class="st">&quot;H18&quot;</span>),</span>
+<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a>                         <span class="at">outputValues =</span> <span class="st">&quot;aggregated&quot;</span>),</span>
+<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a>            <span class="at">ContentsCode =</span> <span class="dv">1</span>,</span>
+<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a>            <span class="at">Tid =</span> <span class="dv">2</span><span class="dt">i</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a> <span class="fu">cat</span>(<span class="fu">gsub</span>(<span class="st">&quot;&amp;&quot;</span>, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&amp;&quot;</span>, url))</span></code></pre></div>
+<pre><code>https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en
+&amp;codelist[Region]=agg_KommSummer
+&amp;valueCodes[Region]=K-3101,K-3103
+&amp;outputValues[Region]=aggregated
+&amp;valueCodes[Kjonn]=*
+&amp;codelist[Alder]=agg_TodeltGrupperingB
+&amp;valueCodes[Alder]=H17,H18
+&amp;outputValues[Alder]=aggregated
+&amp;valueCodes[ContentsCode]=Personer1
+&amp;valueCodes[Tid]=top(2)</code></pre>
+<p>To improve readability, <code>cat()</code> together with
+<code>gsub()</code> is used to print the long URL across multiple
+lines.</p>
+<p>This query is constructed using information available in the
+metadata; see the section below.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="obtaining-metadata" class="section level1">
+<h1>Obtaining metadata</h1>
+<div id="meta_frames" class="section level2">
+<h2><code>meta_frames()</code></h2>
+<p>Metadata for a data set can be obtained using
+<code>meta_frames()</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">meta_frames</span>(<span class="st">&quot;https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">print</span>(mf)</span></code></pre></div>
+<pre><code>$Region
+   code index           label
+1  3101     0          Halden
+2  3103     1            Moss
+3  3105     2       Sarpsborg
+4  3107     3     Fredrikstad
+5  3110     4          Hvaler
+6  3112     5            Råde
+7  3114     6 Våler (Østfold)
+8  3116     7        Skiptvet
+9  3118     8   Indre Østfold
+10 3120     9       Rakkestad
+11 3122    10          Marker
+12 3124    11         Aremark
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 940 rows ]
+
+$ContentsCode
+     code index                           label unit.base unit.decimals
+1   Areal     0 Area of urban settlements (km²)       km²             2
+2 Bosatte     1             Number of residents   persons             0
+
+$Tid
+   code index label
+1  2000     0  2000
+2  2002     1  2002
+3  2003     2  2003
+4  2004     3  2004
+5  2005     4  2005
+6  2006     5  2006
+7  2007     6  2007
+8  2008     7  2008
+9  2009     8  2009
+10 2011     9  2011
+11 2012    10  2012
+12 2013    11  2013
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 12 rows ]</code></pre>
+<p>Information about whether variables can be eliminated is stored as an
+attribute and can be retrieved for all variables at once:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">sapply</span>(mf, attr, <span class="st">&quot;elimination&quot;</span>) <span class="co"># elimination info for all variables</span></span></code></pre></div>
+<pre><code>      Region ContentsCode          Tid 
+        TRUE        FALSE        FALSE </code></pre>
+<p>Code list information is stored as a data frame in another
+attribute:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">attr</span>(mf[[<span class="st">&quot;Region&quot;</span>]], <span class="st">&quot;code_lists&quot;</span>)</span></code></pre></div>
+<pre><code>                    id                                          label
+1       agg_KommFylker          Counties 2024, aggregated time series
+2      agg_KommForrige                       Municipalities 2020-2023
+3       agg_KommSummer    Municipalities 2024, aggregated time series
+4   agg_LandsdelKommun                                   Regions 2025
+5 agg_Politidistrikt16                           Police district 2016
+6      agg_RegionerBVF Regions (Child welfare and family counselling)
+7   agg_SentralIndeksA       Centrality (can not be used before 1977)
+8 agg_OkonomRegion2020                          Economic regions 2024
+9     agg_Valgdistrikt                            Electoral districts
+         type
+1 Aggregation
+2 Aggregation
+3 Aggregation
+4 Aggregation
+5 Aggregation
+6 Aggregation
+7 Aggregation
+8 Aggregation
+9 Aggregation
+                                                                       links
+1       https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_KommFylker?lang=en
+2      https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_KommForrige?lang=en
+3       https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_KommSummer?lang=en
+4   https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_LandsdelKommun?lang=en
+5 https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_Politidistrikt16?lang=en
+6      https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_RegionerBVF?lang=en
+7   https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_SentralIndeksA?lang=en
+8 https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_OkonomRegion2020?lang=en
+9     https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_Valgdistrikt?lang=en
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 1 rows ]</code></pre>
+</div>
+<div id="meta_code_list" class="section level2">
+<h2><code>meta_code_list()</code></h2>
+<p>Metadata for code lists referenced in this output can be retrieved
+using <code>meta_code_list()</code>.</p>
+</div>
+<div id="meta_data" class="section level2">
+<h2><code>meta_data()</code></h2>
+<p>To download raw metadata without further processing, use
+<code>meta_data()</code>.</p>
+<p>Note that it does not matter whether the input URL refers to data or
+metadata; this is handled automatically.</p>
+<p><br />
+</p>
+</div>
+</div>
+<div id="eurostat-data" class="section level1">
+<h1>Eurostat data</h1>
+<p>Eurostat REST API offers JSON-stat version 2. It is possible to use
+this package to obtain data from Eurostat by using
+<code>get_api_data</code> or the similar functions with <code>1</code>,
+<code>2</code> or <code>12</code> at the end</p>
+<p>This example shows HICP total index, latest two periods for EU and
+Norway. See <a href="https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-detailed-guidelines/api-statistics">Eurostat
+guidelines</a> for more.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>url_eurostat <span class="ot">&lt;-</span> <span class="fu">paste0</span>(   <span class="co"># Here the long url is split into several lines using paste0 </span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="st">&quot;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r&quot;</span>, </span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="st">&quot;?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU&quot;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>url_eurostat</span></code></pre></div>
+<pre><code>[1] &quot;https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&amp;lang=EN&amp;lastTimePeriod=2&amp;coicop=CP00&amp;geo=NO&amp;geo=EU&quot;</code></pre>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">get_api_data_12</span>(url_eurostat)</span></code></pre></div>
+<pre><code>No encoding supplied: defaulting to UTF-8.</code></pre>
+<pre><code>  Time frequency                         Unit of measure
+1        Monthly Moving 12 months average rate of change
+2        Monthly Moving 12 months average rate of change
+3        Monthly Moving 12 months average rate of change
+  Classification of individual consumption by purpose (COICOP)
+1                                               All-items HICP
+2                                               All-items HICP
+3                                               All-items HICP
+                                                                                   Geopolitical entity (reporting)
+1 European Union (EU6-1958, EU9-1973, EU10-1981, EU12-1986, EU15-1995, EU25-2004, EU27-2007, EU28-2013, EU27-2020)
+2 European Union (EU6-1958, EU9-1973, EU10-1981, EU12-1986, EU15-1995, EU25-2004, EU27-2007, EU28-2013, EU27-2020)
+3                                                                                                           Norway
+     Time freq         unit coicop geo    time value
+1 2025-10    M RCH_MV12MAVR   CP00  EU 2025-10   2.5
+2 2025-11    M RCH_MV12MAVR   CP00  EU 2025-11   2.5
+3 2025-10    M RCH_MV12MAVR   CP00  NO 2025-10   2.6
+ [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 1 rows ]</code></pre>
+<p><br />
+</p>
+</div>
+<div id="background" class="section level1">
+<h1>Background</h1>
+<p>PxWeb and it’s API, PxWebApi is used as output database (Statbank) by
+many statistical agencies in the Nordic countries and several others,
+i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See <a href="https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/">list
+of installations</a>.</p>
+<p>For hints on using PxWebApi v2 in general see <a href="https://www.ssb.no/en/api/statbank-pxwebapi-user-guide">PxWebApi
+v2 User Guide</a>.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
