@@ -220,7 +220,7 @@ to the encoding used in PxWebApi URL queries.
 In this case, the generated URL is:
 
 ```{r eval=TRUE, tidy = FALSE, comment=NA}
- query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
+ url <- query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
             Region = list(codelist = "agg_KommSummer", 
                           valueCodes = c("K-3101", "K-3103"), 
                           outputValues = "aggregated"),
@@ -229,10 +229,15 @@ In this case, the generated URL is:
                          valueCodes = c("H17", "H18"),
                          outputValues = "aggregated"),
             ContentsCode = 1,
-            Tid = 2i)  
+            Tid = 2i)
+ cat(gsub("&", "\n&", url))
 ```
 
-These queries are constructed using information available in the metadata;
+
+To improve readability, `cat()` together with `gsub()` is used to print the
+long URL across multiple lines.
+
+This query is constructed using information available in the metadata;
 see the section below.
 
 
