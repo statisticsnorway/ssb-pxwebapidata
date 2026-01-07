@@ -45,6 +45,12 @@
 #' url3
 #' ensure_json_stat2(url3)
 ensure_json_stat2 <- function(url) {
+  
+  if (!length(url)) {
+    message("Empty URL")
+    return(url)
+  }
+  
   stopifnot(is.character(url), length(url) == 1L)
   
   # Early return: already correct
