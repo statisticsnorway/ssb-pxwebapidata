@@ -77,7 +77,13 @@
 #'              Region = c("Sarpsborg", "3103", "402?"), 
 #'              ContentsCode = "Bosatte", 
 #'              Tid = c(1, -1), 
-#'              url_type = "ssb_en")           
+#'              url_type = "ssb_en") 
+#'              
+#'  
+#'  # A Statistics Sweden example             
+#'  api_data_12("https://statistikdatabasen.scb.se/api/v2/tables/TAB4537/data?lang=en", 
+#'              Region = "??", 
+#'              Kon = FALSE)                      
 #' 
 api_data <- function(url_or_tableid,
                      ..., 
