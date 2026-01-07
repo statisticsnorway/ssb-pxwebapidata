@@ -109,7 +109,7 @@ api_data <- function(url_or_tableid,
                return_dataset = return_dataset, 
                make_na_status = make_na_status, 
                verbose_print = verbose_print,
-               use_ensure_json_stat = TRUE)
+               use_ensure_json_stat2 = TRUE)
 }
 
 
