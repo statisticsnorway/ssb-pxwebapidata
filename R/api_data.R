@@ -77,7 +77,13 @@
 #'              Region = c("Sarpsborg", "3103", "402?"), 
 #'              ContentsCode = "Bosatte", 
 #'              Tid = c(1, -1), 
-#'              url_type = "ssb_en")           
+#'              url_type = "ssb_en") 
+#'              
+#'  
+#'  # A Statistics Sweden example             
+#'  api_data_12("https://statistikdatabasen.scb.se/api/v2/tables/TAB4537/data?lang=en", 
+#'              Region = "??", 
+#'              Kon = FALSE)                      
 #' 
 api_data <- function(url_or_tableid,
                      ..., 
@@ -102,7 +108,8 @@ api_data <- function(url_or_tableid,
   get_api_data(url = url,
                return_dataset = return_dataset, 
                make_na_status = make_na_status, 
-               verbose_print = verbose_print)
+               verbose_print = verbose_print,
+               use_ensure_json_stat2 = TRUE)
 }
 
 
@@ -141,6 +148,9 @@ api_data_12  <- function(..., return_dataset = 12) {
 #'                     An explanation of these status codes is provided in the note part of the comment attribute, 
 #'                     i.e. what you get with [note()]. See the bottom example.
 #' @param verbose_print When TRUE, printing to console
+#' @param use_ensure_json_stat2 `TRUE`, `FALSE`, or `"auto"` (default).
+#'   If `"auto"`, the URL is modified by
+#'   \code{ensure_json_stat2()} only when `"/v2/"` is detected in the URL.
 #' @param ... Additional arguments passed to [get_api_data()].
 #'
 #' @return
@@ -159,13 +169,30 @@ api_data_12  <- function(..., return_dataset = 12) {
 #' get_api_data_2(url)    
 #'   
 get_api_data <- function(url,
-                         return_dataset = NULL, 
+                         return_dataset = NULL,
                          make_na_status = TRUE,
-                         verbose_print = FALSE) {
-  GetApiData(urlToData = url, 
-             returnDataSet = return_dataset,
-             verbosePrint = verbose_print)
+                         verbose_print = FALSE,
+                         use_ensure_json_stat2 = "auto") {
+  
+  if (isTRUE(use_ensure_json_stat2)) {
+    url <- ensure_json_stat2(url)
+    
+  } else if (identical(use_ensure_json_stat2, "auto")) {
+    if (grepl("/v2/", url, fixed = TRUE)) {
+      url <- ensure_json_stat2(url)
+    }
+    
+  } else if (!isFALSE(use_ensure_json_stat2)) {
+    stop("use_ensure_json_stat2 must be TRUE, FALSE, or \"auto\"")
+  }
+  
+  GetApiData(
+    urlToData = url,
+    returnDataSet = return_dataset,
+    verbosePrint = verbose_print
+  )
 }
+
 
 
 

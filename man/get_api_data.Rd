@@ -11,7 +11,8 @@ get_api_data(
   url,
   return_dataset = NULL,
   make_na_status = TRUE,
-  verbose_print = FALSE
+  verbose_print = FALSE,
+  use_ensure_json_stat2 = "auto"
 )
 
 get_api_data_1(..., return_dataset = 1)
@@ -31,6 +32,10 @@ An explanation of these status codes is provided in the note part of the comment
 i.e. what you get with \code{\link[=note]{note()}}. See the bottom example.}
 
 \item{verbose_print}{When TRUE, printing to console}
+
+\item{use_ensure_json_stat2}{\code{TRUE}, \code{FALSE}, or \code{"auto"} (default).
+If \code{"auto"}, the URL is modified by
+\code{ensure_json_stat2()} only when \code{"/v2/"} is detected in the URL.}
 
 \item{...}{Additional arguments passed to \code{\link[=get_api_data]{get_api_data()}}.}
 }
