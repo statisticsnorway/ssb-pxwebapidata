@@ -1,0 +1,300 @@
+---
+title: "Using PxWebApi v1 with PxWebApiData"
+author: "Øyvind Langsrud, Jan Bruusgaard, Solveig Bjørkholt and Susie Jentoft"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using PxWebApi v1 with PxWebApiData}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+keywords: Statbank, PxWeb, PxWebApi, official statistics, json-stat
+---
+
+
+### Preface
+
+This vignette describes the functionality in the R package **PxWebApiData**
+related to PxWebApi v1.
+
+Most of the content in this vignette was written before PxWebApi v2 was
+introduced.
+
+For PxWebApi v2 functionality, see
+[Using PxWebApi v2 with PxWebApiData](pxwebapi_v2.html).
+
+An introduction to the R package PxWebApiData (for PxWebApi v1) is given below.
+Six calls to the main function, `ApiData`, are demonstrated.
+First, two calls for reading data sets are shown. The third call captures meta data.
+However, in practise, one may look at the meta data first.
+Then three more examples and some background is given.
+
+
+Note: Earlier versions of this vignette demonstrated *"readymade datasets by GetApiData"*.
+As Statistics Norway will remove the readymade API during 2025, these examples are now replaced.
+The new *PxWebApi 2* is now the primary API for Statistics Norway.
+
+
+
+```{r include = FALSE}
+library(knitr)
+library(PxWebApiData)
+options(max.print = 36)
+
+# Re-define the comment functions to control line width and minimize excessive line breaks when printing.
+comment <- function(x, fun = base::comment) {
+     com <- fun(x)
+     nchar_name <- min(103, 2 + max(nchar(com)))
+     if (length(com)) 
+       if (is.null(names(com)))
+         names(com) <- paste0("[", seq_along(com), "]")
+     for (name in names(com)) {
+         cat(strrep(" ", max(0, (nchar_name - nchar(name)))),
+             name, 
+             "\n", 
+             strrep(" ", max(0, (nchar_name - nchar(com[[name]]) - 2))),
+             "\"",
+             com[[name]],
+             "\"",  "\n", sep = "")
+     }
+}
+info <- function(x) comment(x, PxWebApiData::info)
+note <- function(x) comment(x, PxWebApiData::note)
+```
+
+
+## Specification by variable indices and  variable id's
+
+The dataset below has three variables, Region, ContentsCode and Tid. The variables can be used as input parameters.
+Here two of the parameters are specified by variable id's
+and one parameter is specified by indices. Negative values are used to specify reversed indices. Thus, we here obtain the two first and the two last years in the data.
+
+A list of two data frames is returned; the label version and the id version.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("https://data.ssb.no/api/v0/en/table/04861",
+        Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+
+```
+To return a single dataset with only labels use the function `ApiData1`. The function `Apidata2` returns only id's. To return a dataset with both labels and id's in one dataframe use `ApiData12`.
+
+
+```{r include = FALSE}
+options(max.print = 75)
+```
+
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData12("https://data.ssb.no/api/v0/en/table/04861",
+        Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
+
+```
+
+
+```{r include = FALSE}
+options(max.print = 45)
+```
+
+## Specification by TRUE, FALSE and imaginary values (e.g. 3i).
+
+All possible values is obtained by TRUE and corresponds to filter `"all": "*"` in the api query. Elimination of a variable is obtained by FALSE. An imaginary value corresponds to filter `"top"` in the api query.
+
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+
+x <- ApiData("https://data.ssb.no/api/v0/en/table/04861",
+        Region = FALSE, ContentsCode = TRUE, Tid = 3i)
+
+```
+To show either label version or id version
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+
+x[[1]]
+
+x[[2]]
+```
+
+## Show additional information
+
+Use `info()` and `note()` (or `comment()`) to list additional dataset information.
+```{r, comment=NA}
+
+info(x)
+note(x)
+
+```
+
+## Obtaining meta data
+
+Meta information about the data set can be obtained by `returnMetaFrames = TRUE`.
+
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
+
+```
+
+## Aggregations using filter *agg:*
+PxWebApi offers two more filters for groupings, `agg:` and `vs:`. You can see these filters in the code "API Query for this table" when you have made a table in PxWeb.
+
+`agg`: is used for readymade aggregation groupings. 
+
+This example shows the use of aggregation in age groups and aggregated timeseries for the new Norwegian municipality structure from 2020. Also note the url where `/en` is replaced by `/no`. That returns labels in Norwegian instead of in English.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("https://data.ssb.no/api/v0/no/table/07459",
+        Region = list("agg:KommSummer", c("K-3101", "K-3103")),
+        Tid = 4i,
+        Alder = list("agg:TodeltGrupperingB", c("H17", "H18")),
+        Kjonn = TRUE)
+
+
+```
+There are two limitations in the PxWebApi using these filters.
+
+1) The name of the filter and the id's are not shown in metadata, only in the code "API Query for this table".
+2) The filters `agg:` and `vs:` can only take single elements as input. Filter `"all":"*"` eg. TRUE, does not work with agg: and vs:.
+
+The other filter `vs:`, specify the grouping value sets, which is a part of the value pool. As it is only possible to give single elements as input, it is easier to query the value pool. This means that `vs:` is redundant.
+
+In this example Region is the value pool and Fylker (counties) is the value set. As `vs:Fylker` is redundant, both will return the same:
+
+```{r eval=FALSE, tidy = FALSE, comment=NA}
+  Region = list("vs:Fylker",c("01","02"))
+  Region = c("01","02")
+
+```
+
+## Return the API query as JSON
+In PxWebApi the original query is formulated as JSON. Using the parameter returnApiQuery is useful for debugging.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
+
+```
+
+To convert an original JSON API query to a PxWebApiData query there is also a simple webpage [PxWebApiData call creator](https://radbrt-px-converter-px-converter-3mdstf.streamlit.app).
+
+
+## PxWebApi 2 examples with GetApiData
+
+The text in this section was written before the new functionality described in
+[Using PxWebApi v2 with PxWebApiData](pxwebapi_v2.html).
+
+The legacy function `GetApiData()` is therefore used here. However, the same
+examples can now be run in exactly the same way using `get_api_data()` instead.
+
+Statistics Norway has announced that PxWebApi 2 is now the primary API for Statbank Norway’s 7500 public tables.
+This API supports GET queries defined entirely in a URL. 
+
+Version 1 of PxWebApi will continue to exist in parallel for a period of time, but only supports POST queries.
+The limited API with "readymade datasets" will be removed during 2025, since PxWebApi 2 offers GET queries.
+
+The `GetApiData` function can be used with URLs for PxWebApi 2 in a similar way as it was previously used for "readymade datasets".
+It corresponds to using the parameter `getDataByGET = TRUE` in the `ApiData` function.
+Corresponding wrapper functions `GetApiData1`, `GetApiData2` and `GetApiData12` are available for `ApiData1`, `ApiData2` and `ApiData12`.
+
+```{r eval=TRUE, comment=NA, tidy=FALSE}
+# Example dataset
+url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
+x <- GetApiData(url1)
+
+x[[1]]    # Label version of the dataset
+comment(x)
+
+# More specific query with selected dimensions
+url2 <- paste0(
+  "https://data.ssb.no/api/pxwebapi/v2/tables/03013/data?lang=en",
+  "&valueCodes[Konsumgrp]=??",
+  "&valueCodes[ContentsCode]=KpiIndMnd",
+  "&valueCodes[Tid]=top(2)"
+)
+
+x2 <- GetApiData2(url2)
+x2  # id version of the dataset
+```
+
+
+## Eurostat data
+Eurostat REST API offers JSON-stat version 2. It is possible to use this package to obtain data from Eurostat by using `GetApiData`
+or the similar functions with `1`, `2` or `12` at the end
+
+This example shows HICP total index, latest two periods for EU and Norway. See [Eurostat guidelines](https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-detailed-guidelines/api-statistics) for more.
+
+```{r eval=TRUE, tidy = FALSE, comment=NA, encoding = "UTF-8"}
+
+urlEurostat <- paste0(   # Here the long url is split into several lines using paste0 
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
+  "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
+urlEurostat
+GetApiData12(urlEurostat)
+
+```
+
+
+## Practical example
+
+We would like to extract the number of female R&D personel in the services sector of the Norwegian business life for the years 2019 and 2020.
+
+1) Locate the relevant table at https://www.ssb.no that contains information on R&D personel. Having obtained the relevant table, table 07964, we create the link  https://data.ssb.no/api/v0/no/table/07964/
+
+
+2) Load the package.
+
+```{r, comment=NA, encoding = "UTF-8"}
+
+library(PxWebApiData)
+
+```
+
+
+3) Check which variables that exist in the data.
+
+```{r, comment=NA, encoding = "UTF-8"}
+
+variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
+                     returnMetaFrames = TRUE)
+
+names(variables)
+
+```
+
+4) Check which values each variable contains.
+
+```{r, comment=NA, encoding = "UTF-8"}
+
+values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
+                  returnMetaData = TRUE)
+
+values[[1]]$values
+values[[2]]$values
+values[[3]]$values
+
+```
+
+5) Define these variables in the query to sort out the values we want.
+
+```{r, comment=NA, encoding = "UTF-8"}
+
+mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
+                Tid = c("2021", "2022"), # Define year to 2021 and 2022
+                NACE2007 = "G-N", # Define the services sector
+                ContentsCode = c("KvinneligFoUpers")) # Define women R&D personell
+
+mydata <- mydata[[1]] # Extract the first list element, which contains full variable names.
+
+head(mydata)
+
+```
+
+6) Show additional information.
+
+```{r, comment=NA, encoding = "UTF-8"}
+
+comment(mydata)
+
+```
+
+## Background
+
+PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See [list of installations](https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/). 
+
+For hints on using PxWebApi in general see [PxWebApi User Guide](https://www.ssb.no/en/api/pxwebapi/_/attachment/inline/3031ae43-a881-4ae6-b4c9-c04e190b1504:df8c31920354e37f30e21be5641df2d93a16ef6c/Api_user_manual.pdf).
