@@ -26,6 +26,9 @@
 #' print(attr(df, "extra")[1:3])
 #' 
 meta_code_list <- function(url, as_frame = TRUE) {
+  
+  url <- ensure_json_stat2(url)
+  
   a <- Graceful(jsonlite::read_json, url)
   
   if (is.null(a)) {
@@ -202,6 +205,7 @@ meta_data <- function(url_or_tableid,  url_type = "ssb") {
 meta_data_ <- function(url_or_tableid,  url_type) {
   url <- ensure_url(url_or_tableid, url_type)
   url <- metadata_url(url)  
+  url <- ensure_json_stat2(url)
   metadata <- jsonlite::read_json(url)
   comment(metadata) <- metadata_url(url, data_url = TRUE)
   metadata
