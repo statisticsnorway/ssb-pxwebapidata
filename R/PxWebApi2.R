@@ -205,8 +205,7 @@ meta_data <- function(url_or_tableid,  url_type = "ssb") {
 meta_data_ <- function(url_or_tableid,  url_type) {
   url <- ensure_url(url_or_tableid, url_type)
   url <- metadata_url(url)  
-  url <- ensure_json_stat2(url)
-  metadata <- jsonlite::read_json(url)
+  metadata <- jsonlite::read_json(ensure_json_stat2(url))
   comment(metadata) <- metadata_url(url, data_url = TRUE)
   metadata
 }
