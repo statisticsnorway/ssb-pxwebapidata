@@ -13,7 +13,7 @@ When a data URL is supplied, it is internally converted to a metadata URL.}
 \item{url_type}{Currently two possibilities: "ssb" (Norwegian) or "ssb_en" (English).}
 }
 \value{
-A list containing table metadata as returned by \code{\link[jsonlite:read_json]{jsonlite::read_json()}}.
+A list containing table metadata read by \code{\link[jsonlite:read_json]{jsonlite::read_json()}} after internal URL adjustments via \code{\link[=ensure_json_stat2]{ensure_json_stat2()}}.
 The data URL is stored in the comment attribute of the returned object.
 }
 \description{

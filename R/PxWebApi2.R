@@ -185,7 +185,7 @@ get1 <- function(x, names) {
 #'   When a data URL is supplied, it is internally converted to a metadata URL.
 #'
 #' @returns
-#' A list containing table metadata as returned by [jsonlite::read_json()].
+#' A list containing table metadata read by [jsonlite::read_json()] after internal URL adjustments via [ensure_json_stat2()].
 #' The data URL is stored in the comment attribute of the returned object.
 #'
 #' @export
