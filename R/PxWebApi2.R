@@ -185,7 +185,7 @@ get1 <- function(x, names) {
 #'   When a data URL is supplied, it is internally converted to a metadata URL.
 #'
 #' @returns
-#' A list containing table metadata as returned by [jsonlite::read_json()].
+#' A list containing table metadata read by [jsonlite::read_json()] after internal URL adjustments via [ensure_json_stat2()].
 #' The data URL is stored in the comment attribute of the returned object.
 #'
 #' @export
@@ -205,8 +205,7 @@ meta_data <- function(url_or_tableid,  url_type = "ssb") {
 meta_data_ <- function(url_or_tableid,  url_type) {
   url <- ensure_url(url_or_tableid, url_type)
   url <- metadata_url(url)  
-  url <- ensure_json_stat2(url)
-  metadata <- jsonlite::read_json(url)
+  metadata <- jsonlite::read_json(ensure_json_stat2(url))
   comment(metadata) <- metadata_url(url, data_url = TRUE)
   metadata
 }
