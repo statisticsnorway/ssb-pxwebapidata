@@ -10,7 +10,11 @@
 #' the metadata, which usually starts at 0. If FALSE (default), numeric values
 #' are interpreted as row numbers in the metadata, using standard R indexing.
 #' Negative values can be used to specify reversed row numbers.
-#' @param default_query  Specification for variables not included in `...`
+#' @param default_query Specification for variables not included in `...`.
+#'   The default is `default_query = c(1, -2, -1)`,
+#'   which selects the first and the two last codes listed in the metadata.
+#'   Use `default_query = TRUE` 
+#'   and omit specifying individual variables to retrieve entire tables.
 #'
 #' @returns
 #' A PxWeb API URL to data, with query parameters added according to the input.
