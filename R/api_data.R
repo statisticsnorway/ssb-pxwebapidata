@@ -45,8 +45,13 @@
 #'
 #' @examples
 #' 
-#'  api_data(14162, Region = FALSE, InnKvartering1 = FALSE, Landkoder2 = FALSE, 
-#'           ContentsCode = TRUE, Tid = 3i, url_type = "ssb_en")
+#' obj <- api_data(14162, Region = FALSE, InnKvartering1 = FALSE, Landkoder2 = FALSE, 
+#'                 ContentsCode = TRUE, Tid = 3i, url_type = "ssb_en")
+#'           
+#' obj[[1]]    # The label version of the dataset, as returned by api_data_1()
+#' obj[[2]]    # The code version of the dataset, as returned by api_data_2()
+#' names(obj)
+#' info(obj)   # Similar to comment(); see also note() below
 #' 
 #'  # same as above 
 #'  # api_data("https://data.ssb.no/api/pxwebapi/v2/tables/14162/data?lang=en", 
@@ -84,6 +89,20 @@
 #'  api_data_12("https://statistikdatabasen.scb.se/api/v2/tables/TAB4537/data?lang=en", 
 #'              Region = "??", 
 #'              Kon = FALSE)                      
+#' 
+#'  
+#'  # Use default_query = TRUE to retrieve entire tables
+#'  out <- api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/10172/data?lang=en", 
+#'                             default_query = TRUE)
+#'  out[14:22, ]  # 9 rows printed      
+#' 
+#'  
+#'  # Use note() for explanation of status codes (see api_data() parameter makeNAstatus)                       
+#'  note(out)
+#'  
+#'  # info() and note() return parts of the comment attribute
+#'  info(out)
+#'  comment(out)
 #' 
 api_data <- function(url_or_tableid,
                      ..., 

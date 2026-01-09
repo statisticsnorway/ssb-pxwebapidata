@@ -14,7 +14,7 @@ keywords: Statbank, PxWeb, PxWebApi, official statistics, json-stat
 ```{r include = FALSE}
 library(knitr)
 library(PxWebApiData)
-options(max.print = 36)
+options(max.print = 44)
 
 # Re-define the comment functions to control line width and minimize excessive line breaks when printing.
 comment <- function(x, fun = base::comment) {
@@ -212,6 +212,18 @@ obj[[2]]
 ```
 
 
+## Use `default_query = TRUE` to retrieve entire tables
+
+```{r eval=TRUE, tidy = FALSE, comment=NA}
+out <- api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/10172/data?lang=en", 
+                   default_query = TRUE)
+out[14:20, ]  # 9 rows printed  
+```
+
+In this case, the `NAstatus` variable is included.
+See the `api_data()` parameter `make_na_status`.
+
+
 ## Show additional information
 
 Use `info()` and `note()` (or `comment()`) to list additional dataset information.
@@ -219,7 +231,11 @@ Use `info()` and `note()` (or `comment()`) to list additional dataset informatio
 
 info(obj)
 note(obj)
+```
 
+Use `note()` for explanation of NA status codes
+```{r, comment=NA}
+note(out)
 ```
 
 

@@ -25,7 +25,11 @@ the metadata, which usually starts at 0. If FALSE (default), numeric values
 are interpreted as row numbers in the metadata, using standard R indexing.
 Negative values can be used to specify reversed row numbers.}
 
-\item{default_query}{Specification for variables not included in \code{...}}
+\item{default_query}{Specification for variables not included in \code{...}.
+The default is \code{default_query = c(1, -2, -1)},
+which selects the first and the two last codes listed in the metadata.
+Use \code{default_query = TRUE}
+and omit specifying individual variables to retrieve entire tables.}
 }
 \value{
 A PxWeb API URL to data, with query parameters added according to the input.
