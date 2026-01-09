@@ -1,5 +1,5 @@
 ## PxWebApiData x.x.x
-* Major update with new functions related to PxWebApi v2
+* Major update with new functions related to PxWebApi **v2**
   - `get_api_data()`: retrieve data from a pre-made URL
   - `query_url()`: generate a URL from specifications
   - `api_data()`: specify and retrieve data in one step
