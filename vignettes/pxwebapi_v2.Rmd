@@ -350,7 +350,7 @@ get_api_data_12(url_eurostat)
 PxWeb and it's API, PxWebApi is used as output database (Statbank) by many statistical agencies in the Nordic countries and several others, i.e. Statistics Norway, Statistics Finland, Statistics Sweden. See [list of installations](https://www.scb.se/en/services/statistical-programs-for-px-files/px-web/pxweb-examples/). 
 
 For hints on using PxWebApi v2 in general see 
-[PxWebApi v2 User Guide](https://www.ssb.no/en/api/statbank-pxwebapi-user-guide).
+[PxWebApi v2 User Guide](https://www.ssb.no/en/api/pxwebapiv2).
 
 
 
