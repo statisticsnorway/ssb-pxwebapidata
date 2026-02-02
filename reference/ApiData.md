@@ -188,7 +188,7 @@ See the package vignette for aggregations using filter `agg`.
 # \donttest{
 # Note: Example with "readymade datasets" has been removed.
 # SSB announced that this service will be discontinued in 2025.
-# It is replaced here with an example using PxWebApi 2,
+# It is replaced here with an example using PxWebApi v2,
 # which supports GET queries and richer options.
 
 url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
@@ -1218,11 +1218,11 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE,
 ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = c("1103", "0301"), 
         ContentsCode = 2, Tid = c(1, -1))
 #> $`04861: Area and population of urban settlements, by region, contents and year`
-#>              region            contents year  value
-#> 1 Oslo municipality Number of residents 2000 504348
-#> 2 Oslo municipality Number of residents 2025 720631
-#> 3         Stavanger Number of residents 2000 106804
-#> 4         Stavanger Number of residents 2025 143972
+#>          region            contents year  value
+#> 1 Oslo - Oslove Number of residents 2000 504348
+#> 2 Oslo - Oslove Number of residents 2025 720631
+#> 3     Stavanger Number of residents 2000 106804
+#> 4     Stavanger Number of residents 2025 143972
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
@@ -1236,11 +1236,11 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = c("1103", "0301"),
 ##### Using id instead of url, unnamed input and verbosePrint
 ApiData(4861, c("1103", "0301"), 1, c(1, -1)) # same as below 
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
-#>      region      statistikkvariabel   år  value
-#> 1      Oslo Areal av tettsted (km²) 2000 132.90
-#> 2      Oslo Areal av tettsted (km²) 2025 129.90
-#> 3 Stavanger Areal av tettsted (km²) 2000  41.85
-#> 4 Stavanger Areal av tettsted (km²) 2025  44.35
+#>          region      statistikkvariabel   år  value
+#> 1 Oslo - Oslove Areal av tettsted (km²) 2000 132.90
+#> 2 Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 3     Stavanger Areal av tettsted (km²) 2000  41.85
+#> 4     Stavanger Areal av tettsted (km²) 2025  44.35
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
@@ -1251,11 +1251,11 @@ ApiData(4861, c("1103", "0301"), 1, c(1, -1)) # same as below
 #> 
 ApiData(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
-#>      region statistikkvariabel   år  value
-#> 1      Oslo            Bosatte 2000 504348
-#> 2      Oslo            Bosatte 2025 720631
-#> 3 Stavanger            Bosatte 2000 106804
-#> 4 Stavanger            Bosatte 2025 143972
+#>          region statistikkvariabel   år  value
+#> 1 Oslo - Oslove            Bosatte 2000 504348
+#> 2 Oslo - Oslove            Bosatte 2025 720631
+#> 3     Stavanger            Bosatte 2000 106804
+#> 4     Stavanger            Bosatte 2025 143972
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
@@ -1268,11 +1268,11 @@ names(ApiData(4861,returnMetaFrames = TRUE))  # these names from metadata assume
 #> [1] "Region"       "ContentsCode" "Tid"         
 ApiData("4861", c("1103", "0301"), 1, c(1, -1),  urlType="SSBen")
 #> $`04861: Area and population of urban settlements, by region, contents and year`
-#>              region                        contents year  value
-#> 1 Oslo municipality Area of urban settlements (km²) 2000 132.90
-#> 2 Oslo municipality Area of urban settlements (km²) 2025 129.90
-#> 3         Stavanger Area of urban settlements (km²) 2000  41.85
-#> 4         Stavanger Area of urban settlements (km²) 2025  44.35
+#>          region                        contents year  value
+#> 1 Oslo - Oslove Area of urban settlements (km²) 2000 132.90
+#> 2 Oslo - Oslove Area of urban settlements (km²) 2025 129.90
+#> 3     Stavanger Area of urban settlements (km²) 2000  41.85
+#> 4     Stavanger Area of urban settlements (km²) 2025  44.35
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
@@ -1415,7 +1415,7 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #>  [81] "2017K4" "2018K1" "2018K2" "2018K3" "2018K4" "2019K1" "2019K2" "2019K3"
 #>  [89] "2019K4" "2020K1" "2020K2" "2020K3" "2020K4" "2021K1" "2021K2" "2021K3"
 #>  [97] "2021K4" "2022K1" "2022K2" "2022K3" "2022K4" "2023K1" "2023K2" "2023K3"
-#> [105] "2023K4" "2024K1" "2024K2" "2024K3" "2024K4" "2025K1" "2025K2"
+#> [105] "2023K4" "2024K1" "2024K2" "2024K3" "2024K4" "2025K1" "2025K2" "2025K3"
 #> 
 #> attr(,"elimination")
 #> [1]  TRUE FALSE FALSE
@@ -1423,42 +1423,42 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #> 
 #> 
 #> $`01222: Befolkning og kvartalsvise endringar, etter region, statistikkvariabel og kvartal`
-#>       region                         statistikkvariabel kvartal value
-#> 1       Oslo                                       Døde  2025K1  1087
-#> 2       Oslo                                       Døde  2025K2   913
-#> 3       Oslo                     Utflytting, innalandsk  2025K1  6965
-#> 4       Oslo                     Utflytting, innalandsk  2025K2  8469
-#> 5       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K1   -39
-#> 6       Oslo Nettoinnflytting, inkl. inn- og utvandring  2025K2 -1611
-#> 7       Oslo                                 Folkevekst  2025K1   953
-#> 8       Oslo                                 Folkevekst  2025K2   -63
-#> 9  Stavanger                                       Døde  2025K1   267
-#> 10 Stavanger                                       Døde  2025K2   210
-#> 11 Stavanger                     Utflytting, innalandsk  2025K1  1321
-#> 12 Stavanger                     Utflytting, innalandsk  2025K2  1582
-#> 13 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K1   408
-#> 14 Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K2   -45
-#> 15 Stavanger                                 Folkevekst  2025K1   540
-#> 16 Stavanger                                 Folkevekst  2025K2   175
+#>           region                         statistikkvariabel kvartal value
+#> 1  Oslo - Oslove                                       Døde  2025K2   913
+#> 2  Oslo - Oslove                                       Døde  2025K3   978
+#> 3  Oslo - Oslove                     Utflytting, innalandsk  2025K2  8469
+#> 4  Oslo - Oslove                     Utflytting, innalandsk  2025K3 12567
+#> 5  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K2 -1611
+#> 6  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K3   930
+#> 7  Oslo - Oslove                                 Folkevekst  2025K2   -63
+#> 8  Oslo - Oslove                                 Folkevekst  2025K3  2617
+#> 9      Stavanger                                       Døde  2025K2   210
+#> 10     Stavanger                                       Døde  2025K3   224
+#> 11     Stavanger                     Utflytting, innalandsk  2025K2  1582
+#> 12     Stavanger                     Utflytting, innalandsk  2025K3  2266
+#> 13     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K2   -45
+#> 14     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K3   413
+#> 15     Stavanger                                 Folkevekst  2025K2   175
+#> 16     Stavanger                                 Folkevekst  2025K3   611
 #> 
 #> $dataset
 #>    Region      ContentsCode    Tid value
-#> 1    0301             Dode3 2025K1  1087
-#> 2    0301             Dode3 2025K2   913
-#> 3    0301      Fraflytting8 2025K1  6965
-#> 4    0301      Fraflytting8 2025K2  8469
-#> 5    0301 Nettoinnflytting9 2025K1   -39
-#> 6    0301 Nettoinnflytting9 2025K2 -1611
-#> 7    0301   Folketilvekst10 2025K1   953
-#> 8    0301   Folketilvekst10 2025K2   -63
-#> 9    1103             Dode3 2025K1   267
-#> 10   1103             Dode3 2025K2   210
-#> 11   1103      Fraflytting8 2025K1  1321
-#> 12   1103      Fraflytting8 2025K2  1582
-#> 13   1103 Nettoinnflytting9 2025K1   408
-#> 14   1103 Nettoinnflytting9 2025K2   -45
-#> 15   1103   Folketilvekst10 2025K1   540
-#> 16   1103   Folketilvekst10 2025K2   175
+#> 1    0301             Dode3 2025K2   913
+#> 2    0301             Dode3 2025K3   978
+#> 3    0301      Fraflytting8 2025K2  8469
+#> 4    0301      Fraflytting8 2025K3 12567
+#> 5    0301 Nettoinnflytting9 2025K2 -1611
+#> 6    0301 Nettoinnflytting9 2025K3   930
+#> 7    0301   Folketilvekst10 2025K2   -63
+#> 8    0301   Folketilvekst10 2025K3  2617
+#> 9    1103             Dode3 2025K2   210
+#> 10   1103             Dode3 2025K3   224
+#> 11   1103      Fraflytting8 2025K2  1582
+#> 12   1103      Fraflytting8 2025K3  2266
+#> 13   1103 Nettoinnflytting9 2025K2   -45
+#> 14   1103 Nettoinnflytting9 2025K3   413
+#> 15   1103   Folketilvekst10 2025K2   175
+#> 16   1103   Folketilvekst10 2025K3   611
 #> 
 
 # }
@@ -1466,11 +1466,11 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 ApiData(4861, Region = list("03*"), ContentsCode = 1, Tid = 5i) # "all" can be dropped from the list
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>                 region      statistikkvariabel   år  value
-#> 1                 Oslo Areal av tettsted (km²) 2021 130.47
-#> 2                 Oslo Areal av tettsted (km²) 2022 130.57
-#> 3                 Oslo Areal av tettsted (km²) 2023 130.46
-#> 4                 Oslo Areal av tettsted (km²) 2024 130.31
-#> 5                 Oslo Areal av tettsted (km²) 2025 129.90
+#> 1        Oslo - Oslove Areal av tettsted (km²) 2021 130.47
+#> 2        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 3        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 4        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 5        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
 #> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00
 #> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
 #> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
@@ -1493,11 +1493,11 @@ ApiData(4861, Region = list("03*"), ContentsCode = 1, Tid = 5i) # "all" can be d
 ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same as above
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>                 region      statistikkvariabel   år  value
-#> 1                 Oslo Areal av tettsted (km²) 2021 130.47
-#> 2                 Oslo Areal av tettsted (km²) 2022 130.57
-#> 3                 Oslo Areal av tettsted (km²) 2023 130.46
-#> 4                 Oslo Areal av tettsted (km²) 2024 130.31
-#> 5                 Oslo Areal av tettsted (km²) 2025 129.90
+#> 1        Oslo - Oslove Areal av tettsted (km²) 2021 130.47
+#> 2        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 3        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 4        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 5        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
 #> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00
 #> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
 #> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
@@ -1519,17 +1519,17 @@ ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same a
 #> 
 ApiData(04861, Region = list("item", c("1103", "0301")), ContentsCode = 1, Tid = 5i)
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
-#>       region      statistikkvariabel   år  value
-#> 1       Oslo Areal av tettsted (km²) 2021 130.47
-#> 2       Oslo Areal av tettsted (km²) 2022 130.57
-#> 3       Oslo Areal av tettsted (km²) 2023 130.46
-#> 4       Oslo Areal av tettsted (km²) 2024 130.31
-#> 5       Oslo Areal av tettsted (km²) 2025 129.90
-#> 6  Stavanger Areal av tettsted (km²) 2021  44.22
-#> 7  Stavanger Areal av tettsted (km²) 2022  44.45
-#> 8  Stavanger Areal av tettsted (km²) 2023  44.21
-#> 9  Stavanger Areal av tettsted (km²) 2024  44.34
-#> 10 Stavanger Areal av tettsted (km²) 2025  44.35
+#>           region      statistikkvariabel   år  value
+#> 1  Oslo - Oslove Areal av tettsted (km²) 2021 130.47
+#> 2  Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 3  Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 4  Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 5  Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 6      Stavanger Areal av tettsted (km²) 2021  44.22
+#> 7      Stavanger Areal av tettsted (km²) 2022  44.45
+#> 8      Stavanger Areal av tettsted (km²) 2023  44.21
+#> 9      Stavanger Areal av tettsted (km²) 2024  44.34
+#> 10     Stavanger Areal av tettsted (km²) 2025  44.35
 #> 
 #> $dataset
 #>    Region ContentsCode  Tid  value
@@ -1799,11 +1799,11 @@ ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as
 # Exact same output as ApiData
 PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
-#>   region      statistikkvariabel   år    value
-#> 1   Oslo Areal av tettsted (km²) 2000    132.9
-#> 2   Oslo Areal av tettsted (km²) 2025    129.9
-#> 3   Oslo                 Bosatte 2000 504348.0
-#> 4   Oslo                 Bosatte 2025 720631.0
+#>          region      statistikkvariabel   år    value
+#> 1 Oslo - Oslove Areal av tettsted (km²) 2000    132.9
+#> 2 Oslo - Oslove Areal av tettsted (km²) 2025    129.9
+#> 3 Oslo - Oslove                 Bosatte 2000 504348.0
+#> 4 Oslo - Oslove                 Bosatte 2025 720631.0
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid    value
@@ -1816,9 +1816,9 @@ PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 # Data organized differently
 pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 #> [[1]]
-#>   region   år Areal av tettsted (km²) Bosatte
-#> 1   Oslo 2000                   132.9  504348
-#> 2   Oslo 2025                   129.9  720631
+#>          region   år Areal av tettsted (km²) Bosatte
+#> 1 Oslo - Oslove 2000                   132.9  504348
+#> 2 Oslo - Oslove 2025                   129.9  720631
 #> 
 #> [[2]]
 #>   Region  Tid Areal Bosatte

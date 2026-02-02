@@ -5,13 +5,26 @@
 <url><loc>/SECURITY.html</loc></url>
 <url><loc>/articles/Introduction.html</loc></url>
 <url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/pxwebapi_v1.html</loc></url>
+<url><loc>/articles/pxwebapi_v2.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/ApiData.html</loc></url>
 <url><loc>/reference/MakeUrl.html</loc></url>
 <url><loc>/reference/Number.html</loc></url>
+<url><loc>/reference/api_data.html</loc></url>
+<url><loc>/reference/ensure_json_stat2.html</loc></url>
+<url><loc>/reference/get_api_data.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/info.html</loc></url>
+<url><loc>/reference/list_records_to_df.html</loc></url>
+<url><loc>/reference/list_to_df_expand.html</loc></url>
+<url><loc>/reference/make_url.html</loc></url>
+<url><loc>/reference/meta_code_list.html</loc></url>
+<url><loc>/reference/meta_data.html</loc></url>
+<url><loc>/reference/meta_frames.html</loc></url>
+<url><loc>/reference/metadata_url.html</loc></url>
+<url><loc>/reference/query_url.html</loc></url>
 </urlset>
 

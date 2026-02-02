@@ -24,7 +24,7 @@
 
     <a class="navbar-brand me-2" href="index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,8 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="articles/Introduction.html">Introduction to PxWebApiData</a></li>
+    <li><a class="dropdown-item" href="articles/pxwebapi_v1.html">Using PxWebApi v1 with PxWebApiData</a></li>
+    <li><a class="dropdown-item" href="articles/pxwebapi_v2.html">Using PxWebApi v2 with PxWebApiData</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
@@ -78,13 +80,46 @@
 <tbody></tbody>
 </table>
 <hr>
-<div class="section level3">
-<h3 id="px-web-data-by-api">PX-Web data by API<a class="anchor" aria-label="anchor" href="#px-web-data-by-api"></a>
-</h3>
-<p>Function to read PX-Web data into R via API. The example code reads data from the three national statistical institutes, Statistics Norway, Statistics Sweden and Statistics Finland.</p>
+<p><strong>PX-Web data by API</strong>: The R package <strong>PxWebApiData</strong> supports both <strong>PxWebApi v1</strong> and <strong>PxWebApi v2</strong>.</p>
+<p>The example code reads data from three national statistical institutes: Statistics Norway, Statistics Sweden, and Statistics Finland.</p>
 <hr>
-<p>📌 <a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/ApiData.html" class="external-link">Function reference: ApiData()</a>.</p>
-<p>📌 <a href="https://statisticsnorway.github.io/ssb-pxwebapidata/articles/Introduction.html" class="external-link">Vignette: Introduction to PxWebApiData</a>.</p>
+<div class="section level3">
+<h3 id="pxwebapi-v1">PxWebApi v1<a class="anchor" aria-label="anchor" href="#pxwebapi-v1"></a>
+</h3>
+<p>PxWebApi v1 is supported through the long-established ApiData() interface.</p>
+<p>📌 <strong>Function reference:</strong></p>
+<ul>
+<li><a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/ApiData.html" class="external-link">ApiData()</a></li>
+</ul>
+<p>📌 <strong>Vignette:</strong></p>
+<ul>
+<li><a href="https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v1.html" class="external-link">Using PxWebApi v1 with PxWebApiData</a></li>
+</ul>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="pxwebapi-v2">PxWebApi v2<a class="anchor" aria-label="anchor" href="#pxwebapi-v2"></a>
+</h3>
+<p>PxWebApi v2 is supported through a set of new functions.</p>
+<p>📌 <strong>Function references:</strong></p>
+<ul>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/get_api_data.html" class="external-link">get_api_data()</a> – retrieve data from a pre-made URL</li>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/query_url.html" class="external-link">query_url()</a> – generate a data URL from specifications</li>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/api_data.html" class="external-link">api_data()</a> – specify and retrieve data in one step (closely related to ApiData() for PxWebApi v1)</li>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_frames.html" class="external-link">meta_frames()</a> – metadata structured as data frames</li>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_data.html" class="external-link">meta_data()</a> – metadata downloaded without further processing</li>
+<li>
+<a href="https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_code_list.html" class="external-link">meta_code_list()</a> – metadata for code lists</li>
+</ul>
+<p>📌 <strong>Vignette:</strong></p>
+<ul>
+<li><a href="https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v2.html" class="external-link">Using PxWebApi v2 with PxWebApiData</a></li>
+</ul>
 <hr>
 <p>Official version on CRAN: <a href="https://cran.r-project.org/package=PxWebApiData" class="external-link">https://cran.r-project.org/package=PxWebApiData</a></p>
 </div>

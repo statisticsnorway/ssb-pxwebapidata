@@ -8,19 +8,54 @@ Statistics](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficials
 
 ------------------------------------------------------------------------
 
-### PX-Web data by API
+**PX-Web data by API**: The R package **PxWebApiData** supports both
+**PxWebApi v1** and **PxWebApi v2**.
 
-Function to read PX-Web data into R via API. The example code reads data
-from the three national statistical institutes, Statistics Norway,
-Statistics Sweden and Statistics Finland.
+The example code reads data from three national statistical institutes:
+Statistics Norway, Statistics Sweden, and Statistics Finland.
 
 ------------------------------------------------------------------------
 
-📌 [Function reference:
-ApiData()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/ApiData.html).
+### PxWebApi v1
 
-📌 [Vignette: Introduction to
-PxWebApiData](https://statisticsnorway.github.io/ssb-pxwebapidata/articles/Introduction.html).
+PxWebApi v1 is supported through the long-established ApiData()
+interface.
+
+📌 **Function reference:**
+
+- [ApiData()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/ApiData.html)
+
+📌 **Vignette:**
+
+- [Using PxWebApi v1 with
+  PxWebApiData](https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v1.html)
+
+------------------------------------------------------------------------
+
+### PxWebApi v2
+
+PxWebApi v2 is supported through a set of new functions.
+
+📌 **Function references:**
+
+- [get_api_data()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/get_api_data.html)
+  – retrieve data from a pre-made URL
+- [query_url()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/query_url.html)
+  – generate a data URL from specifications
+- [api_data()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/api_data.html)
+  – specify and retrieve data in one step (closely related to ApiData()
+  for PxWebApi v1)
+- [meta_frames()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_frames.html)
+  – metadata structured as data frames
+- [meta_data()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_data.html)
+  – metadata downloaded without further processing
+- [meta_code_list()](https://statisticsnorway.github.io/ssb-pxwebapidata/reference/meta_code_list.html)
+  – metadata for code lists
+
+📌 **Vignette:**
+
+- [Using PxWebApi v2 with
+  PxWebApiData](https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v2.html)
 
 ------------------------------------------------------------------------
 
@@ -40,11 +75,29 @@ Official version on CRAN:
   [`pxwebData12()`](ApiData.md) [`PxData1()`](ApiData.md)
   [`PxData2()`](ApiData.md) [`PxData12()`](ApiData.md) : PX-Web Data by
   API
+- [`api_data()`](api_data.md) [`api_data_1()`](api_data.md)
+  [`api_data_2()`](api_data.md) [`api_data_12()`](api_data.md) : PX-Web
+  Data by API
+- [`get_api_data()`](get_api_data.md)
+  [`get_api_data_1()`](get_api_data.md)
+  [`get_api_data_2()`](get_api_data.md)
+  [`get_api_data_12()`](get_api_data.md) : PX-Web Data by API (GET)
 - [`info()`](info.md) [`note()`](info.md) : Extract info or note parts
   of the comment attribute
+- [`list_records_to_df()`](list_records_to_df.md) : Convert a list of
+  records to a data.frame
+- [`list_to_df_expand()`](list_to_df_expand.md) : Create a data.frame
+  from a structured list
+- [`meta_code_list()`](meta_code_list.md) : PxWebApi v2 metadata for a
+  code list
+- [`meta_data()`](meta_data.md) : PxWebApi v2 metadata for a table
+- [`meta_frames()`](meta_frames.md) : Structured PxWebApi v2 metadata
+- [`query_url()`](query_url.md) : PX-Web API query URL
 
 # Articles
 
 ### All vignettes
 
 - [Introduction to PxWebApiData](Introduction.md):
+- [Using PxWebApi v1 with PxWebApiData](pxwebapi_v1.md):
+- [Using PxWebApi v2 with PxWebApiData](pxwebapi_v2.md):
