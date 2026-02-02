@@ -59,7 +59,10 @@ query_url(4861,
           ContentsCode = "Bosatte", 
           Tid = c(1, 5, -1), 
           url_type = "ssb_en")
-#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&valueCodes[ContentsCode]=Bosatte&valueCodes[Tid]=2000%2C2005%2C2025"
+#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&outputFormat=json-stat2'
+#> NULL
           
           
 query_url("https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en",
@@ -67,7 +70,10 @@ query_url("https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en",
           Elver = FALSE,
           ContentsCode = TRUE,  # same as "*"   
           Tid = "top(5)")       # same as 5i
-#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en&valueCodes[ContentsCode]=*&valueCodes[Tid]=top(5)"
+#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2'
+#> NULL
           
           
           
@@ -79,5 +85,8 @@ query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
                        outputValues = "aggregated"),
          ContentsCode = 1,
          Tid = 4i)
-#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en&valueCodes[Kjonn]=*&codelist[Alder]=agg_TodeltGrupperingB&valueCodes[Alder]=H17,H18&outputValues[Alder]=aggregated&valueCodes[ContentsCode]=Personer1&valueCodes[Tid]=top(4)"
+#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&outputFormat=json-stat2'
+#> NULL
 ```

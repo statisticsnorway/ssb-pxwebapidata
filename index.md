@@ -28,7 +28,7 @@ interface.
 📌 **Vignette:**
 
 - [Using PxWebApi v1 with
-  PxWebApiData](https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v1.html)
+  PxWebApiData](https://cran.r-project.org/web/packages/PxWebApiData/vignettes/pxwebapi_v1.html)
 
 ------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ PxWebApi v2 is supported through a set of new functions.
 📌 **Vignette:**
 
 - [Using PxWebApi v2 with
-  PxWebApiData](https://statisticsnorway.github.io/ssb-pxwebapidata/articles/pxwebapi_v2.html)
+  PxWebApiData](https://cran.r-project.org/web/packages/PxWebApiData/vignettes/pxwebapi_v2.html)
 
 ------------------------------------------------------------------------
 

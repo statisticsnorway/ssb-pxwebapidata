@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,7 +98,10 @@ and omit specifying individual variables to retrieve entire tables.</p></dd>
 <span class="r-in"><span>          ContentsCode <span class="op">=</span> <span class="st">"Bosatte"</span>, </span></span>
 <span class="r-in"><span>          Tid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>, </span></span>
 <span class="r-in"><span>          url_type <span class="op">=</span> <span class="st">"ssb_en"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&amp;valueCodes[ContentsCode]=Bosatte&amp;valueCodes[Tid]=2000%2C2005%2C2025"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&amp;outputFormat=json-stat2': HTTP status was '429 Unknown Error'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No internet connection or resource not available: Error in open.connection(con, "rb") : </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&amp;outputFormat=json-stat2'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span>          </span></span>
 <span class="r-in"><span>          </span></span>
 <span class="r-in"><span><span class="fu">query_url</span><span class="op">(</span><span class="st">"https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en"</span>,</span></span>
@@ -106,7 +109,10 @@ and omit specifying individual variables to retrieve entire tables.</p></dd>
 <span class="r-in"><span>          Elver <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>          ContentsCode <span class="op">=</span> <span class="cn">TRUE</span>,  <span class="co"># same as "*"   </span></span></span>
 <span class="r-in"><span>          Tid <span class="op">=</span> <span class="st">"top(5)"</span><span class="op">)</span>       <span class="co"># same as 5i</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en&amp;valueCodes[ContentsCode]=*&amp;valueCodes[Tid]=top(5)"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&amp;outputFormat=json-stat2': HTTP status was '429 Unknown Error'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No internet connection or resource not available: Error in open.connection(con, "rb") : </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&amp;outputFormat=json-stat2'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span>          </span></span>
 <span class="r-in"><span>          </span></span>
 <span class="r-in"><span>          </span></span>
@@ -118,7 +124,10 @@ and omit specifying individual variables to retrieve entire tables.</p></dd>
 <span class="r-in"><span>                       outputValues <span class="op">=</span> <span class="st">"aggregated"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>         ContentsCode <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>         Tid <span class="op">=</span> <span class="fl">4i</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en&amp;valueCodes[Kjonn]=*&amp;codelist[Alder]=agg_TodeltGrupperingB&amp;valueCodes[Alder]=H17,H18&amp;outputValues[Alder]=aggregated&amp;valueCodes[ContentsCode]=Personer1&amp;valueCodes[Tid]=top(4)"</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&amp;outputFormat=json-stat2': HTTP status was '429 Unknown Error'</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No internet connection or resource not available: Error in open.connection(con, "rb") : </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&amp;outputFormat=json-stat2'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

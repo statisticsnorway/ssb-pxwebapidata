@@ -1,5 +1,32 @@
 # Changelog
 
+## PxWebApiData 1.9.0
+
+CRAN release: 2026-02-02
+
+- Major update with new functions related to PxWebApi **v2**
+  - [`get_api_data()`](../reference/get_api_data.md): retrieve data from
+    a pre-made URL
+  - [`query_url()`](../reference/query_url.md): generate a URL from
+    specifications
+  - [`api_data()`](../reference/api_data.md): specify and retrieve data
+    in one step
+    - closely related to [`ApiData()`](../reference/ApiData.md) for
+      PxWebApi v1
+  - [`meta_frames()`](../reference/meta_frames.md): metadata structured
+    as data frames
+  - [`meta_data()`](../reference/meta_data.md): metadata downloaded
+    without further processing
+  - [`meta_code_list()`](../reference/meta_code_list.md): metadata for
+    code lists, by default structured as a data frame
+- The package now includes three vignettes
+  - *Using PxWebApi v1 with PxWebApiData* (the original introduction
+    vignette)
+  - *Using PxWebApi v2 with PxWebApiData*
+  - *Introduction to PxWebApiData*, which points to the two
+    version-specific vignettes while preserving the original vignette
+    URL
+
 ## PxWebApiData 1.1.1
 
 CRAN release: 2025-11-12

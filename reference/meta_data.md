@@ -33,23 +33,15 @@ the comment attribute of the returned object.
 
 ``` r
 metadata1 <- meta_data(8991, url_type = "ssb_en")
+#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2'
 metadata2 <- meta_data(
   "https://statistikdatabasen.scb.se/api/v2/tables/TAB1525/data?lang=en"
 )
 
 print(metadata1[1:4])
-#> $version
-#> [1] "2.0"
-#> 
-#> $class
-#> [1] "dataset"
-#> 
-#> $label
-#> [1] "08991: River fishing. Catch, by river/watercourse, fish species and disposition of catch 1993-2024"
-#> 
-#> $source
-#> [1] "Statistics Norway"
-#> 
+#> NULL
 print(metadata2[1:4])
 #> $version
 #> [1] "2.0"
