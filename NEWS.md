@@ -1,3 +1,18 @@
+## PxWebApiData x.x.x
+* Major update with new functions related to PxWebApi **v2**
+  - `get_api_data()`: retrieve data from a pre-made URL
+  - `query_url()`: generate a URL from specifications
+  - `api_data()`: specify and retrieve data in one step
+    - closely related to `ApiData()` for PxWebApi v1
+  - `meta_frames()`: metadata structured as data frames
+  - `meta_data()`: metadata downloaded without further processing
+  - `meta_code_list()`: metadata for code lists, by default structured as a data frame
+* The package now includes three vignettes
+  - *Using PxWebApi v1 with PxWebApiData* (the original introduction vignette)
+  - *Using PxWebApi v2 with PxWebApiData*
+  - *Introduction to PxWebApiData*, which points to the two version-specific
+    vignettes while preserving the original vignette URL
+
 
 ## PxWebApiData	1.1.1
 * Extended `comment()` to include note elements and added `info()` and `note()` functions
