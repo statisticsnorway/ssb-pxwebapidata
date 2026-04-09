@@ -37,6 +37,17 @@ A PxWeb API URL to data, with query parameters added according to the input.
 \description{
 PX-Web API query URL
 }
+\details{
+The option \code{PxWebApiData.MAX_URL_CHARS} sets the threshold for issuing a
+warning when generated URLs are long. When unset, 2100 is used as a default,
+following the GET limit documented for PxWebApi v2.
+
+URLs longer than this may fail (typically returning HTTP 404). The option does
+not affect the URL or the request itself.
+
+The threshold can be changed by the user, for example:
+\code{options(PxWebApiData.MAX_URL_CHARS = 3000)}.
+}
 \examples{
 
 query_url(4861, 
