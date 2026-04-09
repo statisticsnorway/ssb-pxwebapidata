@@ -107,6 +107,16 @@ query_url <- function(url_or_tableid, ..., url_type = "ssb", use_index = FALSE, 
       url <- paste(url, s, sep = "&")
     }
   }
+  
+  MAX_URL_CHARS <- 2100L  # per SSB PxWebApi v2 documentation, section 13
+  if (nchar(url) > MAX_URL_CHARS) {
+    warning(
+      "Generated URL is ", nchar(url), " characters, which exceeds the ",
+      "PxWebApi GET limit of ~", MAX_URL_CHARS, " characters.\n",
+      "The request will likely return HTTP 404."
+    )
+  }
+  
   url
 }
 
