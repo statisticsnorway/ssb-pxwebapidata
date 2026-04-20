@@ -1,4 +1,16 @@
 #' PX-Web API query URL
+#' 
+#' @details
+#' The option \code{PxWebApiData.MAX_URL_CHARS} sets the threshold for issuing a
+#' warning when generated URLs are long. When unset, 2100 is used as a default,
+#' following the GET limit documented for PxWebApi v2.
+#'
+#' URLs longer than this may fail (typically returning HTTP 404). The option does
+#' not affect the URL or the request itself.
+#'
+#' The threshold can be changed by the user, for example:
+#' \code{options(PxWebApiData.MAX_URL_CHARS = 3000)}.
+#' 
 #'
 #' @param url_or_tableid
 #'        A table id, a PxWebApi v2 URL to data or metadata, or metadata returned by
@@ -107,6 +119,18 @@ query_url <- function(url_or_tableid, ..., url_type = "ssb", use_index = FALSE, 
       url <- paste(url, s, sep = "&")
     }
   }
+  
+  MAX_URL_CHARS <- # per SSB PxWebApi v2 documentation, section 13
+    getOption("PxWebApiData.MAX_URL_CHARS", default = 2100L) 
+  
+  if (nchar(url) > MAX_URL_CHARS) {
+    warning(
+      "Generated URL is ", nchar(url), " characters, which exceeds the ",
+      "PxWebApi GET limit of ~", MAX_URL_CHARS, " characters.\n",
+      "The request will likely return HTTP 404."
+    )
+  }
+  
   url
 }
 
