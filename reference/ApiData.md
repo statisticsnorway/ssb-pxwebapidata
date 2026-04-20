@@ -195,74 +195,74 @@ url <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
 x <- ApiData(url, getDataByGET = TRUE)
 
 x[[1]]    # The label version of the dataset
-#>                  age contents year     gender   value
-#> 1                All  Persons 2025 Both sexes 5594340
-#> 2                All  Persons 2025    Females 2775143
-#> 3                All  Persons 2025      Males 2819197
-#> 4          0-6 years  Persons 2025 Both sexes  390630
-#> 5          0-6 years  Persons 2025    Females  190150
-#> 6          0-6 years  Persons 2025      Males  200480
-#> 7         7-15 years  Persons 2025 Both sexes  581299
-#> 8         7-15 years  Persons 2025    Females  282276
-#> 9         7-15 years  Persons 2025      Males  299023
-#> 10       16-44 years  Persons 2025 Both sexes 2130051
-#> 11       16-44 years  Persons 2025    Females 1039077
-#> 12       16-44 years  Persons 2025      Males 1090974
-#> 13       45-66 years  Persons 2025 Both sexes 1554724
-#> 14       45-66 years  Persons 2025    Females  764745
-#> 15       45-66 years  Persons 2025      Males  789979
-#> 16       67-79 years  Persons 2025 Both sexes  667099
-#> 17       67-79 years  Persons 2025    Females  341694
-#> 18       67-79 years  Persons 2025      Males  325405
-#> 19 80 years or older  Persons 2025 Both sexes  270537
-#> 20 80 years or older  Persons 2025    Females  157201
-#> 21 80 years or older  Persons 2025      Males  113336
+#>                  age contents year        sex   value
+#> 1                All  Persons 2026 Both sexes 5627400
+#> 2                All  Persons 2026    Females 2790483
+#> 3                All  Persons 2026      Males 2836917
+#> 4          0-6 years  Persons 2026 Both sexes  389706
+#> 5          0-6 years  Persons 2026    Females  189840
+#> 6          0-6 years  Persons 2026      Males  199866
+#> 7         7-15 years  Persons 2026 Both sexes  572278
+#> 8         7-15 years  Persons 2026    Females  277825
+#> 9         7-15 years  Persons 2026      Males  294453
+#> 10       16-44 years  Persons 2026 Both sexes 2142123
+#> 11       16-44 years  Persons 2026    Females 1044288
+#> 12       16-44 years  Persons 2026      Males 1097835
+#> 13       45-66 years  Persons 2026 Both sexes 1563660
+#> 14       45-66 years  Persons 2026    Females  768978
+#> 15       45-66 years  Persons 2026      Males  794682
+#> 16       67-79 years  Persons 2026 Both sexes  674694
+#> 17       67-79 years  Persons 2026    Females  345392
+#> 18       67-79 years  Persons 2026      Males  329302
+#> 19 80 years or older  Persons 2026 Both sexes  284939
+#> 20 80 years or older  Persons 2026    Females  164160
+#> 21 80 years or older  Persons 2026      Males  120779
 x[[2]]    # The id version of the dataset
 #>    Alder ContentsCode  Tid Kjonn   value
-#> 1   999B     Personer 2025     0 5594340
-#> 2   999B     Personer 2025     2 2775143
-#> 3   999B     Personer 2025     1 2819197
-#> 4  00-06     Personer 2025     0  390630
-#> 5  00-06     Personer 2025     2  190150
-#> 6  00-06     Personer 2025     1  200480
-#> 7  07-15     Personer 2025     0  581299
-#> 8  07-15     Personer 2025     2  282276
-#> 9  07-15     Personer 2025     1  299023
-#> 10 16-44     Personer 2025     0 2130051
-#> 11 16-44     Personer 2025     2 1039077
-#> 12 16-44     Personer 2025     1 1090974
-#> 13 45-66     Personer 2025     0 1554724
-#> 14 45-66     Personer 2025     2  764745
-#> 15 45-66     Personer 2025     1  789979
-#> 16 67-79     Personer 2025     0  667099
-#> 17 67-79     Personer 2025     2  341694
-#> 18 67-79     Personer 2025     1  325405
-#> 19   80+     Personer 2025     0  270537
-#> 20   80+     Personer 2025     2  157201
-#> 21   80+     Personer 2025     1  113336
+#> 1   999B     Personer 2026     0 5627400
+#> 2   999B     Personer 2026     2 2790483
+#> 3   999B     Personer 2026     1 2836917
+#> 4  00-06     Personer 2026     0  389706
+#> 5  00-06     Personer 2026     2  189840
+#> 6  00-06     Personer 2026     1  199866
+#> 7  07-15     Personer 2026     0  572278
+#> 8  07-15     Personer 2026     2  277825
+#> 9  07-15     Personer 2026     1  294453
+#> 10 16-44     Personer 2026     0 2142123
+#> 11 16-44     Personer 2026     2 1044288
+#> 12 16-44     Personer 2026     1 1097835
+#> 13 45-66     Personer 2026     0 1563660
+#> 14 45-66     Personer 2026     2  768978
+#> 15 45-66     Personer 2026     1  794682
+#> 16 67-79     Personer 2026     0  674694
+#> 17 67-79     Personer 2026     2  345392
+#> 18 67-79     Personer 2026     1  329302
+#> 19   80+     Personer 2026     0  284939
+#> 20   80+     Personer 2026     2  164160
+#> 21   80+     Personer 2026     1  120779
 names(x)
-#> [1] "05810: Population, by age, contents, year and gender"
-#> [2] "dataset"                                             
+#> [1] "05810: Population, by age, year and sex"
+#> [2] "dataset"                                
 note(x)
 #> [1] "Until 1990 the figures correspond per 31 Desember. As from 1995 the figures correspond per 1 January."
 info(x)
-#>                                                  label 
-#> "05810: Population, by age, contents, year and gender" 
-#>                                                 source 
-#>                                    "Statistics Norway" 
-#>                                                updated 
-#>                                 "2025-02-25T07:00:00Z" 
-#>                                                tableid 
-#>                                                "05810" 
-#>                                               contents 
-#>                                   "05810: Population," 
+#>                                     label 
+#> "05810: Population, by age, year and sex" 
+#>                                    source 
+#>                       "Statistics Norway" 
+#>                                   updated 
+#>                    "2026-02-25T07:00:00Z" 
+#>                                   tableid 
+#>                                   "05810" 
+#>                                  contents 
+#>                      "05810: Population," 
 comment(x)
 #>                                                                                                   label 
-#>                                                  "05810: Population, by age, contents, year and gender" 
+#>                                                               "05810: Population, by age, year and sex" 
 #>                                                                                                  source 
 #>                                                                                     "Statistics Norway" 
 #>                                                                                                 updated 
-#>                                                                                  "2025-02-25T07:00:00Z" 
+#>                                                                                  "2026-02-25T07:00:00Z" 
 #>                                                                                                 tableid 
 #>                                                                                                 "05810" 
 #>                                                                                                contents 
@@ -274,50 +274,50 @@ comment(x)
 x1 <- ApiData1(url, getDataByGET = TRUE) # as x[[1]]
 x2 <- ApiData2(url, getDataByGET = TRUE) # as x[[2]]
 ApiData12(url, getDataByGET = TRUE)      # Combined
-#>                  age contents year     gender Alder ContentsCode  Tid Kjonn
-#> 1                All  Persons 2025 Both sexes  999B     Personer 2025     0
-#> 2                All  Persons 2025    Females  999B     Personer 2025     2
-#> 3                All  Persons 2025      Males  999B     Personer 2025     1
-#> 4          0-6 years  Persons 2025 Both sexes 00-06     Personer 2025     0
-#> 5          0-6 years  Persons 2025    Females 00-06     Personer 2025     2
-#> 6          0-6 years  Persons 2025      Males 00-06     Personer 2025     1
-#> 7         7-15 years  Persons 2025 Both sexes 07-15     Personer 2025     0
-#> 8         7-15 years  Persons 2025    Females 07-15     Personer 2025     2
-#> 9         7-15 years  Persons 2025      Males 07-15     Personer 2025     1
-#> 10       16-44 years  Persons 2025 Both sexes 16-44     Personer 2025     0
-#> 11       16-44 years  Persons 2025    Females 16-44     Personer 2025     2
-#> 12       16-44 years  Persons 2025      Males 16-44     Personer 2025     1
-#> 13       45-66 years  Persons 2025 Both sexes 45-66     Personer 2025     0
-#> 14       45-66 years  Persons 2025    Females 45-66     Personer 2025     2
-#> 15       45-66 years  Persons 2025      Males 45-66     Personer 2025     1
-#> 16       67-79 years  Persons 2025 Both sexes 67-79     Personer 2025     0
-#> 17       67-79 years  Persons 2025    Females 67-79     Personer 2025     2
-#> 18       67-79 years  Persons 2025      Males 67-79     Personer 2025     1
-#> 19 80 years or older  Persons 2025 Both sexes   80+     Personer 2025     0
-#> 20 80 years or older  Persons 2025    Females   80+     Personer 2025     2
-#> 21 80 years or older  Persons 2025      Males   80+     Personer 2025     1
+#>                  age contents year        sex Alder ContentsCode  Tid Kjonn
+#> 1                All  Persons 2026 Both sexes  999B     Personer 2026     0
+#> 2                All  Persons 2026    Females  999B     Personer 2026     2
+#> 3                All  Persons 2026      Males  999B     Personer 2026     1
+#> 4          0-6 years  Persons 2026 Both sexes 00-06     Personer 2026     0
+#> 5          0-6 years  Persons 2026    Females 00-06     Personer 2026     2
+#> 6          0-6 years  Persons 2026      Males 00-06     Personer 2026     1
+#> 7         7-15 years  Persons 2026 Both sexes 07-15     Personer 2026     0
+#> 8         7-15 years  Persons 2026    Females 07-15     Personer 2026     2
+#> 9         7-15 years  Persons 2026      Males 07-15     Personer 2026     1
+#> 10       16-44 years  Persons 2026 Both sexes 16-44     Personer 2026     0
+#> 11       16-44 years  Persons 2026    Females 16-44     Personer 2026     2
+#> 12       16-44 years  Persons 2026      Males 16-44     Personer 2026     1
+#> 13       45-66 years  Persons 2026 Both sexes 45-66     Personer 2026     0
+#> 14       45-66 years  Persons 2026    Females 45-66     Personer 2026     2
+#> 15       45-66 years  Persons 2026      Males 45-66     Personer 2026     1
+#> 16       67-79 years  Persons 2026 Both sexes 67-79     Personer 2026     0
+#> 17       67-79 years  Persons 2026    Females 67-79     Personer 2026     2
+#> 18       67-79 years  Persons 2026      Males 67-79     Personer 2026     1
+#> 19 80 years or older  Persons 2026 Both sexes   80+     Personer 2026     0
+#> 20 80 years or older  Persons 2026    Females   80+     Personer 2026     2
+#> 21 80 years or older  Persons 2026      Males   80+     Personer 2026     1
 #>      value
-#> 1  5594340
-#> 2  2775143
-#> 3  2819197
-#> 4   390630
-#> 5   190150
-#> 6   200480
-#> 7   581299
-#> 8   282276
-#> 9   299023
-#> 10 2130051
-#> 11 1039077
-#> 12 1090974
-#> 13 1554724
-#> 14  764745
-#> 15  789979
-#> 16  667099
-#> 17  341694
-#> 18  325405
-#> 19  270537
-#> 20  157201
-#> 21  113336
+#> 1  5627400
+#> 2  2790483
+#> 3  2836917
+#> 4   389706
+#> 5   189840
+#> 6   199866
+#> 7   572278
+#> 8   277825
+#> 9   294453
+#> 10 2142123
+#> 11 1044288
+#> 12 1097835
+#> 13 1563660
+#> 14  768978
+#> 15  794682
+#> 16  674694
+#> 17  345392
+#> 18  329302
+#> 19  284939
+#> 20  164160
+#> 21  120779
 
 # Note: Instead of setting getDataByGET = TRUE manually,
 # you can use the wrapper functions GetApiData() or GetApiData12().
@@ -578,7 +578,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # 
 #> [1] "Kjonn"
 #> 
 #> [[5]]$text
-#> [1] "gender"
+#> [1] "sex"
 #> 
 #> [[5]]$values
 #> [1] "0" "2" "1"
@@ -637,9 +637,11 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaData = TRUE)   # 
 #> 
 #> [[8]]$values
 #>  [1] "2015" "2016" "2017" "2018" "2019" "2020" "2021" "2022" "2023" "2024"
+#> [11] "2025"
 #> 
 #> [[8]]$valueTexts
 #>  [1] "2015" "2016" "2017" "2018" "2019" "2020" "2021" "2022" "2023" "2024"
+#> [11] "2025"
 #> 
 #> [[8]]$time
 #> [1] TRUE
@@ -712,6 +714,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaValues = TRUE) # 
 #> 
 #> $Tid
 #>  [1] "2015" "2016" "2017" "2018" "2019" "2020" "2021" "2022" "2023" "2024"
+#> [11] "2025"
 #> 
 #> attr(,"elimination")
 #> [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
@@ -1034,6 +1037,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaFrames = TRUE) # 
 #> 8    2022       2022
 #> 9    2023       2023
 #> 10   2024       2024
+#> 11   2025       2025
 #> 
 #> attr(,"text")
 #>                                MaaleMetode 
@@ -1045,7 +1049,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnMetaFrames = TRUE) # 
 #>                                   NACE2007 
 #>                       "industry (SIC2007)" 
 #>                                      Kjonn 
-#>                                   "gender" 
+#>                                      "sex" 
 #>                               AvtaltVanlig 
 #> "contractual/usual working hours per week" 
 #>                               ContentsCode 
@@ -1118,7 +1122,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/11419", returnApiQuery = TRUE)   # 
 #>       "code": "Tid",
 #>       "selection": {
 #>         "filter": "item",
-#>         "values": ["2015", "2023", "2024"]
+#>         "values": ["2015", "2024", "2025"]
 #>       }
 #>     }
 #>   ],
@@ -1299,20 +1303,20 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #> [118] "0138"  "0199"  "02"    "0211"  "0213"  "0214"  "0215"  "0216"  "0217" 
 #> [127] "0219"  "0220"  "0221"  "0226"  "0227"  "0228"  "0229"  "0230"  "0231" 
 #> [136] "0233"  "0234"  "0235"  "0236"  "0237"  "0238"  "0239"  "0299"  "03"   
-#> [145] "0301"  "33"    "0399"  "3301"  "3303"  "3305"  "3310"  "3312"  "3314" 
-#> [154] "3316"  "3318"  "3320"  "3322"  "3324"  "3326"  "3328"  "3330"  "3332" 
-#> [163] "3334"  "3336"  "3338"  "34"    "04"    "3401"  "3403"  "3405"  "3407" 
-#> [172] "3411"  "3412"  "3413"  "3414"  "3415"  "3416"  "3417"  "3418"  "3419" 
-#> [181] "3420"  "3421"  "3422"  "3423"  "3424"  "3425"  "3426"  "3427"  "3428" 
-#> [190] "3429"  "3430"  "3431"  "3432"  "3433"  "3434"  "3435"  "3436"  "3437" 
-#> [199] "3438"  "3439"  "3440"  "3441"  "3442"  "3443"  "3446"  "3447"  "3448" 
-#> [208] "3449"  "3450"  "3451"  "3452"  "3453"  "3454"  "0401"  "0402"  "0403" 
-#> [217] "0412"  "0414"  "0415"  "0417"  "0418"  "0419"  "0420"  "0423"  "0425" 
-#> [226] "0426"  "0427"  "0428"  "0429"  "0430"  "0432"  "0434"  "0435"  "0436" 
-#> [235] "0437"  "0438"  "0439"  "0441"  "0499"  "05"    "0501"  "0502"  "0511" 
-#> [244] "0512"  "0513"  "0514"  "0515"  "0516"  "0517"  "0518"  "0519"  "0520" 
-#> [253] "0521"  "0522"  "0528"  "0529"  "0532"  "0533"  "0534"  "0536"  "0538" 
-#> [262] "0540"  "0541"  "0542"  "0543"  "0544"  "0545"  "0599"  "06"    "38"   
+#> [145] "0301"  "0399"  "3301"  "3303"  "3305"  "3310"  "3312"  "3314"  "3316" 
+#> [154] "3318"  "3320"  "3322"  "3324"  "3326"  "3328"  "3330"  "3332"  "3334" 
+#> [163] "3336"  "3338"  "34"    "04"    "3401"  "3403"  "3405"  "3407"  "3411" 
+#> [172] "3412"  "3413"  "3414"  "3415"  "3416"  "3417"  "3418"  "3419"  "3420" 
+#> [181] "3421"  "3422"  "3423"  "3424"  "3425"  "3426"  "3427"  "3428"  "3429" 
+#> [190] "3430"  "3431"  "3432"  "3433"  "3434"  "3435"  "3436"  "3437"  "3438" 
+#> [199] "3439"  "3440"  "3441"  "3442"  "3443"  "3446"  "3447"  "3448"  "3449" 
+#> [208] "3450"  "3451"  "3452"  "3453"  "3454"  "0401"  "0402"  "0403"  "0412" 
+#> [217] "0414"  "0415"  "0417"  "0418"  "0419"  "0420"  "0423"  "0425"  "0426" 
+#> [226] "0427"  "0428"  "0429"  "0430"  "0432"  "0434"  "0435"  "0436"  "0437" 
+#> [235] "0438"  "0439"  "0441"  "0499"  "05"    "0501"  "0502"  "0511"  "0512" 
+#> [244] "0513"  "0514"  "0515"  "0516"  "0517"  "0518"  "0519"  "0520"  "0521" 
+#> [253] "0522"  "0528"  "0529"  "0532"  "0533"  "0534"  "0536"  "0538"  "0540" 
+#> [262] "0541"  "0542"  "0543"  "0544"  "0545"  "33"    "0599"  "06"    "38"   
 #> [271] "3801"  "3802"  "3803"  "3804"  "3805"  "3806"  "3807"  "3808"  "3811" 
 #> [280] "3812"  "3813"  "3814"  "3815"  "3816"  "3817"  "3818"  "3819"  "3820" 
 #> [289] "3821"  "3822"  "3823"  "3824"  "3825"  "0601"  "0602"  "0604"  "0605" 
@@ -1416,6 +1420,7 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #>  [89] "2019K4" "2020K1" "2020K2" "2020K3" "2020K4" "2021K1" "2021K2" "2021K3"
 #>  [97] "2021K4" "2022K1" "2022K2" "2022K3" "2022K4" "2023K1" "2023K2" "2023K3"
 #> [105] "2023K4" "2024K1" "2024K2" "2024K3" "2024K4" "2025K1" "2025K2" "2025K3"
+#> [113] "2025K4"
 #> 
 #> attr(,"elimination")
 #> [1]  TRUE FALSE FALSE
@@ -1424,41 +1429,41 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #> 
 #> $`01222: Befolkning og kvartalsvise endringar, etter region, statistikkvariabel og kvartal`
 #>           region                         statistikkvariabel kvartal value
-#> 1  Oslo - Oslove                                       Døde  2025K2   913
-#> 2  Oslo - Oslove                                       Døde  2025K3   978
-#> 3  Oslo - Oslove                     Utflytting, innalandsk  2025K2  8469
-#> 4  Oslo - Oslove                     Utflytting, innalandsk  2025K3 12567
-#> 5  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K2 -1611
-#> 6  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K3   930
-#> 7  Oslo - Oslove                                 Folkevekst  2025K2   -63
-#> 8  Oslo - Oslove                                 Folkevekst  2025K3  2617
-#> 9      Stavanger                                       Døde  2025K2   210
-#> 10     Stavanger                                       Døde  2025K3   224
-#> 11     Stavanger                     Utflytting, innalandsk  2025K2  1582
-#> 12     Stavanger                     Utflytting, innalandsk  2025K3  2266
-#> 13     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K2   -45
-#> 14     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K3   413
-#> 15     Stavanger                                 Folkevekst  2025K2   175
-#> 16     Stavanger                                 Folkevekst  2025K3   611
+#> 1  Oslo - Oslove                                       Døde  2025K3   978
+#> 2  Oslo - Oslove                                       Døde  2025K4  1058
+#> 3  Oslo - Oslove                     Utflytting, innalandsk  2025K3 12567
+#> 4  Oslo - Oslove                     Utflytting, innalandsk  2025K4  6972
+#> 5  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K3   930
+#> 6  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K4  -154
+#> 7  Oslo - Oslove                                 Folkevekst  2025K3  2617
+#> 8  Oslo - Oslove                                 Folkevekst  2025K4   917
+#> 9      Stavanger                                       Døde  2025K3   224
+#> 10     Stavanger                                       Døde  2025K4   239
+#> 11     Stavanger                     Utflytting, innalandsk  2025K3  2266
+#> 12     Stavanger                     Utflytting, innalandsk  2025K4  1296
+#> 13     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K3   413
+#> 14     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K4   123
+#> 15     Stavanger                                 Folkevekst  2025K3   611
+#> 16     Stavanger                                 Folkevekst  2025K4   220
 #> 
 #> $dataset
 #>    Region      ContentsCode    Tid value
-#> 1    0301             Dode3 2025K2   913
-#> 2    0301             Dode3 2025K3   978
-#> 3    0301      Fraflytting8 2025K2  8469
-#> 4    0301      Fraflytting8 2025K3 12567
-#> 5    0301 Nettoinnflytting9 2025K2 -1611
-#> 6    0301 Nettoinnflytting9 2025K3   930
-#> 7    0301   Folketilvekst10 2025K2   -63
-#> 8    0301   Folketilvekst10 2025K3  2617
-#> 9    1103             Dode3 2025K2   210
-#> 10   1103             Dode3 2025K3   224
-#> 11   1103      Fraflytting8 2025K2  1582
-#> 12   1103      Fraflytting8 2025K3  2266
-#> 13   1103 Nettoinnflytting9 2025K2   -45
-#> 14   1103 Nettoinnflytting9 2025K3   413
-#> 15   1103   Folketilvekst10 2025K2   175
-#> 16   1103   Folketilvekst10 2025K3   611
+#> 1    0301             Dode3 2025K3   978
+#> 2    0301             Dode3 2025K4  1058
+#> 3    0301      Fraflytting8 2025K3 12567
+#> 4    0301      Fraflytting8 2025K4  6972
+#> 5    0301 Nettoinnflytting9 2025K3   930
+#> 6    0301 Nettoinnflytting9 2025K4  -154
+#> 7    0301   Folketilvekst10 2025K3  2617
+#> 8    0301   Folketilvekst10 2025K4   917
+#> 9    1103             Dode3 2025K3   224
+#> 10   1103             Dode3 2025K4   239
+#> 11   1103      Fraflytting8 2025K3  2266
+#> 12   1103      Fraflytting8 2025K4  1296
+#> 13   1103 Nettoinnflytting9 2025K3   413
+#> 14   1103 Nettoinnflytting9 2025K4   123
+#> 15   1103   Folketilvekst10 2025K3   611
+#> 16   1103   Folketilvekst10 2025K4   220
 #> 
 
 # }
@@ -1549,21 +1554,17 @@ ApiData(04861, Region = list("item", c("1103", "0301")), ContentsCode = 1, Tid =
 ##### Using data from SCB to illustrate returnMetaFrames
 urlSCB <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
 mf <- ApiData(urlSCB, returnMetaFrames = TRUE)
+#> Warning converted to message: URL 'https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy': status was 'Failure when receiving data from the peer'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy'
 names(mf)              # All the variable names
-#> [1] "Region"       "Civilstand"   "Alder"        "Kon"          "ContentsCode"
-#> [6] "Tid"         
+#> NULL
 attr(mf, "text")       # Corresponding text information as attribute
-#>           Region       Civilstand            Alder              Kon 
-#>         "region"     "civilstånd"          "ålder"            "kön" 
-#>     ContentsCode              Tid 
-#> "tabellinnehåll"             "år" 
+#> NULL
 mf$ContentsCode        # Data frame for the fifth variable (alternatively  mf[[5]])
-#>     values valueTexts
-#> 1 BE0101N1  Folkmängd
-#> 2 BE0101N2 Folkökning
+#> NULL
 attr(mf,"elimination") # Finding variables that can be eliminated
-#>       Region   Civilstand        Alder          Kon ContentsCode          Tid 
-#>         TRUE         TRUE         TRUE         TRUE        FALSE        FALSE 
+#> NULL
 ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line below)
         Region = FALSE, Civilstand = FALSE, Alder = FALSE,  Kon = FALSE,
         ContentsCode  = "BE0101N1", # Selecting a single ContentsCode by text input

@@ -124,28 +124,23 @@ obj <- api_data(14162, Region = FALSE, InnKvartering1 = FALSE, Landkoder2 = FALS
           
 obj[[1]]    # The label version of the dataset, as returned by api_data_1()
 #>       contents   month   value
-#> 1 Guest nights 2025M09 3394329
-#> 2 Guest nights 2025M10 2634827
-#> 3 Guest nights 2025M11 2221173
+#> 1 Guest nights 2025M12 2007186
+#> 2 Guest nights 2026M01 2082438
+#> 3 Guest nights 2026M02 2408913
 obj[[2]]    # The code version of the dataset, as returned by api_data_2()
 #>    ContentsCode     Tid   value
-#> 1 Overnattinger 2025M09 3394329
-#> 2 Overnattinger 2025M10 2634827
-#> 3 Overnattinger 2025M11 2221173
+#> 1 Overnattinger 2025M12 2007186
+#> 2 Overnattinger 2026M01 2082438
+#> 3 Overnattinger 2026M02 2408913
 names(obj)
-#> [1] "14162: Guest nights, by contents and month"
-#> [2] "dataset"                                   
+#> [1] "14162: Guest nights, by month" "dataset"                      
 info(obj)   # Similar to comment(); see also note() below
-#>                                        label 
-#> "14162: Guest nights, by contents and month" 
-#>                                       source 
-#>                          "Statistics Norway" 
-#>                                      updated 
-#>                       "2026-01-07T07:00:00Z" 
-#>                                      tableid 
-#>                                      "14162" 
-#>                                     contents 
-#>                       "14162: Guest nights," 
+#>                           label                          source 
+#> "14162: Guest nights, by month"             "Statistics Norway" 
+#>                         updated                         tableid 
+#>          "2026-03-27T07:00:00Z"                         "14162" 
+#>                        contents 
+#>          "14162: Guest nights," 
 
  # same as above 
  # api_data("https://data.ssb.no/api/pxwebapi/v2/tables/14162/data?lang=en", 
@@ -197,22 +192,22 @@ info(obj)   # Similar to comment(); see also note() below
             ContentsCode = 1,
             Tid = 2i)           
 #>    Region Kjonn Alder ContentsCode  Tid value
-#> 1  K-3101     2   H17    Personer1 2024  2944
-#> 2  K-3101     2   H17    Personer1 2025  2926
-#> 3  K-3101     2   H18    Personer1 2024 12843
-#> 4  K-3101     2   H18    Personer1 2025 12954
-#> 5  K-3101     1   H17    Personer1 2024  3078
-#> 6  K-3101     1   H17    Personer1 2025  3021
-#> 7  K-3101     1   H18    Personer1 2024 13070
-#> 8  K-3101     1   H18    Personer1 2025 13137
-#> 9  K-3103     2   H17    Personer1 2024  4839
-#> 10 K-3103     2   H17    Personer1 2025  4784
-#> 11 K-3103     2   H18    Personer1 2024 21332
-#> 12 K-3103     2   H18    Personer1 2025 21671
-#> 13 K-3103     1   H17    Personer1 2024  5059
-#> 14 K-3103     1   H17    Personer1 2025  5044
-#> 15 K-3103     1   H18    Personer1 2024 20821
-#> 16 K-3103     1   H18    Personer1 2025 21147
+#> 1  K-3101     2   H17    Personer1 2025  2926
+#> 2  K-3101     2   H17    Personer1 2026  2829
+#> 3  K-3101     2   H18    Personer1 2025 12954
+#> 4  K-3101     2   H18    Personer1 2026 13061
+#> 5  K-3101     1   H17    Personer1 2025  3021
+#> 6  K-3101     1   H17    Personer1 2026  2975
+#> 7  K-3101     1   H18    Personer1 2025 13137
+#> 8  K-3101     1   H18    Personer1 2026 13217
+#> 9  K-3103     2   H17    Personer1 2025  4784
+#> 10 K-3103     2   H17    Personer1 2026  4804
+#> 11 K-3103     2   H18    Personer1 2025 21671
+#> 12 K-3103     2   H18    Personer1 2026 21929
+#> 13 K-3103     1   H17    Personer1 2025  5044
+#> 14 K-3103     1   H17    Personer1 2026  5072
+#> 15 K-3103     1   H18    Personer1 2025 21147
+#> 16 K-3103     1   H18    Personer1 2026 21402
             
  # codes and labels can be mixed            
  api_data_12(4861, 
@@ -271,19 +266,19 @@ info(obj)   # Similar to comment(); see also note() below
  
  # info() and note() return parts of the comment attribute
  info(out)
-#>                                                                                label 
-#> "10172: Use of biological control agents in greenhouses, by crop, contents and year" 
-#>                                                                               source 
-#>                                                                  "Statistics Norway" 
-#>                                                                              updated 
-#>                                                               "2023-04-24T06:00:00Z" 
-#>                                                                              tableid 
-#>                                                                              "10172" 
-#>                                                                             contents 
-#>                            "10172: Use of biological control agents in greenhouses," 
+#>                                                                      label 
+#> "10172: Use of biological control agents in greenhouses, by crop and year" 
+#>                                                                     source 
+#>                                                        "Statistics Norway" 
+#>                                                                    updated 
+#>                                                     "2023-04-24T06:00:00Z" 
+#>                                                                    tableid 
+#>                                                                    "10172" 
+#>                                                                   contents 
+#>                  "10172: Use of biological control agents in greenhouses," 
  comment(out)
 #>                                                                                                                                  label 
-#>                                                   "10172: Use of biological control agents in greenhouses, by crop, contents and year" 
+#>                                                             "10172: Use of biological control agents in greenhouses, by crop and year" 
 #>                                                                                                                                 source 
 #>                                                                                                                    "Statistics Norway" 
 #>                                                                                                                                updated 

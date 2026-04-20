@@ -9,7 +9,7 @@ and retrieves the data using get_api_data()."><meta property="og:image" content=
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,28 +150,23 @@ way as vector input.</p>
 <span class="r-in"><span>          </span></span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>    <span class="co"># The label version of the dataset, as returned by api_data_1()</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       contents   month   value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Guest nights 2025M09 3394329</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Guest nights 2025M10 2634827</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Guest nights 2025M11 2221173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Guest nights 2025M12 2007186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Guest nights 2026M01 2082438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Guest nights 2026M02 2408913</span>
 <span class="r-in"><span><span class="va">obj</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>    <span class="co"># The code version of the dataset, as returned by api_data_2()</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ContentsCode     Tid   value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Overnattinger 2025M09 3394329</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Overnattinger 2025M10 2634827</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Overnattinger 2025M11 2221173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Overnattinger 2025M12 2007186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Overnattinger 2026M01 2082438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Overnattinger 2026M02 2408913</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "14162: Guest nights, by contents and month"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "dataset"                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "14162: Guest nights, by month" "dataset"                      </span>
 <span class="r-in"><span><span class="fu"><a href="info.html">info</a></span><span class="op">(</span><span class="va">obj</span><span class="op">)</span>   <span class="co"># Similar to comment(); see also note() below</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        label </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "14162: Guest nights, by contents and month" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                       source </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          "Statistics Norway" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      updated </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       "2026-01-07T07:00:00Z" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      tableid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      "14162" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                     contents </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       "14162: Guest nights," </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           label                          source </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "14162: Guest nights, by month"             "Statistics Norway" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         updated                         tableid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          "2026-03-27T07:00:00Z"                         "14162" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        contents </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          "14162: Guest nights," </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span> <span class="co"># same as above </span></span></span>
 <span class="r-in"><span> <span class="co"># api_data("https://data.ssb.no/api/pxwebapi/v2/tables/14162/data?lang=en", </span></span></span>
@@ -223,22 +218,22 @@ way as vector input.</p>
 <span class="r-in"><span>            ContentsCode <span class="op">=</span> <span class="fl">1</span>,</span></span>
 <span class="r-in"><span>            Tid <span class="op">=</span> <span class="fl">2i</span><span class="op">)</span>           </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Region Kjonn Alder ContentsCode  Tid value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  K-3101     2   H17    Personer1 2024  2944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  K-3101     2   H17    Personer1 2025  2926</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  K-3101     2   H18    Personer1 2024 12843</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  K-3101     2   H18    Personer1 2025 12954</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  K-3101     1   H17    Personer1 2024  3078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  K-3101     1   H17    Personer1 2025  3021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  K-3101     1   H18    Personer1 2024 13070</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  K-3101     1   H18    Personer1 2025 13137</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  K-3103     2   H17    Personer1 2024  4839</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 K-3103     2   H17    Personer1 2025  4784</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 K-3103     2   H18    Personer1 2024 21332</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 K-3103     2   H18    Personer1 2025 21671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 K-3103     1   H17    Personer1 2024  5059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 K-3103     1   H17    Personer1 2025  5044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 K-3103     1   H18    Personer1 2024 20821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16 K-3103     1   H18    Personer1 2025 21147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  K-3101     2   H17    Personer1 2025  2926</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  K-3101     2   H17    Personer1 2026  2829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  K-3101     2   H18    Personer1 2025 12954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  K-3101     2   H18    Personer1 2026 13061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  K-3101     1   H17    Personer1 2025  3021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  K-3101     1   H17    Personer1 2026  2975</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  K-3101     1   H18    Personer1 2025 13137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  K-3101     1   H18    Personer1 2026 13217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  K-3103     2   H17    Personer1 2025  4784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 K-3103     2   H17    Personer1 2026  4804</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 K-3103     2   H18    Personer1 2025 21671</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 K-3103     2   H18    Personer1 2026 21929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 K-3103     1   H17    Personer1 2025  5044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 K-3103     1   H17    Personer1 2026  5072</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 K-3103     1   H18    Personer1 2025 21147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 K-3103     1   H18    Personer1 2026 21402</span>
 <span class="r-in"><span>            </span></span>
 <span class="r-in"><span> <span class="co"># codes and labels can be mixed            </span></span></span>
 <span class="r-in"><span> <span class="fu">api_data_12</span><span class="op">(</span><span class="fl">4861</span>, </span></span>
@@ -297,19 +292,19 @@ way as vector input.</p>
 <span class="r-in"><span> </span></span>
 <span class="r-in"><span> <span class="co"># info() and note() return parts of the comment attribute</span></span></span>
 <span class="r-in"><span> <span class="fu"><a href="info.html">info</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                label </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> "10172: Use of biological control agents in greenhouses, by crop, contents and year" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                               source </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                  "Statistics Norway" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              updated </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                               "2023-04-24T06:00:00Z" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              tableid </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                              "10172" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             contents </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            "10172: Use of biological control agents in greenhouses," </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                      label </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "10172: Use of biological control agents in greenhouses, by crop and year" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                     source </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        "Statistics Norway" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    updated </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                     "2023-04-24T06:00:00Z" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    tableid </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    "10172" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                   contents </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  "10172: Use of biological control agents in greenhouses," </span>
 <span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/comment.html" class="external-link">comment</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                  label </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                   "10172: Use of biological control agents in greenhouses, by crop, contents and year" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             "10172: Use of biological control agents in greenhouses, by crop and year" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                 source </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                    "Statistics Norway" </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                updated </span>

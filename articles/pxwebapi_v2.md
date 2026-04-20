@@ -44,7 +44,7 @@ url <- paste0(
 get_api_data(url)
 ```
 
-    $`04861: Area and population of urban settlements, by region, contents and year`
+    $`04861: Area and population of urban settlements, by region and year`
              region            contents year  value
     1 Oslo - Oslove Number of residents 2024 714630
     2 Oslo - Oslove Number of residents 2025 720631

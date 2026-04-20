@@ -51,6 +51,18 @@ query_url(
 A PxWeb API URL to data, with query parameters added according to the
 input.
 
+## Details
+
+The option `PxWebApiData.MAX_URL_CHARS` sets the threshold for issuing a
+warning when generated URLs are long. When unset, 2100 is used as a
+default, following the GET limit documented for PxWebApi v2.
+
+URLs longer than this may fail (typically returning HTTP 404). The
+option does not affect the URL or the request itself.
+
+The threshold can be changed by the user, for example:
+`options(PxWebApiData.MAX_URL_CHARS = 3000)`.
+
 ## Examples
 
 ``` r
@@ -59,10 +71,7 @@ query_url(4861,
           ContentsCode = "Bosatte", 
           Tid = c(1, 5, -1), 
           url_type = "ssb_en")
-#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
-#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
-#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&outputFormat=json-stat2'
-#> NULL
+#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en&valueCodes[ContentsCode]=Bosatte&valueCodes[Tid]=2000%2C2005%2C2025"
           
           
 query_url("https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en",
@@ -70,10 +79,7 @@ query_url("https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en",
           Elver = FALSE,
           ContentsCode = TRUE,  # same as "*"   
           Tid = "top(5)")       # same as 5i
-#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
-#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
-#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/08991/metadata?lang=en&outputFormat=json-stat2'
-#> NULL
+#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/08991/data?lang=en&valueCodes[ContentsCode]=*&valueCodes[Tid]=top(5)"
           
           
           
@@ -85,8 +91,5 @@ query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
                        outputValues = "aggregated"),
          ContentsCode = 1,
          Tid = 4i)
-#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
-#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
-#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&outputFormat=json-stat2'
-#> NULL
+#> [1] "https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en&valueCodes[Kjonn]=*&codelist[Alder]=agg_TodeltGrupperingB&valueCodes[Alder]=H17,H18&outputValues[Alder]=aggregated&valueCodes[ContentsCode]=Personer1&valueCodes[Tid]=top(4)"
 ```

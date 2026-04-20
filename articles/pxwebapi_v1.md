@@ -38,27 +38,13 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 ```
 
-    $`04861: Area and population of urban settlements, by region, contents and year`
-             region            contents year  value
-    1 Oslo - Oslove Number of residents 2000 504348
-    2 Oslo - Oslove Number of residents 2002 508134
-    3 Oslo - Oslove Number of residents 2024 714630
-    4 Oslo - Oslove Number of residents 2025 720631
-    5     Stavanger Number of residents 2000 106804
-    6     Stavanger Number of residents 2002 108271
-    7     Stavanger Number of residents 2024 142897
-    8     Stavanger Number of residents 2025 143972
+    No encoding supplied: defaulting to UTF-8.
 
-    $dataset
-      Region ContentsCode  Tid  value
-    1   0301      Bosatte 2000 504348
-    2   0301      Bosatte 2002 508134
-    3   0301      Bosatte 2024 714630
-    4   0301      Bosatte 2025 720631
-    5   1103      Bosatte 2000 106804
-    6   1103      Bosatte 2002 108271
-    7   1103      Bosatte 2024 142897
-    8   1103      Bosatte 2025 143972
+    No internet connection or resource not available: Error : parse error: premature EOF
+                                           
+                         (right here) ------^
+
+    NULL
 
 To return a single dataset with only labels use the function `ApiData1`.
 The function `Apidata2` returns only id’s. To return a dataset with both
