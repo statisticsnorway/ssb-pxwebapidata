@@ -36,17 +36,23 @@ export(pxwebData1)
 export(pxwebData12)
 export(pxwebData2)
 export(query_url)
-importFrom(httr,GET)
-importFrom(httr,POST)
-importFrom(httr,content)
-importFrom(httr,status_code)
-importFrom(httr,verbose)
-importFrom(jsonlite,fromJSON)
-importFrom(jsonlite,read_json)
-importFrom(jsonlite,toJSON)
-importFrom(jsonlite,unbox)
+importFrom(httr,
+  GET,
+  POST,
+  content,
+  status_code,
+  verbose
+)
+importFrom(jsonlite,
+  fromJSON,
+  read_json,
+  toJSON,
+  unbox
+)
 importFrom(pxweb,pxweb_get)
 importFrom(rjstat,fromJSONstat)
 importFrom(stats,setNames)
-importFrom(utils,head)
-importFrom(utils,tail)
+importFrom(utils,
+  head,
+  tail
+)
