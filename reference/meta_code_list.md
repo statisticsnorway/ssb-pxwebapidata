@@ -33,29 +33,12 @@ print(url)
 #> [1] "https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_Fylker2020?lang=en"
 
 df <- meta_code_list(url)
+#> Warning converted to message: cannot open URL 'https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_Fylker2020?lang=en&outputFormat=json-stat2': HTTP status was '429 Unknown Error'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/codeLists/agg_Fylker2020?lang=en&outputFormat=json-stat2'
 
 print(df)
-#>    code                                              label valueMap
-#> 1    30                                  Viken (2020-2023)       30
-#> 2    03                                      Oslo - Oslove       03
-#> 3    34                                          Innlandet       34
-#> 4    38                   Vestfold og Telemark (2020-2023)       38
-#> 5    42                                              Agder       42
-#> 6    11                                           Rogaland       11
-#> 7    46                                           Vestland       46
-#> 8    15                                    Møre og Romsdal       15
-#> 9    50                            Trøndelag - Trööndelage       50
-#> 10   18                              Nordland - Nordlánnda       18
-#> 11   54 Troms og Finnmark - Romsa ja Finnmárku (2020-2023)       54
-#> 12   21                                           Svalbard       21
+#> NULL
 print(attr(df, "extra")[1:3])
-#> $id
-#> [1] "agg_Fylker2020"
-#> 
-#> $label
-#> [1] "Counties 2020-2023"
-#> 
-#> $language
-#> [1] "en"
-#> 
+#> NULL
 ```

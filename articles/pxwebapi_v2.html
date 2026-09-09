@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Using PxWebApi v2 with PxWebApiData • PxWebApiData</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Using PxWebApi v2 with PxWebApiData">
@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PxWebApiData</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,21 +110,21 @@ v2.</p>
 <span><span class="fu"><a href="../reference/get_api_data.html">get_api_data</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span></code></pre></div>
 <pre><code>$`04861: Area and population of urban settlements, by region and year`
          region            contents year  value
-1 Oslo - Oslove Number of residents 2024 714630
-2 Oslo - Oslove Number of residents 2025 720631
-3      Eidsvoll Number of residents 2024  23154
-4      Eidsvoll Number of residents 2025  23599
-5        Hurdal Number of residents 2024   1174
-6        Hurdal Number of residents 2025   1217
+1 Oslo - Oslove Number of residents 2025 720631
+2 Oslo - Oslove Number of residents 2026 724904
+3      Eidsvoll Number of residents 2025  23599
+4      Eidsvoll Number of residents 2026  23917
+5        Hurdal Number of residents 2025   1217
+6        Hurdal Number of residents 2026   1242
 
 $dataset
   Region ContentsCode  Tid  value
-1   0301      Bosatte 2024 714630
-2   0301      Bosatte 2025 720631
-3   3240      Bosatte 2024  23154
-4   3240      Bosatte 2025  23599
-5   3242      Bosatte 2024   1174
-6   3242      Bosatte 2025   1217</code></pre>
+1   0301      Bosatte 2025 720631
+2   0301      Bosatte 2026 724904
+3   3240      Bosatte 2025  23599
+4   3240      Bosatte 2026  23917
+5   3242      Bosatte 2025   1217
+6   3242      Bosatte 2026   1242</code></pre>
 <p>To return a single data frame with labels only, use the function
 <code>get_api_data_1</code>. The function <code>get_api_data_2</code>
 returns codes only. To return a data frame containing both labels and
@@ -434,7 +434,7 @@ Guide</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -34,23 +34,39 @@ A list of two data frames is returned; the label version and the id
 version.
 
 ``` r
+
 ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 ```
 
-    No encoding supplied: defaulting to UTF-8.
+    $`04861: Area and population of urban settlements, by region, contents and year`
+             region            contents year  value
+    1 Oslo - Oslove Number of residents 2000 504348
+    2 Oslo - Oslove Number of residents 2002 508134
+    3 Oslo - Oslove Number of residents 2025 720631
+    4 Oslo - Oslove Number of residents 2026 724904
+    5     Stavanger Number of residents 2000 106804
+    6     Stavanger Number of residents 2002 108271
+    7     Stavanger Number of residents 2025 143972
+    8     Stavanger Number of residents 2026 145713
 
-    No internet connection or resource not available: Error : parse error: premature EOF
-                                           
-                         (right here) ------^
-
-    NULL
+    $dataset
+      Region ContentsCode  Tid  value
+    1   0301      Bosatte 2000 504348
+    2   0301      Bosatte 2002 508134
+    3   0301      Bosatte 2025 720631
+    4   0301      Bosatte 2026 724904
+    5   1103      Bosatte 2000 106804
+    6   1103      Bosatte 2002 108271
+    7   1103      Bosatte 2025 143972
+    8   1103      Bosatte 2026 145713
 
 To return a single dataset with only labels use the function `ApiData1`.
 The function `Apidata2` returns only id’s. To return a dataset with both
 labels and id’s in one dataframe use `ApiData12`.
 
 ``` r
+
 ApiData12("https://data.ssb.no/api/v0/en/table/04861",
         Region = c("1103", "0301"), ContentsCode = "Bosatte", Tid = c(1, 2, -2, -1))
 ```
@@ -70,6 +86,7 @@ FALSE. An imaginary value corresponds to filter `"top"` in the api
 query.
 
 ``` r
+
 x <- ApiData("https://data.ssb.no/api/v0/en/table/04861",
         Region = FALSE, ContentsCode = TRUE, Tid = 3i)
 ```
@@ -82,12 +99,14 @@ x <- ApiData("https://data.ssb.no/api/v0/en/table/04861",
 To show either label version or id version
 
 ``` r
+
 x[[1]]
 ```
 
     NULL
 
 ``` r
+
 x[[2]]
 ```
 
@@ -101,12 +120,14 @@ Use [`info()`](../reference/info.md) and
 dataset information.
 
 ``` r
+
 info(x)
 ```
 
     Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf
 
 ``` r
+
 note(x)
 ```
 
@@ -118,6 +139,7 @@ Meta information about the data set can be obtained by
 `returnMetaFrames = TRUE`.
 
 ``` r
+
 ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnMetaFrames = TRUE)
 ```
 
@@ -142,6 +164,7 @@ note the url where `/en` is replaced by `/no`. That returns labels in
 Norwegian instead of in English.
 
 ``` r
+
 ApiData("https://data.ssb.no/api/v0/no/table/07459",
         Region = list("agg:KommSummer", c("K-3101", "K-3103")),
         Tid = 4i,
@@ -172,6 +195,7 @@ In this example Region is the value pool and Fylker (counties) is the
 value set. As `vs:Fylker` is redundant, both will return the same:
 
 ``` r
+
   Region = list("vs:Fylker",c("01","02"))
   Region = c("01","02")
 ```
@@ -182,6 +206,7 @@ In PxWebApi the original query is formulated as JSON. Using the
 parameter returnApiQuery is useful for debugging.
 
 ``` r
+
 ApiData("https://data.ssb.no/api/v0/en/table/04861",  returnApiQuery = TRUE)
 ```
 
@@ -223,6 +248,7 @@ corresponds to using the parameter `getDataByGET = TRUE` in the
 `ApiData2` and `ApiData12`.
 
 ``` r
+
 # Example dataset
 url1 <- "https://data.ssb.no/api/pxwebapi/v2/tables/05810/data?lang=en"
 x <- GetApiData(url1)
@@ -231,18 +257,21 @@ x <- GetApiData(url1)
     Not available - 429
 
 ``` r
+
 x[[1]]    # Label version of the dataset
 ```
 
     NULL
 
 ``` r
+
 comment(x)
 ```
 
     Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf
 
 ``` r
+
 # More specific query with selected dimensions
 url2 <- paste0(
   "https://data.ssb.no/api/pxwebapi/v2/tables/03013/data?lang=en",
@@ -257,6 +286,7 @@ x2 <- GetApiData2(url2)
     Not available - 429
 
 ``` r
+
 x2  # id version of the dataset
 ```
 
@@ -274,6 +304,7 @@ guidelines](https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-
 for more.
 
 ``` r
+
 urlEurostat <- paste0(   # Here the long url is split into several lines using paste0 
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
   "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
@@ -283,6 +314,7 @@ urlEurostat
     [1] "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU"
 
 ``` r
+
 GetApiData12(urlEurostat)
 ```
 
@@ -323,30 +355,26 @@ services sector of the Norwegian business life for the years 2019 and
 2.  Load the package.
 
 ``` r
+
 library(PxWebApiData)
 ```
 
 3.  Check which variables that exist in the data.
 
 ``` r
+
 variables <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                      returnMetaFrames = TRUE)
-```
 
-    Warning converted to message: cannot open URL 'https://data.ssb.no/api/v0/no/table/07964/': HTTP status was '429 Unknown Error'
-
-    No internet connection or resource not available: Error in open.connection(con, "rb") : 
-      cannot open the connection to 'https://data.ssb.no/api/v0/no/table/07964/'
-
-``` r
 names(variables)
 ```
 
-    NULL
+    [1] "NACE2007"     "ContentsCode" "Tid"         
 
 4.  Check which values each variable contains.
 
 ``` r
+
 values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
                   returnMetaData = TRUE)
 ```
@@ -357,18 +385,21 @@ values <- ApiData("https://data.ssb.no/api/v0/no/table/07964/",
       cannot open the connection to 'https://data.ssb.no/api/v0/no/table/07964/'
 
 ``` r
+
 values[[1]]$values
 ```
 
     NULL
 
 ``` r
+
 values[[2]]$values
 ```
 
     NULL
 
 ``` r
+
 values[[3]]$values
 ```
 
@@ -377,6 +408,7 @@ values[[3]]$values
 5.  Define these variables in the query to sort out the values we want.
 
 ``` r
+
 mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
                 Tid = c("2021", "2022"), # Define year to 2021 and 2022
                 NACE2007 = "G-N", # Define the services sector
@@ -389,6 +421,7 @@ mydata <- ApiData("https://data.ssb.no/api/v0/en/table/07964/",
       cannot open the connection to 'https://data.ssb.no/api/v0/en/table/07964/'
 
 ``` r
+
 mydata <- mydata[[1]] # Extract the first list element, which contains full variable names.
 
 head(mydata)
@@ -399,6 +432,7 @@ head(mydata)
 6.  Show additional information.
 
 ``` r
+
 comment(mydata)
 ```
 

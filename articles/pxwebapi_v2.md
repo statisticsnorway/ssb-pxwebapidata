@@ -34,6 +34,7 @@ When a data URL is already available, the data can be retrieved using
 example below.
 
 ``` r
+
 url <- paste0(
   "https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en",
   "&valueCodes[Region]=0301,324*",
@@ -46,21 +47,21 @@ get_api_data(url)
 
     $`04861: Area and population of urban settlements, by region and year`
              region            contents year  value
-    1 Oslo - Oslove Number of residents 2024 714630
-    2 Oslo - Oslove Number of residents 2025 720631
-    3      Eidsvoll Number of residents 2024  23154
-    4      Eidsvoll Number of residents 2025  23599
-    5        Hurdal Number of residents 2024   1174
-    6        Hurdal Number of residents 2025   1217
+    1 Oslo - Oslove Number of residents 2025 720631
+    2 Oslo - Oslove Number of residents 2026 724904
+    3      Eidsvoll Number of residents 2025  23599
+    4      Eidsvoll Number of residents 2026  23917
+    5        Hurdal Number of residents 2025   1217
+    6        Hurdal Number of residents 2026   1242
 
     $dataset
       Region ContentsCode  Tid  value
-    1   0301      Bosatte 2024 714630
-    2   0301      Bosatte 2025 720631
-    3   3240      Bosatte 2024  23154
-    4   3240      Bosatte 2025  23599
-    5   3242      Bosatte 2024   1174
-    6   3242      Bosatte 2025   1217
+    1   0301      Bosatte 2025 720631
+    2   0301      Bosatte 2026 724904
+    3   3240      Bosatte 2025  23599
+    4   3240      Bosatte 2026  23917
+    5   3242      Bosatte 2025   1217
+    6   3242      Bosatte 2026   1242
 
 To return a single data frame with labels only, use the function
 `get_api_data_1`. The function `get_api_data_2` returns codes only. To
@@ -82,6 +83,7 @@ generate a data URL. The URL used in the example above can be generated
 as follows:
 
 ``` r
+
 query_url("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en", 
           Region = c("0301", "324*"), 
           ContentsCode = "???????", 
@@ -122,6 +124,7 @@ question mark (`?`). In the example below, seven characters are masked.
 Using `top(2)` returns the first two values from the start position.
 
 ``` r
+
 api_data("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en", 
          Region = c("0301", "324*"), 
          ContentsCode = "???????", 
@@ -163,6 +166,7 @@ set to `c(1, -2, -1)`. In the example below, `Tid` is unspecified, which
 therefore corresponds to the first and the two last years.
 
 ``` r
+
 api_data_12("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en", 
            Region = 14:17, 
            ContentsCode = 2)
@@ -182,6 +186,7 @@ All possible values are obtained by `TRUE` and this is equivalent to
 values represent `top`, for example `3i` is equivalent to `"top(3)"`.
 
 ``` r
+
 api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en", 
           Region = FALSE, 
           ContentsCode = TRUE, 
@@ -198,6 +203,7 @@ api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en",
 Labels can also be used as an alternative to codes.
 
 ``` r
+
 obj <- api_data("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en", 
                 Region = c("Asker", "Hurdal"), 
                 ContentsCode = TRUE, 
@@ -212,12 +218,14 @@ obj <- api_data("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en",
 To show either label version or code version.
 
 ``` r
+
 obj[[1]]
 ```
 
     NULL
 
 ``` r
+
 obj[[2]]
 ```
 
@@ -226,6 +234,7 @@ obj[[2]]
 ### Use `default_query = TRUE` to retrieve entire tables
 
 ``` r
+
 out <- api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/10172/data?lang=en", 
                    default_query = TRUE)
 ```
@@ -236,6 +245,7 @@ out <- api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/10172/data?lang=en
       cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/10172/metadata?lang=en&outputFormat=json-stat2'
 
 ``` r
+
 out[14:20, ]  # 9 rows printed  
 ```
 
@@ -252,12 +262,14 @@ Use [`info()`](../reference/info.md) and
 dataset information.
 
 ``` r
+
 info(obj)
 ```
 
     Warning in max(nchar(com)): no non-missing arguments to max; returning -Inf
 
 ``` r
+
 note(obj)
 ```
 
@@ -266,6 +278,7 @@ note(obj)
 Use [`note()`](../reference/info.md) for explanation of NA status codes
 
 ``` r
+
 note(out)
 ```
 
@@ -277,6 +290,7 @@ Advanced queries can be specified using named lists, where the names
 correspond to the encoding used in PxWebApi URL queries.
 
 ``` r
+
  api_data_2("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
             Region = list(codelist = "agg_KommSummer", 
                           valueCodes = c("K-3101", "K-3103"), 
@@ -299,6 +313,7 @@ correspond to the encoding used in PxWebApi URL queries.
 In this case, the generated URL is:
 
 ``` r
+
  url <- query_url("https://data.ssb.no/api/pxwebapi/v2/tables/07459/data?lang=en",
             Region = list(codelist = "agg_KommSummer", 
                           valueCodes = c("K-3101", "K-3103"), 
@@ -317,6 +332,7 @@ In this case, the generated URL is:
       cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/07459/metadata?lang=en&outputFormat=json-stat2'
 
 ``` r
+
  cat(gsub("&", "\n&", url))
 ```
 
@@ -337,6 +353,7 @@ Metadata for a data set can be obtained using
 [`meta_frames()`](../reference/meta_frames.md).
 
 ``` r
+
 mf <- meta_frames("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en")
 ```
 
@@ -346,6 +363,7 @@ mf <- meta_frames("https://data.ssb.no/api/pxwebapi/v2/tables/04861/data?lang=en
       cannot open the connection to 'https://data.ssb.no/api/pxwebapi/v2/tables/04861/metadata?lang=en&outputFormat=json-stat2'
 
 ``` r
+
 print(mf)
 ```
 
@@ -355,6 +373,7 @@ Information about whether variables can be eliminated is stored as an
 attribute and can be retrieved for all variables at once:
 
 ``` r
+
 sapply(mf, attr, "elimination") # elimination info for all variables
 ```
 
@@ -363,6 +382,7 @@ sapply(mf, attr, "elimination") # elimination info for all variables
 Code list information is stored as a data frame in another attribute:
 
 ``` r
+
 attr(mf[["Region"]], "code_lists")
 ```
 
@@ -395,6 +415,7 @@ guidelines](https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-
 for more.
 
 ``` r
+
 url_eurostat <- paste0(   # Here the long url is split into several lines using paste0 
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r", 
   "?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU")
@@ -404,6 +425,7 @@ url_eurostat
     [1] "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_mv12r?format=JSON&lang=EN&lastTimePeriod=2&coicop=CP00&geo=NO&geo=EU"
 
 ``` r
+
 get_api_data_12(url_eurostat)
 ```
 

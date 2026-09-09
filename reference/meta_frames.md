@@ -54,21 +54,21 @@ attr(metaframes[["Region"]], "extra")[[1]][[1]]
 
 # Code list information as a data frame stored as another attribute
 attr(metaframes[["Region"]], "code_lists")
-#>                      id                                          label
-#> 1        agg_KommFylker          Counties 2024, aggregated time series
-#> 2        agg_Fylker2024                                 Counties 2024-
-#> 3        agg_Fylker2020                             Counties 2020-2023
-#> 4       agg_KommForrige                       Municipalities 2020-2023
-#> 5        agg_KommSummer    Municipalities 2024, aggregated time series
-#> 6    agg_LandsdelKommun                                   Regions 2025
-#> 7  agg_Politidistrikt16                           Police district 2016
-#> 8       agg_RegionerBVF Regions (Child welfare and family counselling)
-#> 9    agg_SentralIndeksA       Centrality (can not be used before 1977)
-#> 10 agg_OkonomRegion2020                          Economic regions 2024
-#> 11     agg_Valgdistrikt                            Electoral districts
-#> 12            vs_Landet                              The whole country
-#> 13            vs_Fylker                                   All counties
-#> 14            vs_Kommun                             All municipalities
+#>                      id                                              label
+#> 1        agg_KommFylker              Counties 2024, aggregated time series
+#> 2        agg_Fylker2024                                     Counties 2024-
+#> 3        agg_Fylker2020                                 Counties 2020-2023
+#> 4       agg_KommForrige                           Municipalities 2020-2023
+#> 5        agg_KommSummer        Municipalities 2024, aggregated time series
+#> 6    agg_LandsdelKommun                                       Regions 2025
+#> 7  agg_Politidistrikt16 Police district 2016 (can not be used before 2013)
+#> 8       agg_RegionerBVF     Regions (Child welfare and family counselling)
+#> 9    agg_SentralIndeksA           Centrality (can not be used before 1977)
+#> 10 agg_OkonomRegion2020                              Economic regions 2024
+#> 11     agg_Valgdistrikt                                Electoral districts
+#> 12            vs_Landet                                  The whole country
+#> 13            vs_Fylker                                       All counties
+#> 14            vs_Kommun                                 All municipalities
 #>           type
 #> 1  Aggregation
 #> 2  Aggregation

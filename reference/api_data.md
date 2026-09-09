@@ -119,26 +119,27 @@ input.
 ## Examples
 
 ``` r
+
 obj <- api_data(14162, Region = FALSE, InnKvartering1 = FALSE, Landkoder2 = FALSE, 
                 ContentsCode = TRUE, Tid = 3i, url_type = "ssb_en")
           
 obj[[1]]    # The label version of the dataset, as returned by api_data_1()
 #>       contents   month   value
-#> 1 Guest nights 2025M12 2007186
-#> 2 Guest nights 2026M01 2082438
-#> 3 Guest nights 2026M02 2408913
+#> 1 Guest nights 2026M05 3385966
+#> 2 Guest nights 2026M06 4779458
+#> 3 Guest nights 2026M07 7760534
 obj[[2]]    # The code version of the dataset, as returned by api_data_2()
 #>    ContentsCode     Tid   value
-#> 1 Overnattinger 2025M12 2007186
-#> 2 Overnattinger 2026M01 2082438
-#> 3 Overnattinger 2026M02 2408913
+#> 1 Overnattinger 2026M05 3385966
+#> 2 Overnattinger 2026M06 4779458
+#> 3 Overnattinger 2026M07 7760534
 names(obj)
 #> [1] "14162: Guest nights, by month" "dataset"                      
 info(obj)   # Similar to comment(); see also note() below
 #>                           label                          source 
 #> "14162: Guest nights, by month"             "Statistics Norway" 
 #>                         updated                         tableid 
-#>          "2026-03-27T07:00:00Z"                         "14162" 
+#>          "2026-09-03T06:00:00Z"                         "14162" 
 #>                        contents 
 #>          "14162: Guest nights," 
 
@@ -217,19 +218,19 @@ info(obj)   # Similar to comment(); see also note() below
              url_type = "ssb_en") 
 #>           region            contents year Region ContentsCode  Tid value
 #> 1           Moss Number of residents 2000   3103      Bosatte 2000     0
-#> 2           Moss Number of residents 2025   3103      Bosatte 2025 50591
+#> 2           Moss Number of residents 2026   3103      Bosatte 2026 51158
 #> 3      Sarpsborg Number of residents 2000   3105      Bosatte 2000     0
-#> 4      Sarpsborg Number of residents 2025   3105      Bosatte 2025 55163
+#> 4      Sarpsborg Number of residents 2026   3105      Bosatte 2026 55625
 #> 5  Midt-Telemark Number of residents 2000   4020      Bosatte 2000     0
-#> 6  Midt-Telemark Number of residents 2025   4020      Bosatte 2025  6231
+#> 6  Midt-Telemark Number of residents 2026   4020      Bosatte 2026  6273
 #> 7        Seljord Number of residents 2000   4022      Bosatte 2000     0
-#> 8        Seljord Number of residents 2025   4022      Bosatte 2025  1483
+#> 8        Seljord Number of residents 2026   4022      Bosatte 2026  1468
 #> 9       Hjartdal Number of residents 2000   4024      Bosatte 2000     0
-#> 10      Hjartdal Number of residents 2025   4024      Bosatte 2025     0
+#> 10      Hjartdal Number of residents 2026   4024      Bosatte 2026     0
 #> 11          Tinn Number of residents 2000   4026      Bosatte 2000     0
-#> 12          Tinn Number of residents 2025   4026      Bosatte 2025  3716
+#> 12          Tinn Number of residents 2026   4026      Bosatte 2026  3693
 #> 13     Kviteseid Number of residents 2000   4028      Bosatte 2000     0
-#> 14     Kviteseid Number of residents 2025   4028      Bosatte 2025   811
+#> 14     Kviteseid Number of residents 2026   4028      Bosatte 2026   817
              
  
  # A Statistics Sweden example             

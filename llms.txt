@@ -3,8 +3,8 @@
 [![Mentioned in Awesome Official
 Statistics](https://awesome.re/mentioned-badge.svg)](http://www.awesomeofficialstatistics.org)
 
-| [PxWebApiData on CRAN](https://cran.r-project.org/package=PxWebApiData) |     | [pkgdown website](https://statisticsnorway.github.io/ssb-pxwebapidata/) |     | [GitHub Repository](https://github.com/statisticsnorway/ssb-pxwebapidata) |
-|-------------------------------------------------------------------------|-----|-------------------------------------------------------------------------|-----|---------------------------------------------------------------------------|
+| [PxWebApiData on CRAN](https://cran.r-project.org/package=PxWebApiData) |  | [pkgdown website](https://statisticsnorway.github.io/ssb-pxwebapidata/) |  | [GitHub Repository](https://github.com/statisticsnorway/ssb-pxwebapidata) |
+|----|----|----|----|----|
 
 ------------------------------------------------------------------------
 

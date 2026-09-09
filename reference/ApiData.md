@@ -1173,6 +1173,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE,
 #> 22 Number of residents 2023 4554562
 #> 23 Number of residents 2024 4619969
 #> 24 Number of residents 2025 4662945
+#> 25 Number of residents 2026 4696257
 #> 
 #> $dataset
 #>    ContentsCode  Tid   value
@@ -1200,6 +1201,7 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE,
 #> 22      Bosatte 2023 4554562
 #> 23      Bosatte 2024 4619969
 #> 24      Bosatte 2025 4662945
+#> 25      Bosatte 2026 4696257
 #> 
 
 # Some years
@@ -1209,13 +1211,13 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = FALSE,
 #>              contents year   value
 #> 1 Number of residents 2000 3396382
 #> 2 Number of residents 2005 3560137
-#> 3 Number of residents 2025 4662945
+#> 3 Number of residents 2026 4696257
 #> 
 #> $dataset
 #>   ContentsCode  Tid   value
 #> 1      Bosatte 2000 3396382
 #> 2      Bosatte 2005 3560137
-#> 3      Bosatte 2025 4662945
+#> 3      Bosatte 2026 4696257
 #> 
 
 # Two selected regions
@@ -1224,16 +1226,16 @@ ApiData("https://data.ssb.no/api/v0/en/table/04861", Region = c("1103", "0301"),
 #> $`04861: Area and population of urban settlements, by region, contents and year`
 #>          region            contents year  value
 #> 1 Oslo - Oslove Number of residents 2000 504348
-#> 2 Oslo - Oslove Number of residents 2025 720631
+#> 2 Oslo - Oslove Number of residents 2026 724904
 #> 3     Stavanger Number of residents 2000 106804
-#> 4     Stavanger Number of residents 2025 143972
+#> 4     Stavanger Number of residents 2026 145713
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
 #> 1   0301      Bosatte 2000 504348
-#> 2   0301      Bosatte 2025 720631
+#> 2   0301      Bosatte 2026 724904
 #> 3   1103      Bosatte 2000 106804
-#> 4   1103      Bosatte 2025 143972
+#> 4   1103      Bosatte 2026 145713
 #> 
 
 
@@ -1242,31 +1244,31 @@ ApiData(4861, c("1103", "0301"), 1, c(1, -1)) # same as below
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>          region      statistikkvariabel   år  value
 #> 1 Oslo - Oslove Areal av tettsted (km²) 2000 132.90
-#> 2 Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 2 Oslo - Oslove Areal av tettsted (km²) 2026 130.03
 #> 3     Stavanger Areal av tettsted (km²) 2000  41.85
-#> 4     Stavanger Areal av tettsted (km²) 2025  44.35
+#> 4     Stavanger Areal av tettsted (km²) 2026  44.63
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
 #> 1   0301        Areal 2000 132.90
-#> 2   0301        Areal 2025 129.90
+#> 2   0301        Areal 2026 130.03
 #> 3   1103        Areal 2000  41.85
-#> 4   1103        Areal 2025  44.35
+#> 4   1103        Areal 2026  44.63
 #> 
 ApiData(4861, Region = c("1103", "0301"), ContentsCode=2, Tid=c(1, -1)) 
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>          region statistikkvariabel   år  value
 #> 1 Oslo - Oslove            Bosatte 2000 504348
-#> 2 Oslo - Oslove            Bosatte 2025 720631
+#> 2 Oslo - Oslove            Bosatte 2026 724904
 #> 3     Stavanger            Bosatte 2000 106804
-#> 4     Stavanger            Bosatte 2025 143972
+#> 4     Stavanger            Bosatte 2026 145713
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
 #> 1   0301      Bosatte 2000 504348
-#> 2   0301      Bosatte 2025 720631
+#> 2   0301      Bosatte 2026 724904
 #> 3   1103      Bosatte 2000 106804
-#> 4   1103      Bosatte 2025 143972
+#> 4   1103      Bosatte 2026 145713
 #> 
 names(ApiData(4861,returnMetaFrames = TRUE))  # these names from metadata assumed two lines above
 #> [1] "Region"       "ContentsCode" "Tid"         
@@ -1274,16 +1276,16 @@ ApiData("4861", c("1103", "0301"), 1, c(1, -1),  urlType="SSBen")
 #> $`04861: Area and population of urban settlements, by region, contents and year`
 #>          region                        contents year  value
 #> 1 Oslo - Oslove Area of urban settlements (km²) 2000 132.90
-#> 2 Oslo - Oslove Area of urban settlements (km²) 2025 129.90
+#> 2 Oslo - Oslove Area of urban settlements (km²) 2026 130.03
 #> 3     Stavanger Area of urban settlements (km²) 2000  41.85
-#> 4     Stavanger Area of urban settlements (km²) 2025  44.35
+#> 4     Stavanger Area of urban settlements (km²) 2026  44.63
 #> 
 #> $dataset
 #>   Region ContentsCode  Tid  value
 #> 1   0301        Areal 2000 132.90
-#> 2   0301        Areal 2025 129.90
+#> 2   0301        Areal 2026 130.03
 #> 3   1103        Areal 2000  41.85
-#> 4   1103        Areal 2025  44.35
+#> 4   1103        Areal 2026  44.63
 #> 
 ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #> $Region
@@ -1420,7 +1422,7 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #>  [89] "2019K4" "2020K1" "2020K2" "2020K3" "2020K4" "2021K1" "2021K2" "2021K3"
 #>  [97] "2021K4" "2022K1" "2022K2" "2022K3" "2022K4" "2023K1" "2023K2" "2023K3"
 #> [105] "2023K4" "2024K1" "2024K2" "2024K3" "2024K4" "2025K1" "2025K2" "2025K3"
-#> [113] "2025K4"
+#> [113] "2025K4" "2026K1" "2026K2"
 #> 
 #> attr(,"elimination")
 #> [1]  TRUE FALSE FALSE
@@ -1429,41 +1431,41 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 #> 
 #> $`01222: Befolkning og kvartalsvise endringar, etter region, statistikkvariabel og kvartal`
 #>           region                         statistikkvariabel kvartal value
-#> 1  Oslo - Oslove                                       Døde  2025K3   978
-#> 2  Oslo - Oslove                                       Døde  2025K4  1058
-#> 3  Oslo - Oslove                     Utflytting, innalandsk  2025K3 12567
-#> 4  Oslo - Oslove                     Utflytting, innalandsk  2025K4  6972
-#> 5  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K3   930
-#> 6  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2025K4  -154
-#> 7  Oslo - Oslove                                 Folkevekst  2025K3  2617
-#> 8  Oslo - Oslove                                 Folkevekst  2025K4   917
-#> 9      Stavanger                                       Døde  2025K3   224
-#> 10     Stavanger                                       Døde  2025K4   239
-#> 11     Stavanger                     Utflytting, innalandsk  2025K3  2266
-#> 12     Stavanger                     Utflytting, innalandsk  2025K4  1296
-#> 13     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K3   413
-#> 14     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2025K4   123
-#> 15     Stavanger                                 Folkevekst  2025K3   611
-#> 16     Stavanger                                 Folkevekst  2025K4   220
+#> 1  Oslo - Oslove                                       Døde  2026K1  1129
+#> 2  Oslo - Oslove                                       Døde  2026K2   961
+#> 3  Oslo - Oslove                     Utflytting, innalandsk  2026K1  6843
+#> 4  Oslo - Oslove                     Utflytting, innalandsk  2026K2  7959
+#> 5  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2026K1   -30
+#> 6  Oslo - Oslove Nettoinnflytting, inkl. inn- og utvandring  2026K2 -2066
+#> 7  Oslo - Oslove                                 Folkevekst  2026K1  1085
+#> 8  Oslo - Oslove                                 Folkevekst  2026K2  -362
+#> 9      Stavanger                                       Døde  2026K1   283
+#> 10     Stavanger                                       Døde  2026K2   239
+#> 11     Stavanger                     Utflytting, innalandsk  2026K1  1305
+#> 12     Stavanger                     Utflytting, innalandsk  2026K2  1462
+#> 13     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2026K1    -3
+#> 14     Stavanger Nettoinnflytting, inkl. inn- og utvandring  2026K2  -215
+#> 15     Stavanger                                 Folkevekst  2026K1    88
+#> 16     Stavanger                                 Folkevekst  2026K2     4
 #> 
 #> $dataset
 #>    Region      ContentsCode    Tid value
-#> 1    0301             Dode3 2025K3   978
-#> 2    0301             Dode3 2025K4  1058
-#> 3    0301      Fraflytting8 2025K3 12567
-#> 4    0301      Fraflytting8 2025K4  6972
-#> 5    0301 Nettoinnflytting9 2025K3   930
-#> 6    0301 Nettoinnflytting9 2025K4  -154
-#> 7    0301   Folketilvekst10 2025K3  2617
-#> 8    0301   Folketilvekst10 2025K4   917
-#> 9    1103             Dode3 2025K3   224
-#> 10   1103             Dode3 2025K4   239
-#> 11   1103      Fraflytting8 2025K3  2266
-#> 12   1103      Fraflytting8 2025K4  1296
-#> 13   1103 Nettoinnflytting9 2025K3   413
-#> 14   1103 Nettoinnflytting9 2025K4   123
-#> 15   1103   Folketilvekst10 2025K3   611
-#> 16   1103   Folketilvekst10 2025K4   220
+#> 1    0301             Dode3 2026K1  1129
+#> 2    0301             Dode3 2026K2   961
+#> 3    0301      Fraflytting8 2026K1  6843
+#> 4    0301      Fraflytting8 2026K2  7959
+#> 5    0301 Nettoinnflytting9 2026K1   -30
+#> 6    0301 Nettoinnflytting9 2026K2 -2066
+#> 7    0301   Folketilvekst10 2026K1  1085
+#> 8    0301   Folketilvekst10 2026K2  -362
+#> 9    1103             Dode3 2026K1   283
+#> 10   1103             Dode3 2026K2   239
+#> 11   1103      Fraflytting8 2026K1  1305
+#> 12   1103      Fraflytting8 2026K2  1462
+#> 13   1103 Nettoinnflytting9 2026K1    -3
+#> 14   1103 Nettoinnflytting9 2026K2  -215
+#> 15   1103   Folketilvekst10 2026K1    88
+#> 16   1103   Folketilvekst10 2026K2     4
 #> 
 
 # }
@@ -1471,100 +1473,104 @@ ApiData("01222", c("1103", "0301"), c(4, 9:11), 2i, verbosePrint = TRUE)
 ApiData(4861, Region = list("03*"), ContentsCode = 1, Tid = 5i) # "all" can be dropped from the list
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>                 region      statistikkvariabel   år  value
-#> 1        Oslo - Oslove Areal av tettsted (km²) 2021 130.47
-#> 2        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
-#> 3        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
-#> 4        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
-#> 5        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
-#> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00
-#> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
-#> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
-#> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00
-#> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00
+#> 1        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 2        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 3        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 4        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 5        Oslo - Oslove Areal av tettsted (km²) 2026 130.03
+#> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
+#> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
+#> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00
+#> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00
+#> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2026   0.00
 #> 
 #> $dataset
 #>    Region ContentsCode  Tid  value
-#> 1    0301        Areal 2021 130.47
-#> 2    0301        Areal 2022 130.57
-#> 3    0301        Areal 2023 130.46
-#> 4    0301        Areal 2024 130.31
-#> 5    0301        Areal 2025 129.90
-#> 6    0399        Areal 2021   0.00
-#> 7    0399        Areal 2022   0.00
-#> 8    0399        Areal 2023   0.00
-#> 9    0399        Areal 2024   0.00
-#> 10   0399        Areal 2025   0.00
+#> 1    0301        Areal 2022 130.57
+#> 2    0301        Areal 2023 130.46
+#> 3    0301        Areal 2024 130.31
+#> 4    0301        Areal 2025 129.90
+#> 5    0301        Areal 2026 130.03
+#> 6    0399        Areal 2022   0.00
+#> 7    0399        Areal 2023   0.00
+#> 8    0399        Areal 2024   0.00
+#> 9    0399        Areal 2025   0.00
+#> 10   0399        Areal 2026   0.00
 #> 
 ApiData(4861, Region = list("all", "03*"), ContentsCode = 1, Tid = 5i)  # same as above
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>                 region      statistikkvariabel   år  value
-#> 1        Oslo - Oslove Areal av tettsted (km²) 2021 130.47
-#> 2        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
-#> 3        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
-#> 4        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
-#> 5        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
-#> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2021   0.00
-#> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
-#> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
-#> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00
-#> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00
+#> 1        Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 2        Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 3        Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 4        Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 5        Oslo - Oslove Areal av tettsted (km²) 2026 130.03
+#> 6  Uoppgitt komm. Oslo Areal av tettsted (km²) 2022   0.00
+#> 7  Uoppgitt komm. Oslo Areal av tettsted (km²) 2023   0.00
+#> 8  Uoppgitt komm. Oslo Areal av tettsted (km²) 2024   0.00
+#> 9  Uoppgitt komm. Oslo Areal av tettsted (km²) 2025   0.00
+#> 10 Uoppgitt komm. Oslo Areal av tettsted (km²) 2026   0.00
 #> 
 #> $dataset
 #>    Region ContentsCode  Tid  value
-#> 1    0301        Areal 2021 130.47
-#> 2    0301        Areal 2022 130.57
-#> 3    0301        Areal 2023 130.46
-#> 4    0301        Areal 2024 130.31
-#> 5    0301        Areal 2025 129.90
-#> 6    0399        Areal 2021   0.00
-#> 7    0399        Areal 2022   0.00
-#> 8    0399        Areal 2023   0.00
-#> 9    0399        Areal 2024   0.00
-#> 10   0399        Areal 2025   0.00
+#> 1    0301        Areal 2022 130.57
+#> 2    0301        Areal 2023 130.46
+#> 3    0301        Areal 2024 130.31
+#> 4    0301        Areal 2025 129.90
+#> 5    0301        Areal 2026 130.03
+#> 6    0399        Areal 2022   0.00
+#> 7    0399        Areal 2023   0.00
+#> 8    0399        Areal 2024   0.00
+#> 9    0399        Areal 2025   0.00
+#> 10   0399        Areal 2026   0.00
 #> 
 ApiData(04861, Region = list("item", c("1103", "0301")), ContentsCode = 1, Tid = 5i)
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
 #>           region      statistikkvariabel   år  value
-#> 1  Oslo - Oslove Areal av tettsted (km²) 2021 130.47
-#> 2  Oslo - Oslove Areal av tettsted (km²) 2022 130.57
-#> 3  Oslo - Oslove Areal av tettsted (km²) 2023 130.46
-#> 4  Oslo - Oslove Areal av tettsted (km²) 2024 130.31
-#> 5  Oslo - Oslove Areal av tettsted (km²) 2025 129.90
-#> 6      Stavanger Areal av tettsted (km²) 2021  44.22
-#> 7      Stavanger Areal av tettsted (km²) 2022  44.45
-#> 8      Stavanger Areal av tettsted (km²) 2023  44.21
-#> 9      Stavanger Areal av tettsted (km²) 2024  44.34
-#> 10     Stavanger Areal av tettsted (km²) 2025  44.35
+#> 1  Oslo - Oslove Areal av tettsted (km²) 2022 130.57
+#> 2  Oslo - Oslove Areal av tettsted (km²) 2023 130.46
+#> 3  Oslo - Oslove Areal av tettsted (km²) 2024 130.31
+#> 4  Oslo - Oslove Areal av tettsted (km²) 2025 129.90
+#> 5  Oslo - Oslove Areal av tettsted (km²) 2026 130.03
+#> 6      Stavanger Areal av tettsted (km²) 2022  44.45
+#> 7      Stavanger Areal av tettsted (km²) 2023  44.21
+#> 8      Stavanger Areal av tettsted (km²) 2024  44.34
+#> 9      Stavanger Areal av tettsted (km²) 2025  44.35
+#> 10     Stavanger Areal av tettsted (km²) 2026  44.63
 #> 
 #> $dataset
 #>    Region ContentsCode  Tid  value
-#> 1    0301        Areal 2021 130.47
-#> 2    0301        Areal 2022 130.57
-#> 3    0301        Areal 2023 130.46
-#> 4    0301        Areal 2024 130.31
-#> 5    0301        Areal 2025 129.90
-#> 6    1103        Areal 2021  44.22
-#> 7    1103        Areal 2022  44.45
-#> 8    1103        Areal 2023  44.21
-#> 9    1103        Areal 2024  44.34
-#> 10   1103        Areal 2025  44.35
+#> 1    0301        Areal 2022 130.57
+#> 2    0301        Areal 2023 130.46
+#> 3    0301        Areal 2024 130.31
+#> 4    0301        Areal 2025 129.90
+#> 5    0301        Areal 2026 130.03
+#> 6    1103        Areal 2022  44.45
+#> 7    1103        Areal 2023  44.21
+#> 8    1103        Areal 2024  44.34
+#> 9    1103        Areal 2025  44.35
+#> 10   1103        Areal 2026  44.63
 #> 
 
 
 ##### Using data from SCB to illustrate returnMetaFrames
 urlSCB <- "https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
 mf <- ApiData(urlSCB, returnMetaFrames = TRUE)
-#> Warning converted to message: URL 'https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy': status was 'Failure when receiving data from the peer'
-#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
-#>   cannot open the connection to 'https://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy'
 names(mf)              # All the variable names
-#> NULL
+#> [1] "Region"       "Civilstand"   "Alder"        "Kon"          "ContentsCode"
+#> [6] "Tid"         
 attr(mf, "text")       # Corresponding text information as attribute
-#> NULL
+#>           Region       Civilstand            Alder              Kon 
+#>         "region"     "civilstånd"          "ålder"            "kön" 
+#>     ContentsCode              Tid 
+#> "tabellinnehåll"             "år" 
 mf$ContentsCode        # Data frame for the fifth variable (alternatively  mf[[5]])
-#> NULL
+#>     values valueTexts
+#> 1 BE0101N1  Folkmängd
+#> 2 BE0101N2 Folkökning
 attr(mf,"elimination") # Finding variables that can be eliminated
-#> NULL
+#>       Region   Civilstand        Alder          Kon ContentsCode          Tid 
+#>         TRUE         TRUE         TRUE         TRUE        FALSE        FALSE 
 ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line below)
         Region = FALSE, Civilstand = FALSE, Alder = FALSE,  Kon = FALSE,
         ContentsCode  = "BE0101N1", # Selecting a single ContentsCode by text input
@@ -1694,105 +1700,15 @@ ApiData(urlSCB,        # Eliminating all variables that can be eliminated (line 
 ##### Using data from Statfi to illustrate use of input by variable labels (valueTexts)
 urlStatfi <- "https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px"
 ApiData(urlStatfi, returnMetaFrames = TRUE)$Tiedot
-#>          values                                   valueTexts
-#> 1          vm01                                  Live births
-#> 2          vm11                                       Deaths
-#> 3  luonvalisays                             Natural increase
-#> 4     vm43_tulo                  Intermunicipal in-migration
-#> 5    vm43_lahto                 Intermunicipal out-migration
-#> 6    vm43_netto                 Intermunicipal net migration
-#> 7          vm44                     Intramunicipal migration
-#> 8          vm41                       Immigration to Finland
-#> 9   vm41_nordic Immigration to Finland from Nordic countries
-#> 10      vm41_eu     Immigration to Finland from EU countries
-#> 11         vm42                      Emigration from Finland
-#> 12  vm42_nordic  Emigration from Finland to Nordic countries
-#> 13      vm42_eu      Emigration from Finland to EU countries
-#> 14       vm4142                                Net migration
-#> 15 koknetmuutto                          Total net migration
-#> 16       vm2126                                    Marriages
-#> 17       vm3136                                     Divorces
-#> 18     valisays                          Population increase
-#> 19    vakorjaus                        Population correction
-#> 20    kokmuutos                                 Total change
-#> 21       vaesto                                   Population
+#> Warning converted to message: cannot open URL 'https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px': HTTP status was '400 Bad Request'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px'
+#> NULL
 ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as Tiedot = 21
-#> $`Vital statistics by Year and Information`
-#>    Year Information   value
-#> 1  1990  Population 4998478
-#> 2  1991  Population 5029002
-#> 3  1992  Population 5054982
-#> 4  1993  Population 5077912
-#> 5  1994  Population 5098754
-#> 6  1995  Population 5116826
-#> 7  1996  Population 5132320
-#> 8  1997  Population 5147349
-#> 9  1998  Population 5159646
-#> 10 1999  Population 5171302
-#> 11 2000  Population 5181115
-#> 12 2001  Population 5194901
-#> 13 2002  Population 5206295
-#> 14 2003  Population 5219732
-#> 15 2004  Population 5236611
-#> 16 2005  Population 5255580
-#> 17 2006  Population 5276955
-#> 18 2007  Population 5300484
-#> 19 2008  Population 5326314
-#> 20 2009  Population 5351427
-#> 21 2010  Population 5375276
-#> 22 2011  Population 5401267
-#> 23 2012  Population 5426674
-#> 24 2013  Population 5451270
-#> 25 2014  Population 5471753
-#> 26 2015  Population 5487308
-#> 27 2016  Population 5503297
-#> 28 2017  Population 5513130
-#> 29 2018  Population 5517919
-#> 30 2019  Population 5525292
-#> 31 2020  Population 5533793
-#> 32 2021  Population 5548241
-#> 33 2022  Population 5563970
-#> 34 2023  Population 5603851
-#> 35 2024  Population 5635971
-#> 
-#> $dataset
-#>    Vuosi Tiedot   value
-#> 1   1990 vaesto 4998478
-#> 2   1991 vaesto 5029002
-#> 3   1992 vaesto 5054982
-#> 4   1993 vaesto 5077912
-#> 5   1994 vaesto 5098754
-#> 6   1995 vaesto 5116826
-#> 7   1996 vaesto 5132320
-#> 8   1997 vaesto 5147349
-#> 9   1998 vaesto 5159646
-#> 10  1999 vaesto 5171302
-#> 11  2000 vaesto 5181115
-#> 12  2001 vaesto 5194901
-#> 13  2002 vaesto 5206295
-#> 14  2003 vaesto 5219732
-#> 15  2004 vaesto 5236611
-#> 16  2005 vaesto 5255580
-#> 17  2006 vaesto 5276955
-#> 18  2007 vaesto 5300484
-#> 19  2008 vaesto 5326314
-#> 20  2009 vaesto 5351427
-#> 21  2010 vaesto 5375276
-#> 22  2011 vaesto 5401267
-#> 23  2012 vaesto 5426674
-#> 24  2013 vaesto 5451270
-#> 25  2014 vaesto 5471753
-#> 26  2015 vaesto 5487308
-#> 27  2016 vaesto 5503297
-#> 28  2017 vaesto 5513130
-#> 29  2018 vaesto 5517919
-#> 30  2019 vaesto 5525292
-#> 31  2020 vaesto 5533793
-#> 32  2021 vaesto 5548241
-#> 33  2022 vaesto 5563970
-#> 34  2023 vaesto 5603851
-#> 35  2024 vaesto 5635971
-#> 
+#> Warning converted to message: cannot open URL 'https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px': HTTP status was '400 Bad Request'
+#> No internet connection or resource not available: Error in open.connection(con, "rb") : 
+#>   cannot open the connection to 'https://pxdata.stat.fi/PXWeb/api/v1/en/StatFin/kuol/statfin_kuol_pxt_12au.px'
+#> NULL
 
 
 ##### Wrappers PxData and pxwebData
@@ -1800,31 +1716,31 @@ ApiData(urlStatfi, Alue = FALSE, Vuosi = TRUE, Tiedot = "Population")  # same as
 # Exact same output as ApiData
 PxData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 #> $`04861: Areal og befolkning i tettsteder, etter region, statistikkvariabel og år`
-#>          region      statistikkvariabel   år    value
-#> 1 Oslo - Oslove Areal av tettsted (km²) 2000    132.9
-#> 2 Oslo - Oslove Areal av tettsted (km²) 2025    129.9
-#> 3 Oslo - Oslove                 Bosatte 2000 504348.0
-#> 4 Oslo - Oslove                 Bosatte 2025 720631.0
+#>          region      statistikkvariabel   år     value
+#> 1 Oslo - Oslove Areal av tettsted (km²) 2000    132.90
+#> 2 Oslo - Oslove Areal av tettsted (km²) 2026    130.03
+#> 3 Oslo - Oslove                 Bosatte 2000 504348.00
+#> 4 Oslo - Oslove                 Bosatte 2026 724904.00
 #> 
 #> $dataset
-#>   Region ContentsCode  Tid    value
-#> 1   0301        Areal 2000    132.9
-#> 2   0301        Areal 2025    129.9
-#> 3   0301      Bosatte 2000 504348.0
-#> 4   0301      Bosatte 2025 720631.0
+#>   Region ContentsCode  Tid     value
+#> 1   0301        Areal 2000    132.90
+#> 2   0301        Areal 2026    130.03
+#> 3   0301      Bosatte 2000 504348.00
+#> 4   0301      Bosatte 2026 724904.00
 #> 
 
 # Data organized differently
 pxwebData(4861, Region = "0301", ContentsCode = TRUE, Tid = c(1, -1))
 #> [[1]]
 #>          region   år Areal av tettsted (km²) Bosatte
-#> 1 Oslo - Oslove 2000                   132.9  504348
-#> 2 Oslo - Oslove 2025                   129.9  720631
+#> 1 Oslo - Oslove 2000                  132.90  504348
+#> 2 Oslo - Oslove 2026                  130.03  724904
 #> 
 #> [[2]]
-#>   Region  Tid Areal Bosatte
-#> 1   0301 2000 132.9  504348
-#> 2   0301 2025 129.9  720631
+#>   Region  Tid  Areal Bosatte
+#> 1   0301 2000 132.90  504348
+#> 2   0301 2026 130.03  724904
 #> 
 
 
@@ -1842,8 +1758,9 @@ output <- ApiData("04469", urlType = "SSBen",
 note(output)                   
 #> [1] "Figures from 2018 to 2019 may be affected both by the municipal reform and introduction of new IPLOS specifications."                                                                  
 #> [2] "A decrease in number of dwellings from 2018 to 2019 may be caused by the introduction of new IPLOS specifications. 61 municipalities with dwellings in 2018 have no dwellings in 2019."
-#> [3] ": = Confidential. Figures are not published so as to avoid identifying persons or companies."                                                                                          
-#> [4] ".. = Data not available. Figures have not been entered into our databases or are too unreliable to be published."                                                                      
+#> [3] "A small number of persons with unknown age are excluded for the 2025 reference year. This may cause small discrepancies in the number of users compared to other tables."              
+#> [4] ": = Confidential. Figures are not published so as to avoid identifying persons or companies."                                                                                          
+#> [5] ".. = Data not available. Figures have not been entered into our databases or are too unreliable to be published."                                                                      
 
 
 ```

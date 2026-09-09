@@ -1,5 +1,21 @@
 # Changelog
 
+## PxWebApiData 2.0.0
+
+CRAN release: 2026-09-09
+
+- [`query_url()`](../reference/query_url.md) now issues a warning when a
+  generated URL exceeds the PxWebApi GET character limit (2100
+  characters by default).
+  - The warning threshold can be changed using the
+    `PxWebApiData.MAX_URL_CHARS` option.
+  - Thanks to Mads Fjeld Wold for reporting the issue
+    ([\#34](https://github.com/statisticsnorway/ssb-pxwebapidata/issues/34))
+    and contributing the initial implementation
+    ([\#35](https://github.com/statisticsnorway/ssb-pxwebapidata/pull/35)).
+- As the initial updates related to PxWebApi **v2** have proven stable,
+  the package version is increased to 2.0.0.
+
 ## PxWebApiData 1.9.0
 
 CRAN release: 2026-02-02
